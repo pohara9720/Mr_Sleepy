@@ -1,0 +1,38 @@
+{
+  "name": "mrsleepy_update",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "test": "jest"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "babel-eslint": "^8.2.5",
+    "eslint": "^5.0.1",
+    "eslint-plugin-react": "^7.10.0",
+    "moment": "^2.22.2",
+    "prop-types": "^15.6.2",
+    "react": "16.3.1",
+    "react-native": "0.55.4",
+    "react-native-awesome-card-io": "^0.7.0",
+    "react-native-camera-roll-picker": "^1.2.3",
+    "react-native-elements": "^0.19.1",
+    "react-native-linear-gradient": "^2.4.0",
+    "react-native-modal-datetime-picker": "^5.1.0",
+    "react-native-simple-modal": "^9.0.1",
+    "react-native-vector-icons": "^4.6.0",
+    "react-navigation": "^2.5.3",
+    "rn-credit-card-view": "^0.1.5",
+    "uuid": "^3.3.0"
+  },
+  "devDependencies": {
+    "babel-jest": "23.2.0",
+    "babel-preset-react-native": "4.0.0",
+    "jest": "23.2.0",
+    "react-test-renderer": "16.3.1"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
+}

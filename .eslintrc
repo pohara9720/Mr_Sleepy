@@ -1,0 +1,38 @@
+{
+    "parser": "babel-eslint",
+
+    "env": {
+        "browser": true,
+        "es6": true,
+        "node": true
+    },
+
+    "plugins": [
+        "react"
+    ],
+
+    "extends": [
+    	"eslint:recommended",
+    	"plugin:react/recommended"
+    ],
+
+    "rules": {
+        "indent": [
+            "error",
+            4
+        ],
+        "linebreak-style": [
+            "error",
+            "unix"
+        ],
+        "quotes": [
+            "error",
+            "single"
+        ],
+        "semi": [
+            "error",
+            "never"
+        ],
+        "no-console": 0
+    }
+}
