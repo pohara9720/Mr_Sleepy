@@ -48,6 +48,7 @@ class CharitySelect extends Component<Props> {
                         <View style={{flexDirection:'row',padding:10}}>
                             <View style={{width:'70%'}}>
                                 <Text style={{color:'white',fontSize:22}}>Dua Lipa Foundation</Text>
+                                <Text style={{color:'white',fontWeight:'bold'}}>(Entertainment)</Text>
                                 <Text style={{color:'white'}}>This is a foundation that gives money to dua lipa </Text>
                             </View>
                             <View style={{marginLeft:'auto'}}>

@@ -3,7 +3,7 @@ import {
   Platform,
   StyleSheet,
   Text,
-  View,Button,ScrollView,TouchableHighlight
+  View,Button,ScrollView,TouchableOpacity,Image
 } from 'react-native';
 
 
@@ -28,8 +28,8 @@ class Alarms extends Component<Props> {
             return(
               <Text
                  style={{fontSize:14,color:'#a020f0',justifyContent:"center"}}
-                 onPress={() => this.setState({edit:!this.state.edit})}
-                >Edit
+                 onPress={() => this.setState({edit:!this.state.edit})}>
+                 {this.state.edit ? 'Done' : 'Edit'}
               </Text>
             )
      }
@@ -42,19 +42,38 @@ class Alarms extends Component<Props> {
             rightComponent={{ icon: 'add', color: '#a020f0', onPress:() => navigate('AddAlarm')}}
             outerContainerStyles={{backgroundColor:'transparent',borderBottomWidth:0,borderBottomColor:'transparent'}}
         />
+            <TouchableOpacity>
+                <Image
+                    resizeMode='cover'
+                    source={require('../images/bannerAd.png')}
+                    style={{height:140,width:'100%'}}/>
+            </TouchableOpacity>
              <ScrollView style={styles.container}>
-                <List>
+                <View style={{borderTopWidth:0}}>
                     {
                         test.map((item, i) => (
                             <LinearGradient  colors={[ '#7016a8' ,'#a020f0']} start={{x: 1, y: 2}} end={{x: 0.9, y: 0}} style={styles.linearGradient}>
+                            { this.state.edit ? 
                                 <ListItem
-                                    title={'3:30'}
+                                    title={'9:30 am'}
                                     titleStyle={{fontSize:30,color:'white'}}
                                     subtitle={'Subtitle'}
-                                    // subtitleStyle{{color:'white'}}
+                                    subtitleStyle={{color:'white'}}
+                                    containerStyle={{backgroundColor:'transparent',borderTopWidth:0,borderBottomWidth:0}}
+                                    hideChevron={false}
+                                  
+                                    rightIcon={{name:'remove-circle',color:'red'}}
+                                    // onSwitch={() => this.props.switch(i)}
+                                    // switched={this.props.store.alarms[i].switchOn}
+                                />
+                              :
+                                <ListItem
+                                    title={'9:30 am'}
+                                    titleStyle={{fontSize:30,color:'white'}}
+                                    subtitle={'Subtitle'}
+                                    subtitleStyle={{color:'white'}}
                                     switchButton={true}
-                                    onLongPress={() => this.setState({open: true, modal:`Are you sure you want to delete this alarm donating to ${item.charity} at ${item.time} ? `,id:i})}    
-                                    containerStyle={{backgroundColor:'transparent'}}
+                                    containerStyle={{backgroundColor:'transparent',borderTopWidth:0,borderBottomWidth:0}}
                                     hideChevron={true}
                                     switchOnTintColor={'#7D26CD'}
                                     switchThumbTintColor={'white'}
@@ -62,10 +81,11 @@ class Alarms extends Component<Props> {
                                     // onSwitch={() => this.props.switch(i)}
                                     // switched={this.props.store.alarms[i].switchOn}
                                 />
+                            }
                               </LinearGradient>
                         ))
                     }
-                </List>
+                </View>
             </ScrollView>
       </View>
     );
@@ -77,11 +97,12 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'white',
     borderTopWidth:0,
-    borderTopColor:'transparent'
+    borderTopColor:'transparent',
+    borderBottomWidth:0
   },
   linearGradient:{
     borderRadius:10,
-    margin:5,
+    margin:10,
   },
 });
 

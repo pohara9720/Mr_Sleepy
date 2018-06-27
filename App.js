@@ -24,7 +24,11 @@ export default class App extends Component<Props> {
         datePicker: false,
         frequency: [],
         label: '',
-        charity: ''
+        charity: '',
+        accountName: 'Ariana Grande',
+        accountEmail: 'arianagrande@gmail.com',
+        accountPassword: '',
+        accountPasswordConfirm:''
     }
 }
   
@@ -46,7 +50,15 @@ export default class App extends Component<Props> {
 
           updateLabel: (string) => this.setState({label:string}),
 
-          updateCharity: (object) => this.setState({charity:object})   
+          updateCharity: (object) => this.setState({charity:object}),
+
+          updateAccountName: (e) => this.setState({accountName:e}),
+
+          updateAccountEmail:(e) => this.setState({accountEmail:e}),
+
+          updatePassword: (e) => this.setState({accountPassword:e}),
+
+          updatePasswordConfirm: (e) => this.setState({accountPasswordConfirm:e}),   
 
         }}> 
             <Tabs />
