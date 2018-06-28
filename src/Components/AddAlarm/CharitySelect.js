@@ -17,7 +17,18 @@ import connect from '../HOC'
 
 
 class CharitySelect extends Component<Props> {
+    constructor(props){
+      super(props)
+      this.state={
 
+      }
+    }
+
+    viewProfile = (object) => {
+        const {navigate} = this.props.navigation
+        navigate('CharityProfile')
+        this.props.fillCharityProfile(object)
+    }
 
 
   render() {
@@ -32,7 +43,6 @@ class CharitySelect extends Component<Props> {
               </Text>
             )
      }
-    const testArray =[12,12,12,12,12,12,12,12]
     return (
       <View style={styles.container}>
         <Header
@@ -42,20 +52,22 @@ class CharitySelect extends Component<Props> {
         />
         <ScrollView style={{flex:1,padding:15}}>
             {
-              testArray.map((l,i) => 
-                <TouchableOpacity key={i}>
+              this.props.store.charityList.map((l,i) => 
+                <TouchableOpacity 
+                key={i}
+                onPress={() => this.viewProfile(l)}>
                     <LinearGradient  colors={[ '#7016a8' ,'#a020f0']} start={{x: 1, y: 2}} end={{x: 0.9, y: 0}} style={styles.linearGradient}>
                         <View style={{flexDirection:'row',padding:10}}>
                             <View style={{width:'70%'}}>
-                                <Text style={{color:'white',fontSize:22}}>Dua Lipa Foundation</Text>
-                                <Text style={{color:'white',fontWeight:'bold'}}>(Entertainment)</Text>
-                                <Text style={{color:'white'}}>This is a foundation that gives money to dua lipa </Text>
+                                <Text style={{color:'white',fontSize:22,textAlign:'center'}}>{l.name}</Text>
+                                {/*<Text style={{color:'white',fontWeight:'bold'}}>{`(${l.category})`}</Text> */}
+                                <Text style={{color:'white',textAlign:'center'}}>{l.short}</Text>
                             </View>
                             <View style={{marginLeft:'auto'}}>
                             <Image 
-                            resizeMode='cover' 
-                            style={styles.listImage} 
-                            source={{uri: 'https://www.elastic.co/assets/bltada7771f270d08f6/enhanced-buzz-1492-1379411828-15.jpg'}}/>
+                                resizeMode='cover' 
+                                style={styles.listImage} 
+                                source={{uri:`${l.image}`}}/>
                             </View>
                         </View>
                     </LinearGradient>

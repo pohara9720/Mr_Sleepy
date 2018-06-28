@@ -20,10 +20,15 @@ class Payments extends Component<Props> {
     constructor(props){
       super(props)
       this.state={
-          edit:false
+          edit:false,
+          values:''
       }
     }
 
+
+    _onChange = (form) => {
+    this.setState({values:form})
+  }
 
   render() {
     const {navigate} = this.props.navigation
@@ -41,14 +46,14 @@ class Payments extends Component<Props> {
               <Text
                  style={{fontSize:14,color:'#a020f0',justifyContent:"center"}}
                  onPress={() => this.setState({edit:!this.state.edit})}>
-                 Save
+                 {this.state.values === '' ? '' : 'Save'}
               </Text>
             )
      }
     return (
       <View style={styles.container}>
         <Header
-            leftComponent={<Edit />}
+            leftComponent={this.props.store.card === null ? null : <Edit />}
             rightComponent={<Save />}
             centerComponent={{ text: 'Manage Payments', style: {fontSize:22,color:'#a020f0'}}}
             outerContainerStyles={{backgroundColor:'transparent',borderBottomWidth:0}}

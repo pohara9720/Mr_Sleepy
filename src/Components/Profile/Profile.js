@@ -237,7 +237,7 @@ class Profile extends Component<Props> {
                   </View>
                   {
                     test.map((t,i,array) => 
-                      <View style={i === array.length -1 ? styles.lastItem : styles.listItem}>
+                      <View key={i} style={i === array.length -1 ? styles.lastItem : styles.listItem}>
                           <Icon 
                             name={'favorite'}
                             color={'#a020f0'}

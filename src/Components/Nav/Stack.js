@@ -6,6 +6,7 @@ import LabelSelect from '../AddAlarm/LabelSelect'
 import RepeatSelect from '../AddAlarm/RepeatSelect'
 import Profile from '../Profile/Profile'
 import Alarms from '../Alarms'
+import CharityProfile from '../AddAlarm/CharityProfile'
 
 
 
@@ -19,6 +20,7 @@ const ProfileRoutes = StackNavigator({
 const AlarmRoutes = StackNavigator({
 	Alarms: { screen: props => <Alarms {...props} />},
 	AddAlarm: { screen: props => <AddAlarm {...props} />},
+	CharityProfile: { screen: props => <CharityProfile {...props} />},
     CharitySelect: { screen: props => <CharitySelect {...props} />},
     LabelSelect: { screen: props => <LabelSelect {...props} />  },
     RepeatSelect: { screen : props => <RepeatSelect {...props} /> },

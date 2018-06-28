@@ -11,6 +11,7 @@ import {Header,Icon} from 'react-native-elements'
 import { NavigationActions } from 'react-navigation'
 import DateTimePicker from 'react-native-modal-datetime-picker'
 import LinearGradient from 'react-native-linear-gradient'
+import Modal from 'react-native-simple-modal'
 import {  Context } from '../../../App'
 import connect from '../HOC'
 import moment from 'moment'
@@ -23,10 +24,34 @@ class AddAlarm extends Component<Props> {
       super(props)
       this.state={
         datePicker:false,
-        time:''
+        time:'',
+        modal: false
       }
     }
 
+    cancelAlarm =() => {
+      const backAction = NavigationActions.back({})
+      this.props.navigation.dispatch(backAction)
+      this.props.cancelAlarm()
+    }
+    errorMessage = () => {
+        this.setState({modal:true})
+        setTimeout(() => this.setState({modal:false}),2500)
+    }
+    createAlarm = () => {
+        if(this.props.store.charitySelect === null){
+            this.errorMessage()
+        }
+        else if(this.props.store.timeSelect === ''){
+            this.errorMessage()
+        }
+        else{
+            const {navigate} = this.props.navigation
+            this.props.createAlarm()
+            this.props.cancelAlarm()
+            navigate('Alarms')
+        }
+    }
 
   render() {
     const {navigate} = this.props.navigation
@@ -36,7 +61,7 @@ class AddAlarm extends Component<Props> {
             return(
               <Text
                  style={{fontSize:14,color:'#a020f0',justifyContent:"center"}}
-                 onPress={() => this.props.navigation.dispatch(backAction)}
+                 onPress={() => this.cancelAlarm()}
                 >Cancel
               </Text>
             )
@@ -46,7 +71,7 @@ class AddAlarm extends Component<Props> {
             return(
               <Text
                  style={{fontSize:14,color:'#a020f0',justifyContent:"center"}}
-                 onPress={() => this.props.navigation.dispatch(backAction)}
+                 onPress={() => this.createAlarm()}
                 >Save
               </Text>
             )
@@ -112,13 +137,26 @@ class AddAlarm extends Component<Props> {
                     >
                   <LinearGradient  colors={[ '#7016a8' ,'#a020f0']} start={{x: 1, y: 2}} end={{x: 0.9, y: 0}} style={styles.linearGradient}>
                     <View style={styles.customBtns}>
-                      <Icon 
-                        name={'favorite'}
-                        color={'white'}
-                        size={30}
-                        iconStyle={styles.customIcon}
+                      { this.props.store.charitySelect === null  ? 
+                        <Icon 
+                            name={'favorite'}
+                            color={'white'}
+                            size={30}
+                            iconStyle={styles.customIcon}
+                          />
+                          :
+                        <Icon 
+                          name={'check-circle'}
+                          color={'#00FF00'}
+                          size={30}
+                          iconStyle={styles.customIcon}
                         />
-                        <Text style={styles.btnText}>Charity</Text>
+                      }
+                      {
+                        this.props.store.charitySelect === null ?
+                        <Text style={styles.btnText}>Charity</Text> :
+                        <Text style={styles.smallerText}>{this.props.store.charitySelect.name}</Text>
+                      }
                     </View>
                     </LinearGradient>
                 </TouchableOpacity>
@@ -185,6 +223,16 @@ class AddAlarm extends Component<Props> {
                 </TouchableOpacity>
             </ScrollView>
         </View>
+        <Modal
+            offset={this.state.offset}
+            open={this.state.modal}
+            modalDidOpen={() => console.log('modal did open')}
+            // modalDidClose={() => this.setState({open: false})}
+            style={{alignItems: 'center'}}>
+                <View style={{alignItems:'center',padding:30,backgroundColor:'#a020f0'}}>
+                    <Text style={{color:'white',textAlign:'center',fontWeight:'bold'}}>Time and Charity are required to create an alarm.</Text>
+                </View>
+        </Modal>
       </View>
     );
   }
@@ -208,6 +256,12 @@ const styles = StyleSheet.create({
   btnText: {
     color: 'white',
     fontSize:30,
+  },
+  smallerText: {
+    color:'white',
+    fontSize:20,
+    width: '80%',
+    textAlign:'center'
   },
   dayText: {
     fontSize:20,
