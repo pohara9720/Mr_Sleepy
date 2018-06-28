@@ -51,7 +51,15 @@ class CharitySelect extends Component<Props> {
             outerContainerStyles={{backgroundColor:'transparent',borderBottomWidth:0}}
         />
         <ScrollView style={{flex:1,padding:15}}>
-            {
+            { this.props.store.charityList.length === 0 ?
+              <LinearGradient  colors={[ '#7016a8' ,'#a020f0']} start={{x: 1, y: 2}} end={{x: 0.9, y: 0}} style={styles.linearGradient}>
+                  <View style={{padding:10,alignItems:'center'}}>
+                      <View>
+                          <Text style={{color:'white',fontSize:22,textAlign:'center'}}>We are working hard to get charities added to the list!</Text>
+                      </View>
+                  </View>
+              </LinearGradient>
+              :
               this.props.store.charityList.map((l,i) => 
                 <TouchableOpacity 
                 key={i}
