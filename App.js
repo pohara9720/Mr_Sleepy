@@ -24,6 +24,7 @@ export default class App extends Component<Props> {
             charitySelect: null,
             card:null,
             alarmList:[],
+            donations:[],
             charityList:[{
               email: 'dualipa@dlfoundation.com',
               category:'Entertainment',

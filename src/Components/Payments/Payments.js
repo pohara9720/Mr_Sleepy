@@ -69,7 +69,22 @@ class Payments extends Component<Props> {
               labelStyle={{color:'#a020f0'}}
            />
           <Text style={{color:'#a020f0', fontSize:18,fontWeight:'bold',marginTop:20}}>Account Payment Method</Text>
-          <LinearGradient  colors={[ '#7016a8' ,'#a020f0']} start={{x: 1, y: 2}} end={{x: 0.9, y: 0}} style={styles.linearGradient}>
+          {
+            this.props.store.card === null ?
+
+            <LinearGradient  colors={[ '#7016a8' ,'#a020f0']} start={{x: 1, y: 2}} end={{x: 0.9, y: 0}} style={styles.linearGradient}>
+                <View style={styles.customBtns}>
+                    <Icon 
+                      name={'credit-card-off'}
+                      type={'material-community'}
+                      size={40}
+                      color={'white'}
+                      iconStyle={styles.customIcon}
+                    />
+                    <Text style={styles.btnText}>No payment methods have been added</Text> 
+                </View>
+            </LinearGradient> :
+            <LinearGradient  colors={[ '#7016a8' ,'#a020f0']} start={{x: 1, y: 2}} end={{x: 0.9, y: 0}} style={styles.linearGradient}>
               <View style={{padding:15}}>
                   <View style={{marginBottom:15,flexDirection:'row'}}>
                       <View>
@@ -103,6 +118,8 @@ class Payments extends Component<Props> {
                   </View>
               </View>
           </LinearGradient>
+          }
+          
         </ScrollView>
       </View>
     );
@@ -117,6 +134,17 @@ const styles = StyleSheet.create({
   linearGradient:{
     borderRadius:10,
     marginTop:10
+  },
+  customBtns: {
+    paddingTop: 30,
+    paddingBottom: 30,
+    paddingRight:20,
+    paddingLeft:20,
+  },
+  btnText: {
+    color: 'white',
+    fontSize:25,
+    textAlign:'center'
   },
 });
 

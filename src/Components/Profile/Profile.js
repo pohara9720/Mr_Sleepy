@@ -235,8 +235,18 @@ class Profile extends Component<Props> {
                   <View style={{borderColor:'#a020f0',borderWidth:1,borderBottomWidth:0,padding:15}}>
                       <Text style={{color:'#a020f0',fontWeight:'bold',fontSize:15}}>Donations Made</Text>
                   </View>
-                  {
-                    test.map((t,i,array) => 
+                  { this.props.store.donations.length === 0 ?
+                    <View  style={styles.lastItem}>
+                          <Icon 
+                            name={'favorite-border'}
+                            color={'#a020f0'}
+                            size={20}
+                            iconStyle={{marginRight:10}}
+                          />
+                          <Text style={{color:'#a020f0',fontSize:15}}>No Donations</Text>
+                      </View>
+                    :
+                    this.props.store.donations.map((t,i,array) => 
                       <View key={i} style={i === array.length -1 ? styles.lastItem : styles.listItem}>
                           <Icon 
                             name={'favorite'}
@@ -244,10 +254,10 @@ class Profile extends Component<Props> {
                             size={20}
                             iconStyle={{marginRight:10}}
                           />
-                          <Text style={{color:'#a020f0',fontSize:15}}>Food for the Hungry</Text>
+                          <Text style={{color:'#a020f0',fontSize:15}}>{t.name}</Text>
                           <View style={{marginLeft:'auto'}}>
                               <Badge containerStyle={{backgroundColor: '#a020f0',borderColor:'white',}}>
-                                  <Text style={{color:'white'}}>4</Text>
+                                  <Text style={{color:'white'}}>{array.length}</Text>
                               </Badge>
                           </View>
                       </View>
