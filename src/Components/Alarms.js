@@ -8,6 +8,7 @@ import {
 
 
 import {Header ,List,ListItem,Icon } from 'react-native-elements'
+import moment from 'moment'
 import LinearGradient from 'react-native-linear-gradient'
 import {  Context } from '../../App'
 import connect from './HOC'
@@ -23,6 +24,11 @@ class Alarms extends Component<Props> {
       }
     }
 
+    navigateTo = () => {
+      const {navigate} = this.props.navigation
+      navigate('AddAlarm')
+      this.setState({edit:false})
+    }
 
     render() {
       const {navigate} = this.props.navigation
@@ -35,13 +41,12 @@ class Alarms extends Component<Props> {
                 </Text>
               )
        }
-       const test=[12,12,12,12,12,12]
       return (
         <View style={styles.container}>
           <Header
               leftComponent={this.props.store.alarmList.length === 0 ? null : <Edit />}
               centerComponent={{ text: 'Mr. Sleepy', style: {fontSize:22,color:'#a020f0'}}}
-              rightComponent={{ icon: 'add', color: '#a020f0', onPress:() => navigate('AddAlarm')}}
+              rightComponent={{ icon: 'add', color: '#a020f0', onPress:() => this.navigateTo()}}
               outerContainerStyles={{backgroundColor:'transparent',borderBottomWidth:0,borderBottomColor:'transparent'}}
           />
               <TouchableOpacity>
@@ -74,7 +79,7 @@ class Alarms extends Component<Props> {
                               <LinearGradient  key={i} colors={[ '#7016a8' ,'#a020f0']} start={{x: 1, y: 2}} end={{x: 0.9, y: 0}} style={styles.linearGradient}>
                               { this.state.edit ? 
                                   <ListItem
-                                      title={alarm.time}
+                                      title={moment(alarm.time).format('h:mm a')}
                                       titleStyle={{fontSize:30,color:'white'}}
                                       subtitle={alarm.label}
                                       subtitleStyle={{color:'white'}}
@@ -85,7 +90,7 @@ class Alarms extends Component<Props> {
                                   />
                                 :
                                   <ListItem
-                                      title={alarm.time}
+                                      title={moment(alarm.time).format('h:mm a')}
                                       titleStyle={{fontSize:30,color:'white'}}
                                       subtitle={alarm.label}
                                       subtitleStyle={{color:'white'}}

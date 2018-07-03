@@ -113,14 +113,14 @@ class AddAlarm extends Component<Props> {
                                 {
                                   this.props.store.timeSelect === '' ?
                                   'Time' :
-                                  this.props.store.timeSelect
+                                  moment(this.props.store.timeSelect).format('h:mm a')
                                 }
                             </Text>
                         </View>
                         <DateTimePicker
                             mode='time'
                             isVisible={this.props.store.datePicker}
-                            onConfirm={(date) => this.props.updateTimeSelect(moment(date).format('hh:mm a'),false)}
+                            onConfirm={(date) => this.props.updateTimeSelect(date,false)}
                             onCancel={() => this.props.toggleDatePicker()}
                             is24Hour={false}
                             titleIOS={'Pick Alarm Time'}

@@ -8,6 +8,8 @@ import {
 console.disableYellowBox = true;
 
 import Tabs from './src/Components/Nav/Tabs'
+import moment from 'moment'
+
 export const Context = React.createContext()
 
 
@@ -40,13 +42,55 @@ export default class App extends Component<Props> {
             accountName: 'Ariana Grande',
             accountEmail: 'arianagrande@gmail.com',
             accountPassword: '',
-            accountPasswordConfirm:''
+            accountPasswordConfirm:'',
+            currentTime: ''
         }
     }
 
     componentWillMount(){
         this.loadAlarms()
+        setInterval( () => {
+            this.setState({
+                currentTime : this.getDate()
+            })
+        },1000)
+        this.setAlarmsOnMount()
     }
+
+    getDate = () => {
+        var date = new Date()
+        var time = moment(date).format('h:mm:ss a')
+        return time
+    }
+
+    setAlarms = () => {
+      // map alarms in a different function for time and then map days here 
+      // const date = new Date
+      // const today = date.getDay()
+      // var onAlarms = this.state.alarmList.filter(x => x.switch)
+      // var times = onAlarms.map(x => moment(x.time).format('h:mm:ss a'))
+
+      // for(let i = 0 ; i < onAlarms.length; i++) {
+      //   var alarmDays = ['Sundays','Mondays','Tuesdays','Wednesdays','Thursdays','Fridays','Saturdays']
+      //   var dayOfAlarm = alarmDays[today]
+      //   var repeatDay = onAlarms[i].frequency.map(x => x.option)
+      //       if(repeatDay === dayOfAlarm && this.state.currentTime === moment(onAlarms[i]..time).format('h:mm:ss a'))
+      // }
+      
+        // console.log('onAlarms',onAlarms)
+        // var times = onAlarms.map(x => moment(x.time).format('h:mm:ss a'))
+        // console.log('TIMES',times)
+        // for(let i = 0 ; i < times.length; i++) {
+        //   if(times[i] === this.state.currentTime){
+        //     console.log('ALARM OFF')
+        //   }
+        // }
+    }
+
+    setAlarmsOnMount(){
+        setInterval(() =>  this.setAlarms(), 1000)
+    }
+
 
     async loadAlarms(){
         var value = await AsyncStorage.getItem('Alarms')
@@ -58,6 +102,7 @@ export default class App extends Component<Props> {
         var alarms = {...this.state.alarmList}
         alarms[id].switch = !alarms[id].switch
         this.setState({alarms})
+        // this.setAlarms()
     }
 
 
@@ -115,7 +160,7 @@ export default class App extends Component<Props> {
     }
   
     render() {
-      console.log('STATE FROM DATA STORE',this.state)
+      console.log('Current Time',this.state.currentTime)
       const newAlarm = {
           time:this.state.timeSelect,
           frequency: this.state.frequency,
