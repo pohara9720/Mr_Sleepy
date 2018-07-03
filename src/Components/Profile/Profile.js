@@ -263,7 +263,55 @@ class Profile extends Component<Props> {
                       </View>
                     )
                   }
-
+              </View>
+              <View style={{marginTop:15,padding:15}}>
+              { this.props.store.accountCharities.length === 0 ?
+                <TouchableOpacity>
+                      <View style={{borderColor:'#a020f0',borderWidth:1,borderBottomWidth:0,padding:15,alignItems:'center',flexDirection:'row',justifyContent:'center'}}>
+                          <Text style={{color:'#a020f0',fontWeight:'bold',fontSize:15}}>Visit our website</Text>
+                          <Icon 
+                            name={'touch-app'}
+                            color={'#a020f0'}
+                            size={20}
+                            iconStyle={{marginRight:10}}
+                          />
+                      </View>
+                      <View  style={styles.lastItem2}>
+                            <Text style={{color:'#a020f0',fontSize:15,textAlign:'center'}}>Do you work for an organization that can benefit from Mr. Sleepy? Click here and visit our website to join our group of charities and organizations</Text>
+                      </View>
+                  </TouchableOpacity>
+                    :
+                    this.props.store.accountCharities.map((t,i,array) => 
+                      <View>
+                          <View style={{borderColor:'#a020f0',borderWidth:1,borderBottomWidth:0,padding:15}}>
+                              <Text style={{color:'#a020f0',fontWeight:'bold',fontSize:15}}>Your Organizations</Text>
+                          </View>
+                          <View key={i} style={i === array.length -1 ? styles.lastItem : styles.listItem}>
+                              <Icon 
+                                name={'account-balance'}
+                                color={'#a020f0'}
+                                size={20}
+                                iconStyle={{marginRight:10}}
+                              />
+                              <Text style={{color:'#a020f0',fontSize:15}}>{t.name}</Text>
+                              {/*<View style={{marginLeft:'auto'}}>
+                                  <Badge containerStyle={{backgroundColor: '#a020f0',borderColor:'white',}}>
+                                      <Text style={{color:'white'}}>{array.length}</Text>
+                                  </Badge>
+                              </View>*/}
+                          </View>
+                          <View style={{flexDirection:'row',justifyContent:'center',marginTop:10}}>
+                              <Text style={{textAlign:'center',color:'#a020f0'}}>Manage organizations here</Text>
+                              <Icon 
+                                name={'touch-app'}
+                                color={'#a020f0'}
+                                size={20}
+                                iconStyle={{marginLeft:5}}
+                              />
+                          </View>
+                      </View>
+                    )
+                  }
               </View>
         </ScrollView>
       </View>
@@ -304,6 +352,14 @@ const styles = StyleSheet.create({
     borderBottomWidth:1,
     padding:15,
     flexDirection:'row'
+  },
+  lastItem2:{
+    borderColor:'#a020f0',
+    borderWidth:1,
+    borderBottomWidth:1,
+    padding:15,
+    flexDirection:'row',
+    alignItems:'center'
   }
 });
 
