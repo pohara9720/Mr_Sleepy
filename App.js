@@ -54,7 +54,6 @@ export default class App extends Component<Props> {
                 currentTime : this.getDate()
             })
         },1000)
-        this.setAlarmsOnMount()
     }
 
     getDate = () => {
@@ -63,39 +62,77 @@ export default class App extends Component<Props> {
         return time
     }
 
-    setAlarms = () => {
-      // map alarms in a different function for time and then map days here 
-      // const date = new Date
-      // const today = date.getDay()
-      // var onAlarms = this.state.alarmList.filter(x => x.switch)
-      // var times = onAlarms.map(x => moment(x.time).format('h:mm:ss a'))
+    syncDays = (alarm) => {
+      // console.log(alarm)
+      const time = moment(alarm.time).format('h:mm:ss a')
 
-      // for(let i = 0 ; i < onAlarms.length; i++) {
-      //   var alarmDays = ['Sundays','Mondays','Tuesdays','Wednesdays','Thursdays','Fridays','Saturdays']
-      //   var dayOfAlarm = alarmDays[today]
-      //   var repeatDay = onAlarms[i].frequency.map(x => x.option)
-      //       if(repeatDay === dayOfAlarm && this.state.currentTime === moment(onAlarms[i]..time).format('h:mm:ss a'))
-      // }
-      
-        // console.log('onAlarms',onAlarms)
-        // var times = onAlarms.map(x => moment(x.time).format('h:mm:ss a'))
-        // console.log('TIMES',times)
-        // for(let i = 0 ; i < times.length; i++) {
-        //   if(times[i] === this.state.currentTime){
-        //     console.log('ALARM OFF')
-        //   }
-        // }
+      if(alarm.frequency[0].option === 'Everyday'){
+          console.log('EVERYDAY IF CAUGHT')
+          console.log('TIME FOR EVERYDAY',time)
+        if(time === this.state.currentTime){
+            console.log(`
+=======================================
+=======================================
+=======================================
+EVERYDAY ALARM GOING OFF
+===========================================
+=======================================
+=======================================`)
+        }
+      }
+      else if(alarm.frequency[0].option === 'Just Once'){
+        console.log('NEVER IF CAUGHT')
+        console.log('TIME FOR NEVER',time)
+        if(time === this.state.currentTime){
+            console.log(`
+=======================================
+=======================================
+=======================================
+NEVER ALARM GOING OFF
+===========================================
+=======================================
+=======================================`)
+        }
+      }
+      else {
+        console.log('SPECIFIC IF CAUGHT')
+        console.log('TIME FOR SPEC',time)
+            for(let i = 0 ; i < alarm.frequency.length; i++) {
+                const date = new Date
+                const today = date.getDay()
+                const alarmDays = ['Sundays','Mondays','Tuesdays','Wednesdays','Thursdays','Fridays','Saturdays']
+                const dayOfAlarm = alarmDays[today]
+                const repeatDay = alarm.frequency[i].option
+                if(time === this.state.currentTime && repeatDay === dayOfAlarm){
+                    console.log(`
+=======================================
+=======================================
+=======================================
+SPEC ALARM GOING OFF
+===========================================
+=======================================
+=======================================`)
+                }
+            }
+        }
     }
 
-    setAlarmsOnMount(){
-        setInterval(() =>  this.setAlarms(), 1000)
+    setTimes = () => {
+      var onAlarms = this.state.alarmList.filter(x => x.switch)
+        for(let i = 0 ; i < onAlarms.length; i++) {
+          setInterval(() => {
+                this.syncDays(onAlarms[i])
+            }, 1000)
+          }
     }
+
 
 
     async loadAlarms(){
         var value = await AsyncStorage.getItem('Alarms')
         var parsedData = JSON.parse(value)
         this.setState({alarmList:parsedData})
+        this.setTimes()
     }
 
     switch(id){
@@ -160,7 +197,7 @@ export default class App extends Component<Props> {
     }
   
     render() {
-      console.log('Current Time',this.state.currentTime)
+      // console.log('Current Time',this.state.currentTime)
       const newAlarm = {
           time:this.state.timeSelect,
           frequency: this.state.frequency,
