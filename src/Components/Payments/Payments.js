@@ -45,7 +45,7 @@ class Payments extends Component<Props> {
             return(
               <Text
                  style={{fontSize:14,color:'#a020f0',justifyContent:"center"}}
-                 onPress={() => this.setState({edit:!this.state.edit})}>
+                 onPress={() => this.props.addCard({name:'testcard'})}>
                  {this.state.values === '' ? '' : 'Save'}
               </Text>
             )

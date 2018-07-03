@@ -78,6 +78,7 @@ EVERYDAY ALARM GOING OFF
 ===========================================
 =======================================
 =======================================`)
+            this.loadAlarms()
         }
       }
       else if(alarm.frequency[0].option === 'Just Once'){
@@ -92,6 +93,7 @@ NEVER ALARM GOING OFF
 ===========================================
 =======================================
 =======================================`)
+            this.loadAlarms()
         }
       }
       else {
@@ -112,6 +114,7 @@ SPEC ALARM GOING OFF
 ===========================================
 =======================================
 =======================================`)
+                    this.loadAlarms()
                 }
             }
         }
@@ -247,7 +250,9 @@ SPEC ALARM GOING OFF
 
             updateAlarms: () => this.updateAlarms(),
 
-            switch: (id) => this.switch(id)
+            switch: (id) => this.switch(id),
+
+            addCard: (object) => this.setState({card:object})
 
 
           }}> 
