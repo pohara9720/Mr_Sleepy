@@ -104,6 +104,7 @@ NEVER ALARM GOING OFF
                 const today = date.getDay()
                 const alarmDays = ['Sundays','Mondays','Tuesdays','Wednesdays','Thursdays','Fridays','Saturdays']
                 const dayOfAlarm = alarmDays[today]
+                // console.log('DAY OF ALARM',dayOfAlarm)
                 const repeatDay = alarm.frequency[i].option
                 if(time === this.state.currentTime && repeatDay === dayOfAlarm){
                     console.log(`
@@ -114,7 +115,7 @@ SPEC ALARM GOING OFF
 ===========================================
 =======================================
 =======================================`)
-                    this.loadAlarms()
+              this.loadAlarms()
                 }
             }
         }
