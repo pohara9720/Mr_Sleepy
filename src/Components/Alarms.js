@@ -41,10 +41,11 @@ class Alarms extends Component<Props> {
                 </Text>
               )
        }
+       console.log(this.props.store)
       return (
         <View style={styles.container}>
           <Header
-              leftComponent={this.props.store.alarmList.length === 0 ? null : <Edit />}
+              leftComponent={this.props.store.alarmList !== null && this.props.store.alarmList.length === 0 ? null : <Edit />}
               centerComponent={{ text: 'Mr. Sleepy', style: {fontSize:22,color:'#a020f0'}}}
               rightComponent={{ icon: 'add', color: '#a020f0', onPress:() => this.navigateTo()}}
               outerContainerStyles={{backgroundColor:'transparent',borderBottomWidth:0,borderBottomColor:'transparent'}}
@@ -57,7 +58,7 @@ class Alarms extends Component<Props> {
               </TouchableOpacity>
                <ScrollView style={styles.container}>
                   <View style={{borderTopWidth:0}}>
-                      {   this.props.store.alarmList.length === 0 ?
+                      {  this.props.store.alarmList === null || this.props.store.alarmList.length === 0 ?
                               <TouchableOpacity
                                   style={styles.btnContainer}
                                   onPress={() => navigate('AddAlarm')}
@@ -75,6 +76,7 @@ class Alarms extends Component<Props> {
                                   </LinearGradient>
                               </TouchableOpacity>
                           :
+                          this.props.store.alarmList &&
                           this.props.store.alarmList.map((alarm, i) => (
                               <LinearGradient  key={i} colors={[ '#7016a8' ,'#a020f0']} start={{x: 1, y: 2}} end={{x: 0.9, y: 0}} style={styles.linearGradient}>
                               { this.state.edit ? 
@@ -105,7 +107,7 @@ class Alarms extends Component<Props> {
                                   />
                               }
                                 </LinearGradient>
-                          ))
+                          )) 
                       }
                   </View>
               </ScrollView>
