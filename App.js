@@ -7,11 +7,14 @@ import {
 } from 'react-native'
 console.disableYellowBox = true;
 
+import {Auth} from './src/Components/Nav/Stack'
+// import Login from './src/Components/Auth/Login'
 import Tabs from './src/Components/Nav/Tabs'
 import moment from 'moment'
+import axios from 'axios'
 
 export const Context = React.createContext()
-
+export const api = 'http://localhost:4000'
 
 
 type Props = {};
@@ -19,6 +22,7 @@ export default class App extends Component<Props> {
     constructor(props){
         super(props)
         this.state ={
+            me:true,
             timeSelect:'',
             datePicker: false,
             frequency: [],
@@ -28,16 +32,7 @@ export default class App extends Component<Props> {
             alarmList:[],
             donations:[],
             accountCharities:[],
-            charityList:[{
-              email: 'dualipa@dlfoundation.com',
-              category:'Entertainment',
-              name: ' Dua Lipa Foundation',
-              image: 'https://www.elastic.co/assets/bltada7771f270d08f6/enhanced-buzz-1492-1379411828-15.jpg',
-              location: 'Los Angeles, USA',
-              website: 'www.dlfoundation.com',
-              short: 'This is a foundation that gives money to dua lipa ',
-              full: 'This is a foundation that gives money to dua lipa This is a foundation that gives money to dua lipa This is a foundation that gives money to dua lipa This is a foundation that gives money to dua lipa This is a foundation that gives money to dua lipa This is a foundation that gives money to dua lipa This is a foundation that gives money to dua lipa This is a foundation that gives money to dua lipa This is a foundation that gives money to dua lipa This is a foundation that gives money to dua lipa This is a foundation that gives money to dua lipa This is a foundation that gives money to dua lipa This is a foundation that gives money to dua lipa '
-            }],
+            charityList:[],
             charityProfile:'',
             accountName: 'Ariana Grande',
             accountEmail: 'arianagrande@gmail.com',
@@ -54,6 +49,32 @@ export default class App extends Component<Props> {
                 currentTime : this.getDate()
             })
         },1000)
+        this.loadCharities()
+    }
+
+    loadCharities = () => {
+        axios.get(`${api}/charities`).then((res,err) => {
+            if(err){
+                console.log(err)
+            }
+            else{
+                console.log(res.data)
+                this.setState({charityList:res.data})
+            }
+        })
+    }
+
+    addPayment = (card) => {
+        const token = this.state.me.token
+        card.email = this.state.me.email
+        axios.post(`${api}/card/${this.state.me.id}`,card,{headers: { authorization: "Bearer " + token }}).then((res,err) => {
+            if(err){
+                console.log(err)
+            }
+            else{
+                console.log('RESPONSE FOR ADDING CARD',res.data)
+            }
+        })
     }
 
     getDate = () => {
@@ -253,11 +274,16 @@ SPEC ALARM GOING OFF
 
             switch: (id) => this.switch(id),
 
-            addCard: (object) => this.setState({card:object})
-
+            addCard: (object) => this.addPayment(object),
 
           }}> 
-              <Tabs />
+              {
+                this.state.me ?
+               <Auth />
+                :
+                <Tabs />
+                
+              }
           </Context.Provider>
 
       );

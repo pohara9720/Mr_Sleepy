@@ -6,9 +6,20 @@ import LabelSelect from '../AddAlarm/LabelSelect'
 import RepeatSelect from '../AddAlarm/RepeatSelect'
 import Profile from '../Profile/Profile'
 import Alarms from '../Alarms'
+import Login from '../Auth/Login'
+import Signup from '../Auth/Signup'
 import CharityProfile from '../AddAlarm/CharityProfile'
+// import {Tabs} from './Tabs'
 
 
+const Auth = StackNavigator({
+    Login: { screen: props => <Login {...props} />},
+    Signup: { screen: props => <Signup {...props} />},
+    // Success: { screen: <Tab />},
+},
+{
+    headerMode: 'none',
+})
 
 const ProfileRoutes = StackNavigator({
     Profile: { screen: props => <Profile {...props} />},
@@ -34,4 +45,4 @@ const AlarmRoutes = StackNavigator({
 
 
   
-module.exports = { ProfileRoutes, AlarmRoutes }
+module.exports = { ProfileRoutes, AlarmRoutes,Auth }
