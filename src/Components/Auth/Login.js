@@ -8,7 +8,7 @@ import {
  Navigator,TextInput,KeyboardAvoidingView,TouchableOpacity
 } from 'react-native';
 
-import { FormLabel, FormInput, Button, Header } from 'react-native-elements'
+import { FormLabel, FormInput,Button, Header } from 'react-native-elements'
 import { StackNavigator } from 'react-navigation';
 import LinearGradient from 'react-native-linear-gradient';
 import axios from 'axios'
@@ -40,46 +40,15 @@ class Login extends Component<{}> {
                 </View>
                 <TextInput placeholder='Enter Password' type='secureTextEntry' style={styles.input} />                
             </View>
-            <View style={{padding:10}}>
-                <Button
-                    raised
-                    icon={{
-                      name: 'login',
-                      type:'material-community',
-                      size: 15,
-                      color: '#670093'
-                    }}
-                    titleStyle={{ fontWeight: "bold",fontSize:16,color:'#670093'}}
-                    buttonStyle={{
-                      backgroundColor: "#E6E6FA",
-                      width: '100%',
-                      borderColor: "transparent",
-                      borderWidth: 0,
-                      color:'#670093',
-                      borderRadius: 4
-                    }}
-                    title='Login'/>
+            <View style={{paddingLeft:20,paddingRight:20}}>
+                  <TouchableOpacity style={styles.button2}>
+                      <Text style={{color:'#670093',fontWeight:'bold'}}>Login</Text>
+                  </TouchableOpacity>
               </View>
-            <View style={{padding:10}}>
-                <Button
-                    raised
-                    icon={{
-                      name: 'user-plus',
-                      type:'font-awesome',
-                      size: 15,
-                      color: 'white'
-                    }}
-                    titleStyle={{ fontWeight: "bold",fontSize:16}}
-                    buttonStyle={{
-                      backgroundColor: "#670093",
-                      width: '100%',
-                      // height: 45,
-                      // padding:13,
-                      borderColor: "transparent",
-                      borderWidth: 0,
-                      borderRadius: 4
-                    }}
-                    title='Sign Up'/>
+              <View style={{padding:20}}>
+                  <TouchableOpacity style={styles.button}>
+                      <Text style={{color:'white',fontWeight:'bold'}}>Sign Up</Text>
+                  </TouchableOpacity>
               </View>
         </LinearGradient>
       );
@@ -126,6 +95,22 @@ const styles = StyleSheet.create({
         backgroundColor:'white',
         borderRadius:4,
         color:'#a020f0'
+    },
+    button:{
+      borderRadius:4,
+      backgroundColor:'#670093',
+      width:'100%',
+      justifyContent:'center',
+      alignItems:'center',
+      padding:15
+    },
+    button2:{
+      backgroundColor:'#E6E6FA',
+      borderRadius:4,
+      width:'100%',
+      justifyContent:'center',
+      alignItems:'center',
+      padding:15
     }
 });
 
