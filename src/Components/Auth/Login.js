@@ -29,25 +29,6 @@ class Login extends Component<{}> {
         }
     }
 
-// <View style={styles.authBox}>
-//                 <Text style={styles.label}>Email</Text>
-//                 <TextInput placeholder='Enter Email' style={styles.input} />
-//                 <View style={styles.forgot}>
-//                     <Text style={styles.label}>Password</Text>
-//                     <Text style={styles.forgotText}>Forgot Password?</Text>
-//                 </View>
-//                 <TextInput placeholder='Enter Password' type='secureTextEntry' style={styles.input} />                
-//             </View>
-//             <View style={{paddingLeft:20,paddingRight:20}}>
-//                   <TouchableOpacity style={styles.button2}>
-//                       <Text style={{color:'#670093',fontWeight:'bold'}}>Login</Text>
-//                   </TouchableOpacity>
-//               </View>
-//               <View style={{padding:20}}>
-//                   <TouchableOpacity style={styles.button}>
-//                       <Text style={{color:'white',fontWeight:'bold'}}>Sign Up</Text>
-//                   </TouchableOpacity>
-//               </View>
     render() {
       // const { navigate } = this.props.navigation
       return (
@@ -62,15 +43,16 @@ class Login extends Component<{}> {
                           <View style={styles.authBox}>
                           <Text style={{color:'#a020f0',fontWeight:'bold',paddingLeft:10,fontSize:25,marginBottom:5}}>Login</Text>
                               <SearchBar 
-                                  // raised
+                                  raised
                                   noIcon
                                   onChangeText={(e) => this.setState({email:e})}
                                   // icon={{ type: 'material-community', name: 'email-outline',color:'#a020f0'}}
-                                  inputStyle={{borderRadius:10,backgroundColor:'white',borderColor:'#a020f0',borderWidth:1,color:'#a020f0',height:40}}
+                                  inputStyle={{borderRadius:10,backgroundColor:'white',borderColor:'#a020f0',borderWidth:1,color:'#a020f0',height:40,justifyContent:'center'}}
                                   placeholder='Email'
                                   placeholderTextColor='#a020f0'
                                   containerStyle={{backgroundColor:'transparent',borderTopWidth:0,borderBottomWidth:0}}
                               />
+                              <View>
                               <SearchBar 
                                   raised
                                   noIcon
@@ -80,14 +62,16 @@ class Login extends Component<{}> {
                                   placeholder='Password'
                                   secureTextEntry
                                   placeholderTextColor='#a020f0'
-                                  containerStyle={{backgroundColor:'transparent',borderTopWidth:0,borderBottomWidth:0,marginTop:10,marginBottom:10}}
+                                  containerStyle={{backgroundColor:'transparent',borderTopWidth:0,borderBottomWidth:0,marginTop:10}}
                               />
+                              <Text onPress={() => console.log('forgot')} style={{color:'#a020f0',fontSize:12,marginLeft:'auto',paddingRight:10,marginBottom:10}}>Forgot Password?</Text>
+                              </View>
                               <TouchableOpacity style={styles.button}>
-                                  <Text style={{color:'white'}} onPress={() => this.props.authenticate()}>Log in</Text>
+                                  <Text style={{color:'white',fontWeight:'bold'}} onPress={() => this.props.authenticate()}>Log in</Text>
                               </TouchableOpacity>
                           </View>
                           <View style={styles.switch}>
-                              <Text style={{color:'white',fontSize:18,width:'90%',textAlign:'center'}} onPress={() => this.setState({login:false})}>New User? Sign up here</Text>
+                              <Text style={{color:'white',fontSize:18,width:'90%',textAlign:'center'}} onPress={() => this.setState({login:false})}>New User? <Text style={{textDecorationLine:'underline'}}>Sign up here</Text></Text>
                           </View>
                       </ScrollView>
                   </KeyboardAvoidingView>
@@ -134,11 +118,14 @@ class Login extends Component<{}> {
                                   containerStyle={{backgroundColor:'transparent',borderTopWidth:0,borderBottomWidth:0}}
                               />
                               <TouchableOpacity style={styles.button}>
-                                  <Text style={{color:'white'}}>Sign up</Text>
+                                  <Text style={{color:'white',fontWeight:'bold'}}>Sign up</Text>
                               </TouchableOpacity>
+                              <View style={{justifyContent:'center',alignItems:'center',marginTop:10}}>
+                                  <Text style={{color:'#a020f0',width:'90%',textAlign:'center'}}>By signing up you agree to our <Text style={{textDecorationLine:'underline'}}>Terms & Conditions</Text> and <Text style={{textDecorationLine:'underline'}}>Privacy Policy</Text></Text>
+                              </View>
                           </View>
                           <View style={styles.switch}>
-                              <Text style={{color:'white',fontSize:18,width:'90%',textAlign:'center'}} onPress={() => this.setState({login:true})}>Already have an account? Login here</Text>
+                              <Text style={{color:'white',fontSize:15,width:'90%',textAlign:'center'}} onPress={() => this.setState({login:true})}>Already have an account? <Text style={{textDecorationLine:'underline'}}>Login here</Text></Text>
                           </View>
                       </ScrollView>
                   </KeyboardAvoidingView>
@@ -175,7 +162,7 @@ const styles = StyleSheet.create({
       borderRadius:10,
       flexGrow:1,
       marginTop:30,
-      marginBottom:50
+      marginBottom:15
     },
     button:{
       justifyContent:'center',
@@ -183,7 +170,9 @@ const styles = StyleSheet.create({
       backgroundColor: '#a020f0',
       borderRadius:10,
       padding:13,
-      marginTop:10
+      marginTop:10,
+      marginRight:9,
+      marginLeft:9
     },
     image:{
       height:200,
