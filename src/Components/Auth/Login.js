@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
       borderRadius:10,
       flexGrow:1,
       marginTop:50,
-      marginBottom:50
+      marginBottom:30
     },
      authBox2:{
       padding:20,
