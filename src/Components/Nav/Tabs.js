@@ -47,4 +47,4 @@ Tabs.navigationOptions ={
   title:'Example'
 }
 
-// export default Tabs
+export default Tabs

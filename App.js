@@ -7,8 +7,8 @@ import {
 } from 'react-native'
 console.disableYellowBox = true;
 
-import {Auth} from './src/Components/Nav/Stack'
-// import Login from './src/Components/Auth/Login'
+// import {Auth} from './src/Components/Nav/Stack'
+import Login from './src/Components/Auth/Login'
 import Tabs from './src/Components/Nav/Tabs'
 import moment from 'moment'
 import axios from 'axios'
@@ -88,8 +88,8 @@ export default class App extends Component<Props> {
       const time = moment(alarm.time).format('h:mm:ss a')
 
       if(alarm.frequency[0].option === 'Everyday'){
-          console.log('EVERYDAY IF CAUGHT')
-          console.log('TIME FOR EVERYDAY',time)
+          // console.log('EVERYDAY IF CAUGHT')
+          // console.log('TIME FOR EVERYDAY',time)
         if(time === this.state.currentTime){
             console.log(`
 =======================================
@@ -118,8 +118,8 @@ NEVER ALARM GOING OFF
         }
       }
       else {
-        console.log('SPECIFIC IF CAUGHT')
-        console.log('TIME FOR SPEC',time)
+        // console.log('SPECIFIC IF CAUGHT')
+        // console.log('TIME FOR SPEC',time)
             for(let i = 0 ; i < alarm.frequency.length; i++) {
                 const date = new Date
                 const today = date.getDay()
@@ -235,7 +235,7 @@ SPEC ALARM GOING OFF
           value={{
             store:this.state,
 
-            authenticate:() => this.setState({me:true}),
+            authenticate:() => this.setState({me:!this.state.me}),
 
             updateTimeSelect: (time,bool) => this.setState({timeSelect:time,datePicker:bool}),
 
@@ -278,7 +278,7 @@ SPEC ALARM GOING OFF
           }}> 
               {
                 !this.state.me ?
-               <Auth />
+               <Login />
                 :
                 <Tabs />
                 
