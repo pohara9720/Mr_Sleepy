@@ -22,7 +22,7 @@ export default class App extends Component<Props> {
     constructor(props){
         super(props)
         this.state ={
-            me:true,
+            me:false,
             timeSelect:'',
             datePicker: false,
             frequency: [],
@@ -235,10 +235,9 @@ SPEC ALARM GOING OFF
           value={{
             store:this.state,
 
-            updateTimeSelect: (time,bool) => this.setState({
-              timeSelect:time,
-              datePicker:bool
-            }),
+            authenticate:() => this.setState({me:true}),
+
+            updateTimeSelect: (time,bool) => this.setState({timeSelect:time,datePicker:bool}),
 
             toggleDatePicker: () => this.setState({datePicker:!this.state.datePicker}),
 
@@ -278,7 +277,7 @@ SPEC ALARM GOING OFF
 
           }}> 
               {
-                this.state.me ?
+                !this.state.me ?
                <Auth />
                 :
                 <Tabs />
