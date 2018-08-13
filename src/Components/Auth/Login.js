@@ -47,9 +47,9 @@ class Login extends Component<{}> {
                                   noIcon
                                   onChangeText={(e) => this.setState({email:e})}
                                   // icon={{ type: 'material-community', name: 'email-outline',color:'#a020f0'}}
-                                  inputStyle={{borderRadius:10,backgroundColor:'white',borderColor:'#a020f0',borderWidth:1,color:'#a020f0',height:40,justifyContent:'center'}}
+                                  inputStyle={this.state.error ? styles.errorInput : styles.input}
                                   placeholder='Email'
-                                  placeholderTextColor='#a020f0'
+                                  placeholderTextColor={ this.state.error ? 'red' : '#a020f0'}
                                   containerStyle={{backgroundColor:'transparent',borderTopWidth:0,borderBottomWidth:0}}
                               />
                               <View>
@@ -58,10 +58,10 @@ class Login extends Component<{}> {
                                   noIcon
                                   onChangeText={(e) => this.setState({password:e})}
                                   // icon={{ type: 'material-community', name: 'key',color:'#a020f0',marginTop:20}}
-                                  inputStyle={{borderRadius:10,backgroundColor:'white',borderColor:'#a020f0',borderWidth:1,color:'#a020f0',height:40}}
+                                  inputStyle={this.state.error ? styles.errorInput : styles.input}
                                   placeholder='Password'
                                   secureTextEntry
-                                  placeholderTextColor='#a020f0'
+                                  placeholderTextColor={ this.state.error ? 'red' : '#a020f0'}
                                   containerStyle={{backgroundColor:'transparent',borderTopWidth:0,borderBottomWidth:0,marginTop:10}}
                               />
                               <Text onPress={() => console.log('forgot')} style={{color:'#a020f0',fontSize:12,marginLeft:'auto',paddingRight:10,marginBottom:10}}>Forgot Password?</Text>
@@ -91,9 +91,9 @@ class Login extends Component<{}> {
                                   noIcon
                                   onChangeText={(e) => this.setState({name:e})}
                                   // icon={{ type: 'material-community', name: 'email-outline',color:'#a020f0'}}
-                                  inputStyle={{borderRadius:10,backgroundColor:'white',borderColor:'#a020f0',borderWidth:1,color:'#a020f0',height:40}}
+                                  inputStyle={this.state.error ? styles.errorInput : styles.input}
                                   placeholder='Name'
-                                  placeholderTextColor='#a020f0'
+                                  placeholderTextColor={ this.state.error ? 'red' : '#a020f0'}
                                   containerStyle={{backgroundColor:'transparent',borderTopWidth:0,borderBottomWidth:0}}
                               />
                               <SearchBar 
@@ -101,9 +101,9 @@ class Login extends Component<{}> {
                                   noIcon
                                   onChangeText={(e) => this.setState({email:e})}
                                   // icon={{ type: 'material-community', name: 'email-outline',color:'#a020f0'}}
-                                  inputStyle={{borderRadius:10,backgroundColor:'white',borderColor:'#a020f0',borderWidth:1,color:'#a020f0',height:40}}
+                                  inputStyle={this.state.error ? styles.errorInput : styles.input}
                                   placeholder='Email'
-                                  placeholderTextColor='#a020f0'
+                                  placeholderTextColor={ this.state.error ? 'red' : '#a020f0'}
                                   containerStyle={{backgroundColor:'transparent',borderTopWidth:0,borderBottomWidth:0,marginTop:10,marginBottom:10}}
                               />
                               <SearchBar 
@@ -111,10 +111,10 @@ class Login extends Component<{}> {
                                   noIcon
                                   onChangeText={(e) => this.setState({password:e})}
                                   // icon={{ type: 'material-community', name: 'key',color:'#a020f0',marginTop:20}}
-                                  inputStyle={{borderRadius:10,backgroundColor:'white',borderColor:'#a020f0',borderWidth:1,color:'#a020f0',height:40}}
+                                  inputStyle={this.state.error ? styles.errorInput : styles.input}
                                   placeholder='Password'
                                   secureTextEntry
-                                  placeholderTextColor='#a020f0'
+                                  placeholderTextColor={ this.state.error ? 'red' : '#a020f0'}
                                   containerStyle={{backgroundColor:'transparent',borderTopWidth:0,borderBottomWidth:0}}
                               />
                               <TouchableOpacity style={styles.button}>
@@ -141,6 +141,22 @@ const styles = StyleSheet.create({
       paddingLeft:20,
       paddingRight:20
       // justifyContent:'center',
+    },
+    input:{
+      borderRadius:10,
+      backgroundColor:'white',
+      borderColor:'#a020f0',
+      borderWidth:1,
+      color:'#a020f0',
+      height:40
+    },
+    errorInput:{
+      borderRadius:10,
+      backgroundColor:'white',
+      borderColor:'red',
+      borderWidth:1,
+      color:'#a020f0',
+      height:40
     },
     logo:{
       justifyContent:'center',
