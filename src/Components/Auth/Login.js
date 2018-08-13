@@ -139,7 +139,8 @@ const styles = StyleSheet.create({
     linearGradient: {
       flex:1,
       paddingLeft:20,
-      paddingRight:20
+      paddingRight:20,
+      // fontFamily:'Sinhala Sangam MN'
       // justifyContent:'center',
     },
     input:{
@@ -148,7 +149,8 @@ const styles = StyleSheet.create({
       borderColor:'#a020f0',
       borderWidth:1,
       color:'#a020f0',
-      height:40
+      height:40,
+      
     },
     errorInput:{
       borderRadius:10,
