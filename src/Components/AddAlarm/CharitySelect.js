@@ -24,7 +24,8 @@ class CharitySelect extends Component<Props> {
       super(props)
       this.state={
         search:'',
-        filter:true
+        filter:true,
+        category:''
       }
     }
 
@@ -39,7 +40,10 @@ class CharitySelect extends Component<Props> {
   render() {
     const {navigate} = this.props.navigation
     const backAction = NavigationActions.back({})
-    const searchedCharities = this.props.store.charityList.filter(x => x.name.toLowerCase().includes(this.state.search.toLowerCase()))
+    const categories = ['Animal','Environmental','Health','Education','Art & Culture','International','Religious','Community Development','Human Services','Children','Clear']
+    
+    const searchedCharities = this.props.store.charityList.filter(x => x.name.toLowerCase().includes(this.state.search.toLowerCase()) || x.location.toLowerCase().includes(this.state.search.toLowerCase())) 
+    // const locationFilter = searchedCharities.filter(x => x.location.toLowerCase.includes(this.state.search.toLowerCase()))
     const Back = (props) => {
             return(
               <Text
@@ -68,7 +72,7 @@ class CharitySelect extends Component<Props> {
                 inputStyle={{color:'#a020f0',backgroundColor:'white'}}
                 // clearIcon={this.state.search ? {icon:'cancel',color:'#02E7FE'} : null}
                 icon={{ type: 'font-awesome', name: 'search'}}
-                placeholder='Filter by name' 
+                placeholder='Filter by name or location' 
             />
             <Icon
                 name='sort'
@@ -78,33 +82,18 @@ class CharitySelect extends Component<Props> {
             />
         </View>
         <Collapsible collapsed={this.state.filter}>
-              <View>
-                  <SearchBar
-                      round
-                      lightTheme
-                      onChangeText={(e) => this.setState({search:e})}
-                      onClearText={(e) => this.setState({search:false})}
-                      containerStyle={{backgroundColor:'transparent',borderBottomWidth:0,borderTopWidth:0,width:'90%'}}
-                      // cancelButtonTitle={'Cancel'}
-                      // showLoadingIcon={true}
-                      inputStyle={{color:'#a020f0',backgroundColor:'white'}}
-                      // clearIcon={this.state.search ? {icon:'cancel',color:'#02E7FE'} : null}
-                      icon={{ type: 'font-awesome', name: 'search'}}
-                      placeholder='Filter by location' 
-                  />
-                  <SearchBar
-                      round
-                      lightTheme
-                      onChangeText={(e) => this.setState({search:e})}
-                      onClearText={(e) => this.setState({search:false})}
-                      containerStyle={{backgroundColor:'transparent',borderBottomWidth:0,borderTopWidth:0,width:'90%'}}
-                      // cancelButtonTitle={'Cancel'}
-                      // showLoadingIcon={true}
-                      inputStyle={{color:'#a020f0',backgroundColor:'white'}}
-                      // clearIcon={this.state.search ? {icon:'cancel',color:'#02E7FE'} : null}
-                      icon={{ type: 'font-awesome', name: 'search'}}
-                      placeholder='Filter by category' 
-                  />
+              <View style={{display:'flex',flexDirection:'column'}}>
+                  <View style={{display:'flex',flexDirection:'column',padding:10}}>
+                      <Text style={{color:'white',fontWeight:'bold'}}>Select category</Text>
+                      <View style={{display:'flex',flexDirection:'row',flexWrap:'wrap'}}>
+                          {
+                            categories.map((c,i) => 
+                              <Badge onPress={() => c === 'Clear' ? this.setState({category:'',filter:true}) : this.setState({category:c})} containerStyle={ this.state.category === c ? {backgroundColor: '#a020f0',margin:5,borderColor:'white',borderWidth:1} : {backgroundColor: 'white',margin:5,borderWidth:1,borderColor:'transparent'}}>
+                                    <Text style={this.state.category === c ? {color:'white',fontWeight:'bold'} : {color:'#a020f0',fontWeight:'bold'}}>{c}</Text>
+                              </Badge>)
+                          }
+                      </View>
+                  </View>
               </View>
         </Collapsible>
         <View style={styles.results}>

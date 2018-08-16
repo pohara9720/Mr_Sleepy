@@ -48,7 +48,7 @@ export default class App extends Component<Props> {
               image:'https://cdn.pixabay.com/photo/2017/05/09/21/49/gecko-2299365_960_720.jpg',
               website:'www.dualipa.com',
               email: 'dualipa@dl.com',
-              location: 'Los Angeles',
+              location: 'Arizona',
               full:'Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit '
             },{
               name:'Lipa Foundation',
@@ -57,7 +57,7 @@ export default class App extends Component<Props> {
               image:'https://cdn.pixabay.com/photo/2017/05/09/21/49/gecko-2299365_960_720.jpg',
               website:'www.dualipa.com',
               email: 'dualipa@dl.com',
-              location: 'Los Angeles',
+              location: 'Miami',
               full:'Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit '
             },{
               name:'Dudation',
@@ -66,7 +66,7 @@ export default class App extends Component<Props> {
               image:'https://cdn.pixabay.com/photo/2017/05/09/21/49/gecko-2299365_960_720.jpg',
               website:'www.dualipa.com',
               email: 'dualipa@dl.com',
-              location: 'Los Angeles',
+              location: 'Delaware',
               full:'Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit '
             },{
               name:'Dua Lipa tion',
