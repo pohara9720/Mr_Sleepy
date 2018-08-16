@@ -17,6 +17,7 @@
     "react-native": "0.55.4",
     "react-native-awesome-card-io": "^0.7.0",
     "react-native-camera-roll-picker": "^1.2.3",
+    "react-native-collapsible": "^0.13.0",
     "react-native-elements": "^0.19.1",
     "react-native-linear-gradient": "^2.4.0",
     "react-native-material-cards": "^1.0.9",

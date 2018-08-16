@@ -11,6 +11,7 @@ import {Header,Badge,SearchBar,Icon} from 'react-native-elements'
 import { NavigationActions } from 'react-navigation'
 import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from 'react-native-material-cards'
 import LinearGradient from 'react-native-linear-gradient'
+import Collapsible from 'react-native-collapsible'
 import {  Context } from '../../../App'
 import connect from '../HOC'
 
@@ -22,7 +23,8 @@ class CharitySelect extends Component<Props> {
     constructor(props){
       super(props)
       this.state={
-        search:''
+        search:'',
+        filter:true
       }
     }
 
@@ -72,8 +74,39 @@ class CharitySelect extends Component<Props> {
                 name='sort'
                 color='white'
                 iconStyle={{width:'100%'}}
+                onPress={() => this.setState({filter: !this.state.filter})}
             />
         </View>
+        <Collapsible collapsed={this.state.filter}>
+              <View>
+                  <SearchBar
+                      round
+                      lightTheme
+                      onChangeText={(e) => this.setState({search:e})}
+                      onClearText={(e) => this.setState({search:false})}
+                      containerStyle={{backgroundColor:'transparent',borderBottomWidth:0,borderTopWidth:0,width:'90%'}}
+                      // cancelButtonTitle={'Cancel'}
+                      // showLoadingIcon={true}
+                      inputStyle={{color:'#a020f0',backgroundColor:'white'}}
+                      // clearIcon={this.state.search ? {icon:'cancel',color:'#02E7FE'} : null}
+                      icon={{ type: 'font-awesome', name: 'search'}}
+                      placeholder='Filter by location' 
+                  />
+                  <SearchBar
+                      round
+                      lightTheme
+                      onChangeText={(e) => this.setState({search:e})}
+                      onClearText={(e) => this.setState({search:false})}
+                      containerStyle={{backgroundColor:'transparent',borderBottomWidth:0,borderTopWidth:0,width:'90%'}}
+                      // cancelButtonTitle={'Cancel'}
+                      // showLoadingIcon={true}
+                      inputStyle={{color:'#a020f0',backgroundColor:'white'}}
+                      // clearIcon={this.state.search ? {icon:'cancel',color:'#02E7FE'} : null}
+                      icon={{ type: 'font-awesome', name: 'search'}}
+                      placeholder='Filter by category' 
+                  />
+              </View>
+        </Collapsible>
         <View style={styles.results}>
             <Text style={{color:'white',fontWeight:'bold'}}>{`${searchedCharities.length} results`}</Text>
         </View>
