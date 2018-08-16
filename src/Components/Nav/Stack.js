@@ -5,6 +5,7 @@ import CharitySelect from '../AddAlarm/CharitySelect'
 import LabelSelect from '../AddAlarm/LabelSelect'
 import RepeatSelect from '../AddAlarm/RepeatSelect'
 import Profile from '../Profile/Profile'
+import Settings from '../Profile/Settings'
 import Alarms from '../Alarms'
 import Login from '../Auth/Login'
 import Signup from '../Auth/Signup'
@@ -23,6 +24,7 @@ const Auth = StackNavigator({
 
 const ProfileRoutes = StackNavigator({
     Profile: { screen: props => <Profile {...props} />},
+    Settings: { screen: props => <Settings {...props} />},
 },
 {
     headerMode: 'none',

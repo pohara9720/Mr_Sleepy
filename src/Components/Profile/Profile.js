@@ -194,7 +194,7 @@ class Profile extends Component<Props> {
                           />
                       </TouchableOpacity>
                       </View>
-                      <View style={{borderColor:'#a020f0',borderWidth:1,borderBottomWidth:1,padding:15,flexDirection:'row'}}>
+                      <View style={{borderColor:'#a020f0',borderWidth:1,borderBottomWidth:0,padding:15,flexDirection:'row'}}>
                           <Icon 
                             name={'vpn-key'}
                             color={'#a020f0'}
@@ -211,7 +211,7 @@ class Profile extends Component<Props> {
                       </View>
                   </View>
                     :
-                    <View style={{borderColor:'#a020f0',borderWidth:1,borderBottomWidth:1,padding:15,flexDirection:'row'}}>
+                    <View style={{borderColor:'#a020f0',borderWidth:1,borderBottomWidth:0,padding:15,flexDirection:'row'}}>
                       <Icon 
                         name={'vpn-key'}
                         color={'#a020f0'}
@@ -229,6 +229,17 @@ class Profile extends Component<Props> {
                       </TouchableOpacity>
                   </View>
                   }
+                  <TouchableOpacity onPress={() => navigate('Settings')}>
+                      <View style={{borderColor:'#a020f0',borderWidth:1,borderBottomWidth:1,padding:15,flexDirection:'row'}}>
+                          <Icon 
+                            name={'settings'}
+                            color={'#a020f0'}
+                            size={20}
+                            iconStyle={{marginRight:10}}
+                          />
+                          <Text style={{color:'#a020f0',fontSize:15}}>Settings</Text>
+                      </View>
+                  </TouchableOpacity>
               </View>
 
               <View style={{marginTop:15,padding:15}}>
