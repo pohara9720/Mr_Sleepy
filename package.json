@@ -7,7 +7,7 @@
     "test": "jest"
   },
   "rnpm": {
-    "assets": ["./src/assets/Roboto-Light.ttf"]
+    "assets": ["./src/assets/roboto.ttf"]
     },
   "dependencies": {
     "axios": "^0.18.0",
