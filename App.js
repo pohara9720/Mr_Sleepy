@@ -33,9 +33,68 @@ export default class App extends Component<Props> {
             donations:[],
             accountCharities:[],
             charityList:[{
-              name:'Dua Lipa Foundation',
+              name:'Dua Lipa',
+              category:'Health',
               short: 'This is a foundation that gives money to dua lipa',
-              image:'http://mystar1053.com/wp-content/uploads/2013/02/HarveyGreySuitPortrait-col-low-res.jpg'
+              image:'https://cdn.pixabay.com/photo/2017/05/09/21/49/gecko-2299365_960_720.jpg',
+              website:'www.dualipa.com',
+              email: 'dualipa@dl.com',
+              location: 'Los Angeles',
+              full:'Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit '
+            },{
+              name:'Dua Foundation',
+              category:'Health',
+              short: 'This is a foundation that gives money to dua lipa',
+              image:'https://cdn.pixabay.com/photo/2017/05/09/21/49/gecko-2299365_960_720.jpg',
+              website:'www.dualipa.com',
+              email: 'dualipa@dl.com',
+              location: 'Los Angeles',
+              full:'Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit '
+            },{
+              name:'Lipa Foundation',
+              category:'Health',
+              short: 'This is a foundation that gives money to dua lipa',
+              image:'https://cdn.pixabay.com/photo/2017/05/09/21/49/gecko-2299365_960_720.jpg',
+              website:'www.dualipa.com',
+              email: 'dualipa@dl.com',
+              location: 'Los Angeles',
+              full:'Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit '
+            },{
+              name:'Dudation',
+              category:'Health',
+              short: 'This is a foundation that gives money to dua lipa',
+              image:'https://cdn.pixabay.com/photo/2017/05/09/21/49/gecko-2299365_960_720.jpg',
+              website:'www.dualipa.com',
+              email: 'dualipa@dl.com',
+              location: 'Los Angeles',
+              full:'Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit '
+            },{
+              name:'Dua Lipa tion',
+              category:'Health',
+              short: 'This is a foundation that gives money to dua lipa',
+              image:'https://cdn.pixabay.com/photo/2017/05/09/21/49/gecko-2299365_960_720.jpg',
+              website:'www.dualipa.com',
+              email: 'dualipa@dl.com',
+              location: 'Los Angeles',
+              full:'Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit '
+            },{
+              name:'a Foundation',
+              category:'Health',
+              short: 'This is a foundation that gives money to dua lipa',
+              image:'https://cdn.pixabay.com/photo/2017/05/09/21/49/gecko-2299365_960_720.jpg',
+              website:'www.dualipa.com',
+              email: 'dualipa@dl.com',
+              location: 'Los Angeles',
+              full:'Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit '
+            },{
+              name:'Dua on',
+              category:'Health',
+              short: 'This is a foundation that gives money to dua lipa',
+              image:'https://cdn.pixabay.com/photo/2017/05/09/21/49/gecko-2299365_960_720.jpg',
+              website:'www.dualipa.com',
+              email: 'dualipa@dl.com',
+              location: 'Los Angeles',
+              full:'Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit '
             }],
             charityProfile:'',
             accountName: 'Ariana Grande',
