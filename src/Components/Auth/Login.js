@@ -140,6 +140,7 @@ const styles = StyleSheet.create({
       flex:1,
       paddingLeft:20,
       paddingRight:20,
+      fontFamily:'roboto'
       // fontFamily:'Sinhala Sangam MN'
       // justifyContent:'center',
     },
@@ -150,6 +151,7 @@ const styles = StyleSheet.create({
       borderWidth:1,
       color:'#a020f0',
       height:40,
+      fontFamily:'roboto'
       
     },
     errorInput:{
@@ -158,7 +160,8 @@ const styles = StyleSheet.create({
       borderColor:'red',
       borderWidth:1,
       color:'#a020f0',
-      height:40
+      height:40,
+      fontFamily:'roboto'
     },
     logo:{
       justifyContent:'center',
@@ -190,7 +193,8 @@ const styles = StyleSheet.create({
       padding:13,
       marginTop:10,
       marginRight:9,
-      marginLeft:9
+      marginLeft:9,
+      fontFamily:'roboto'
     },
     image:{
       height:200,

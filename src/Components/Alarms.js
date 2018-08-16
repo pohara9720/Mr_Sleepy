@@ -122,7 +122,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderTopWidth:0,
     borderTopColor:'transparent',
-    borderBottomWidth:0
+    borderBottomWidth:0,
+    fontFamily:'roboto'
   },
   linearGradient:{
     borderRadius:10,
