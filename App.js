@@ -32,7 +32,11 @@ export default class App extends Component<Props> {
             alarmList:[],
             donations:[],
             accountCharities:[],
-            charityList:[],
+            charityList:[{
+              name:'Dua Lipa Foundation',
+              short: 'This is a foundation that gives money to dua lipa',
+              image:'http://mystar1053.com/wp-content/uploads/2013/02/HarveyGreySuitPortrait-col-low-res.jpg'
+            }],
             charityProfile:'',
             accountName: 'Ariana Grande',
             accountEmail: 'arianagrande@gmail.com',

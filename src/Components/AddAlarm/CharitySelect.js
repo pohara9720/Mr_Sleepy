@@ -9,9 +9,11 @@ import {
 
 import {Header} from 'react-native-elements'
 import { NavigationActions } from 'react-navigation'
+import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from 'react-native-material-cards'
 import LinearGradient from 'react-native-linear-gradient'
 import {  Context } from '../../../App'
 import connect from '../HOC'
+
 
 
 
@@ -25,6 +27,7 @@ class CharitySelect extends Component<Props> {
     }
 
     viewProfile = (object) => {
+      console.log(object)
         const {navigate} = this.props.navigation
         navigate('CharityProfile')
         this.props.fillCharityProfile(object)

@@ -66,8 +66,8 @@ class Login extends Component<{}> {
                               />
                               <Text onPress={() => console.log('forgot')} style={{color:'#a020f0',fontSize:12,marginLeft:'auto',paddingRight:10,marginBottom:10}}>Forgot Password?</Text>
                               </View>
-                              <TouchableOpacity style={styles.button}>
-                                  <Text style={{color:'white',fontWeight:'bold'}} onPress={() => this.props.authenticate()}>Log in</Text>
+                              <TouchableOpacity onPress={() => this.props.authenticate()} style={styles.button}>
+                                  <Text style={{color:'white',fontWeight:'bold'}} >Log in</Text>
                               </TouchableOpacity>
                           </View>
                           <View style={styles.switch}>
