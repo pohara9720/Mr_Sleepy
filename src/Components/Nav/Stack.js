@@ -9,6 +9,9 @@ import Settings from '../Profile/Settings'
 import Alarms from '../Alarms'
 import Login from '../Auth/Login'
 import Signup from '../Auth/Signup'
+import Terms_Conditions from '../Profile/Terms&Conditions'
+import Privacy from '../Profile/Privacy'
+import Receipts from '../Profile/Receipts'
 import CharityProfile from '../AddAlarm/CharityProfile'
 // import {Tabs} from './Tabs'
 
@@ -25,6 +28,9 @@ const Auth = StackNavigator({
 const ProfileRoutes = StackNavigator({
     Profile: { screen: props => <Profile {...props} />},
     Settings: { screen: props => <Settings {...props} />},
+    Terms: { screen: props => <Terms_Conditions {...props} />},
+    Privacy: { screen: props => <Privacy {...props} />},
+    Receipts: { screen: props => <Receipts {...props} />},
 },
 {
     headerMode: 'none',

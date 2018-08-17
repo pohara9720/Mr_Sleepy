@@ -50,55 +50,65 @@ class Settings extends Component<Props> {
                   <View style={{borderColor:'#a020f0',borderWidth:1,borderBottomWidth:0,padding:15}}>
                       <Text style={{color:'#a020f0',fontWeight:'bold',fontSize:15}}>Account</Text>
                   </View>
-                    <View style={{borderColor:'#a020f0',borderWidth:1,borderBottomWidth:0,padding:15,flexDirection:'row'}}>
-                      <Icon 
-                        name='legal'
-                        type='font-awesome'
-                        color={'#a020f0'}
-                        size={20}
-                        iconStyle={{marginRight:10}}
-                      />
-                        <Text style={{color:'#a020f0',fontSize:15}}>Terms & Conditions</Text>
-                    </View>
-                    <View style={{borderColor:'#a020f0',borderWidth:1,borderBottomWidth:0,padding:15,flexDirection:'row'}}>
-                      <Icon 
-                        name='legal'
-                        type='font-awesome'
-                        color={'#a020f0'}
-                        size={20}
-                        iconStyle={{marginRight:10}}
-                      />
-                        <Text style={{color:'#a020f0',fontSize:15}}>Privacy Policy</Text>
-                    </View>
-                    <View style={{borderColor:'#a020f0',borderWidth:1,borderBottomWidth:0,padding:15,flexDirection:'row'}}>
-                      <Icon 
-                        name={'receipt'}
-                        color={'#a020f0'}
-                        size={20}
-                        iconStyle={{marginRight:10}}
-                      />
-                        <Text style={{color:'#a020f0',fontSize:15}}>Receipts</Text>
-                    </View>
-                    <View style={{borderColor:'#a020f0',borderWidth:1,borderBottomWidth:0,padding:15,flexDirection:'row'}}>
-                      <Icon 
-                        name='logout'
-                        type='material-community'
-                        color={'#a020f0'}
-                        size={20}
-                        iconStyle={{marginRight:10}}
-                      />
-                        <Text style={{color:'#a020f0',fontSize:15}}>Sign out</Text>
-                    </View>
-                    <View style={{borderColor:'#a020f0',borderWidth:1,borderBottomWidth:1,padding:15,flexDirection:'row'}}>
-                      <Icon 
-                        name='account-remove'
-                        type='material-community'
-                        color={'#a020f0'}
-                        size={20}
-                        iconStyle={{marginRight:10}}
-                      />
-                        <Text style={{color:'#a020f0',fontSize:15}}>Delete Account</Text>
-                    </View>
+                    <TouchableOpacity onPress={() => navigate('Terms')}>
+                        <View style={{borderColor:'#a020f0',borderWidth:1,borderBottomWidth:0,padding:15,flexDirection:'row'}}>
+                          <Icon 
+                            name='legal'
+                            type='font-awesome'
+                            color={'#a020f0'}
+                            size={20}
+                            iconStyle={{marginRight:10}}
+                          />
+                            <Text style={{color:'#a020f0',fontSize:15}}>Terms & Conditions</Text>
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigate('Privacy')}>
+                      <View style={{borderColor:'#a020f0',borderWidth:1,borderBottomWidth:0,padding:15,flexDirection:'row'}}>
+                        <Icon 
+                          name='legal'
+                          type='font-awesome'
+                          color={'#a020f0'}
+                          size={20}
+                          iconStyle={{marginRight:10}}
+                        />
+                          <Text style={{color:'#a020f0',fontSize:15}}>Privacy Policy</Text>
+                      </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigate('Receipts')}>
+                        <View style={{borderColor:'#a020f0',borderWidth:1,borderBottomWidth:0,padding:15,flexDirection:'row'}}>
+                          <Icon 
+                            name={'receipt'}
+                            color={'#a020f0'}
+                            size={20}
+                            iconStyle={{marginRight:10}}
+                          />
+                            <Text style={{color:'#a020f0',fontSize:15}}>Receipts</Text>
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity>
+                        <View style={{borderColor:'#a020f0',borderWidth:1,borderBottomWidth:0,padding:15,flexDirection:'row'}}>
+                          <Icon 
+                            name='logout'
+                            type='material-community'
+                            color={'#a020f0'}
+                            size={20}
+                            iconStyle={{marginRight:10}}
+                          />
+                            <Text style={{color:'#a020f0',fontSize:15}}>Sign out</Text>
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity>
+                        <View style={{borderColor:'#a020f0',borderWidth:1,borderBottomWidth:1,padding:15,flexDirection:'row'}}>
+                          <Icon 
+                            name='account-remove'
+                            type='material-community'
+                            color={'#a020f0'}
+                            size={20}
+                            iconStyle={{marginRight:10}}
+                          />
+                            <Text style={{color:'#a020f0',fontSize:15}}>Delete Account</Text>
+                        </View>
+                    </TouchableOpacity>
               </View>
         </ScrollView>
       </View>

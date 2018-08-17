@@ -110,8 +110,10 @@ class CharitySelect extends Component<Props> {
               </LinearGradient>
               :
               searchedCharities.map((l,i) => 
+                <View style={{borderRadius:10}}>
                   <TouchableOpacity 
                       key={i}
+                      style={{borderRadius:10}}
                       onPress={() => this.viewProfile(l)}>
                       <Card
                         mediaSource={{uri:l.image}}
@@ -120,7 +122,7 @@ class CharitySelect extends Component<Props> {
                           shadowColor: 'white',
                           shadowOpacity: 1,
                           position:'relative',
-                          shadowRadius: 10}}
+                          shadowRadius: 10,borderRadius:10}}
                         >
                           <CardTitle  
                               title={l.name} 
@@ -133,6 +135,7 @@ class CharitySelect extends Component<Props> {
                               </Badge>
                           </View>
                   </TouchableOpacity>
+                  </View>
               )
             }
         </ScrollView>
