@@ -41,7 +41,7 @@ class Alarms extends Component<Props> {
                 </Text>
               )
        }
-       console.log(this.props.store)
+       // console.log(this.props.store)
       return (
         <View style={styles.container}>
           <Header
@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
     borderTopWidth:0,
     borderTopColor:'transparent',
     borderBottomWidth:0,
-    fontFamily:'roboto'
+    // fontFamily:'roboto'
   },
   linearGradient:{
     borderRadius:10,

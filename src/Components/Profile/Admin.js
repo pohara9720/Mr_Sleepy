@@ -14,7 +14,7 @@ import {
   ContributionGraph
 } from 'react-native-chart-kit'
 
-
+import {SnapDetails} from './SnapDetails'
 import {Header,Icon} from 'react-native-elements'
 import { NavigationActions } from 'react-navigation'
 import LinearGradient from 'react-native-linear-gradient'
@@ -34,12 +34,7 @@ class Admin extends Component<Props> {
     }
 
   render() {
-    const screenWidth = Dimensions.get('window').width
-    const chartConfig = {
-        backgroundGradientFrom: '#a020f0',
-        backgroundGradientTo: '#7016a8',
-        color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`
-    }
+    
     const {navigate} = this.props.navigation
     const backAction = NavigationActions.back({})
     const Back = (props) => {
@@ -51,98 +46,17 @@ class Admin extends Component<Props> {
               </Text>
             )
      }
-     const pieData = [
-        { name: 'Active', population: 340  },
-        { name: 'Total', population: 510 },
-        { name: 'Donating', population: 255 },
+     const userPie = [
+        { name: 'Inactive', population: 110},
+        { name: 'A.N.D', population: 130 },
+        { name: 'Donors', population: 400 },
     ]
-    const heatData = [
-        { date: '2017-01-02', count: 1 },
-        { date: '2017-01-03', count: 2 },
-        { date: '2017-01-04', count: 3 },
-        { date: '2017-01-05', count: 4 },
-        { date: '2017-01-06', count:40 },
-        { date: '2017-01-07', count:40 },
-        { date: '2017-01-08', count:40 },
-        { date: '2017-01-09', count: 4 },
-        { date: '2017-01-10', count: 3},
-        { date: '2017-01-11', count: 12},
-        { date: '2017-01-12', count: 12 },
-        { date: '2017-01-13', count:40 },
-        { date: '2017-01-14', count: 1 },
-        { date: '2017-01-15', count: 2 },
-        { date: '2017-01-16', count:40 },
-        { date: '2017-01-17', count:40 },
-        { date: '2017-01-18', count: 2 },
-        { date: '2017-01-19', count: 3 },
-        { date: '2017-01-20', count: 2 },
-        { date: '2017-01-21', count: 4 },
-        { date: '2017-01-22', count: 2 },
-        { date: '2017-01-23', count: 4 },
-        { date: '2017-01-24', count: 4 },
-        { date: '2017-01-25', count: 4 },
-        { date: '2017-01-26', count: 4 },
-        { date: '2017-01-27', count: 4 },
-        { date: '2017-01-28', count: 4 },
-        { date: '2017-01-29', count: 4 },
-
-        { date: '2017-02-02', count: 1 },
-        { date: '2017-02-03', count: 2 },
-        { date: '2017-02-04', count: 3 },
-        { date: '2017-02-05', count: 4 },
-        { date: '2017-02-06', count:40 },
-        { date: '2017-02-07', count:40 },
-        { date: '2017-02-08', count:40 },
-        { date: '2017-02-09', count: 4 },
-        { date: '2017-02-10', count: 3},
-        { date: '2017-02-11', count: 12},
-        { date: '2017-02-12', count: 12 },
-        { date: '2017-02-13', count:40 },
-        { date: '2017-02-14', count: 1 },
-        { date: '2017-02-15', count: 2 },
-        { date: '2017-02-16', count:40 },
-        { date: '2017-02-17', count:40 },
-        { date: '2017-02-18', count: 2 },
-        { date: '2017-02-19', count: 3 },
-        { date: '2017-02-20', count: 2 },
-        { date: '2017-02-21', count: 4 },
-        { date: '2017-02-22', count: 2 },
-        { date: '2017-02-23', count: 4 },
-        { date: '2017-02-24', count: 4 },
-        { date: '2017-02-25', count: 4 },
-        { date: '2017-02-26', count: 4 },
-        { date: '2017-02-27', count: 4 },
-        { date: '2017-02-28', count: 4 },
-        { date: '2017-02-29', count: 4 },
-         { date: '2017-12-02', count: 1 },
-        { date: '2017-12-03', count: 2 },
-        { date: '2017-12-04', count: 3 },
-        { date: '2017-12-05', count: 4 },
-        { date: '2017-12-06', count:40 },
-        { date: '2017-12-07', count:40 },
-        { date: '2017-12-08', count:40 },
-        { date: '2017-12-09', count: 4 },
-        { date: '2017-12-10', count: 3},
-        { date: '2017-12-11', count: 12},
-        { date: '2017-12-12', count: 12 },
-        { date: '2017-12-13', count:40 },
-        { date: '2017-12-14', count: 1 },
-        { date: '2017-12-15', count: 2 },
-        { date: '2017-12-16', count:40 },
-        { date: '2017-12-17', count:40 },
-        { date: '2017-12-18', count: 2 },
-        { date: '2017-12-19', count: 3 },
-        { date: '2017-12-20', count: 2 },
-        { date: '2017-12-21', count: 4 },
-        { date: '2017-12-22', count: 2 },
-        { date: '2017-12-23', count: 4 },
-        { date: '2017-12-24', count: 4 },
-        { date: '2017-12-25', count: 4 },
-        { date: '2017-12-26', count: 4 },
-        { date: '2017-12-27', count: 4 },
-        { date: '2017-12-28', count: 4 },
-        { date: '2017-12-29', count: 4 },
+    const charityPie = [
+        { name: 'None', population: 13 },
+        { name: '> 10/m', population: 12 },
+        { name: '< 10/m', population: 30 },
     ]
+  
 
     const lineData = {
         labels: ['January', 'April','August','December'],
@@ -150,52 +64,58 @@ class Admin extends Component<Props> {
           data: [ 20, 45, 28, 80, 99, 43,100,300,123,303,500,1000,1200,400,1300,1500,2000 ]
         }]
     }
+
+    // const charities =  getAllCharities() // All charities
+
+    // const averageDonation= null // Average amount people snooze 
+    // const snoozers = null // Number of users pushing snooze
+    // const snoozePercentage = null // number of ppl snoozing divided by active users
+    // const topCharities = charitySpectrum(top) // Top 5 charities
+    // const bottomCharities = charitySpectrum(bottom) // Bottom 5 charities,
+    // const donationsEver = loadAllDonations() // Donations made total ever
+    // const donationThisMonth = null // Donations made in current month
+    // const donationsThisYTD = null // Donations made for current YTD
+
+    const data = {
+        userGraph:[{ name: 'Inactive', population: 110},{ name: 'A.N.D', population: 130 },{ name: 'Donors', population: 400 }],
+        charityGraph:[{ name: 'None', population: 13 },{ name: '> 10/m', population: 12 },{ name: '< 10/m', population: 30 }],
+        lineGraph:{
+                labels: ['January', 'April','August','December'],
+                datasets: [{data: [ 20, 45, 28, 80, 99, 43,100,300,123,303,500,1000,1200,400,1300,1500,2000 ]}]
+        },
+        totalUsers:230,
+        activeUsers:180,
+        inactiveUsers:50,
+        usersDonating:130,
+        totalCharities:50,
+        averageDonation:16,
+        donationsThisYTD:1202,
+        overallDonations:5002
+    }
+      
     return (
       <View style={styles.container}>
         <Header
             leftComponent={<Back />}
-            rightComponent={{ icon: 'camera-enhance', color: '#fff' }}
+            rightComponent={{ icon: 'camera-enhance', color: '#fff',onPress:() => navigate('Snapshots') }}
             centerComponent={{ text: 'Admin', style: {fontSize:22,color:'white'}}}
             outerContainerStyles={{backgroundColor:'transparent',borderBottomWidth:0}}
         />
-        <ScrollView>
-            <Text style={{paddingLeft:10,color:'white',fontWeight:'bold',fontSize:25,marginBottom:10,marginTop:30}}>User Distribution</Text>
-            <View style={{shadowColor: 'white',shadowOpacity: 1,shadowRadius: 10,alignItems:'center'}}>
-                <PieChart
-                    data={pieData}
-                    width={screenWidth-20}
-                    height={180}
-                    chartConfig={chartConfig}
-                    accessor="population"
-                />
-            </View>
-            <Text style={{paddingLeft:10,color:'white',fontWeight:'bold',fontSize:25,marginBottom:10,marginTop:30}}>Profit Distribution</Text>
-            <View style={{shadowColor: 'white',shadowOpacity: 1,shadowRadius: 10,alignItems:'center'}}>
-                <LineChart
-                  data={lineData}
-                  width={screenWidth-20}
-                  height={180}
-                  chartConfig={chartConfig}
-                  bezier
-              />
-            </View>
-            <Text style={{paddingLeft:10,color:'white',fontWeight:'bold',fontSize:25,marginBottom:10,marginTop:30}}>Usage</Text>
-            <View style={{shadowColor: 'white',shadowOpacity: 1,shadowRadius: 10,alignItems:'center'}}>
-                <ContributionGraph
-                    values={heatData}
-                    endDate={new Date('2017-02-30')}
-                    numDays={100}
-                    width={screenWidth-20}
-                    height={180}
-                    chartConfig={chartConfig}
-                />
-            </View>
-            <Text style={{paddingLeft:10,color:'white',fontWeight:'bold',fontSize:25,marginBottom:10,marginTop:30}}>Mr. Sleepy Snapshot</Text>
-            <View style={{shadowColor: 'white',shadowOpacity: 1,shadowRadius: 10,alignItems:'center'}}>
-                <Text>STATS</Text>
-            </View>
-
-        </ScrollView>
+        {
+            <SnapDetails 
+                userGraph={data.userGraph}
+                charityGraph={data.charityGraph}
+                lineGraph={data.lineGraph}
+                totalUsers={data.totalUsers}
+                activeUsers={data.activeUsers}
+                inactiveUsers={data.inactiveUsers}
+                usersDonating={data.usersDonating}
+                totalCharities={data.totalCharities}
+                averageDonation={data.averageDonation}
+                donationsYTD={data.donationsThisYTD}
+                overallDonations={data.overallDonations}
+            />
+        }
       </View>
     )
   }
@@ -205,7 +125,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#a020f0',
-    },
+    }
 });
 
 export default connect(Admin, Context)

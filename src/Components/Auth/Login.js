@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
       flex:1,
       paddingLeft:20,
       paddingRight:20,
-      fontFamily:'roboto'
+      // fontFamily:'roboto'
       // fontFamily:'Sinhala Sangam MN'
       // justifyContent:'center',
     },
@@ -194,7 +194,7 @@ const styles = StyleSheet.create({
       marginTop:10,
       marginRight:9,
       marginLeft:9,
-      fontFamily:'roboto'
+      // fontFamily:'roboto'
     },
     image:{
       height:200,

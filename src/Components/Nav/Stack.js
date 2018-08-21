@@ -12,6 +12,8 @@ import Signup from '../Auth/Signup'
 import Terms_Conditions from '../Profile/Terms&Conditions'
 import Privacy from '../Profile/Privacy'
 import Receipts from '../Profile/Receipts'
+import Snapshots from '../Profile/Snapshots'
+import SnapView from '../Profile/SnapView'
 import Admin from '../Profile/Admin'
 import CharityProfile from '../AddAlarm/CharityProfile'
 // import {Tabs} from './Tabs'
@@ -33,6 +35,8 @@ const ProfileRoutes = StackNavigator({
     Privacy: { screen: props => <Privacy {...props} />},
     Receipts: { screen: props => <Receipts {...props} />},
     Admin: { screen: props => <Admin {...props} />},
+    Snapshots: { screen: props => <Snapshots {...props} />},
+    SnapView: { screen: props => <SnapView {...props} />},
 },
 {
     headerMode: 'none',
