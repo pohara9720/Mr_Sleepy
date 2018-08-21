@@ -31,7 +31,7 @@ class Privacy extends Component<Props> {
     const Back = (props) => {
             return(
               <Text
-                 style={{fontSize:14,color:'#a020f0',justifyContent:"center"}}
+                 style={{fontSize:14,color:'white',justifyContent:"center"}}
                  onPress={() => this.props.navigation.dispatch(backAction)}
                 >Back
               </Text>
@@ -42,7 +42,7 @@ class Privacy extends Component<Props> {
         <Header
             leftComponent={<Back />}
             // rightComponent={<Save />}
-            centerComponent={{ text: 'Privacy Policy', style: {fontSize:22,color:'#a020f0'}}}
+            centerComponent={{ text: 'Privacy Policy', style: {fontSize:22,color:'white'}}}
             outerContainerStyles={{backgroundColor:'transparent',borderBottomWidth:0}}
         />
         <Legal form='privacy' />
@@ -54,7 +54,7 @@ class Privacy extends Component<Props> {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'transparent',
+        backgroundColor: '#a020f0',
     },
 });
 

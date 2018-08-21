@@ -12,6 +12,7 @@ import Signup from '../Auth/Signup'
 import Terms_Conditions from '../Profile/Terms&Conditions'
 import Privacy from '../Profile/Privacy'
 import Receipts from '../Profile/Receipts'
+import Admin from '../Profile/Admin'
 import CharityProfile from '../AddAlarm/CharityProfile'
 // import {Tabs} from './Tabs'
 
@@ -31,6 +32,7 @@ const ProfileRoutes = StackNavigator({
     Terms: { screen: props => <Terms_Conditions {...props} />},
     Privacy: { screen: props => <Privacy {...props} />},
     Receipts: { screen: props => <Receipts {...props} />},
+    Admin: { screen: props => <Admin {...props} />},
 },
 {
     headerMode: 'none',

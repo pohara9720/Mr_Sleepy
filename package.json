@@ -7,8 +7,10 @@
     "test": "jest"
   },
   "rnpm": {
-    "assets": ["./src/assets/"]
-    },
+    "assets": [
+      "./src/assets/"
+    ]
+  },
   "dependencies": {
     "axios": "^0.18.0",
     "babel-eslint": "^8.2.5",
@@ -20,12 +22,14 @@
     "react-native": "0.55.4",
     "react-native-awesome-card-io": "^0.7.0",
     "react-native-camera-roll-picker": "^1.2.3",
+    "react-native-chart-kit": "^1.1.5",
     "react-native-collapsible": "^0.13.0",
     "react-native-elements": "^0.19.1",
     "react-native-linear-gradient": "^2.4.0",
     "react-native-material-cards": "^1.0.9",
     "react-native-modal-datetime-picker": "^5.1.0",
     "react-native-simple-modal": "^9.0.1",
+    "react-native-svg": "^6.5.2",
     "react-native-vector-icons": "^4.6.0",
     "react-navigation": "^2.5.3",
     "rn-credit-card-view": "^0.1.5",

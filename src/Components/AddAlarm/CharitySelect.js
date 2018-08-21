@@ -122,7 +122,7 @@ class CharitySelect extends Component<Props> {
                           shadowColor: 'white',
                           shadowOpacity: 1,
                           position:'relative',
-                          shadowRadius: 10,borderRadius:10}}
+                          shadowRadius: 10}}
                         >
                           <CardTitle  
                               title={l.name} 

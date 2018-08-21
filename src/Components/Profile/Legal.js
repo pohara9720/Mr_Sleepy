@@ -71,14 +71,14 @@ export const Legal = (props) => (
 				{ props.form === 'terms' ?
 					terms.map((t,i) => 
 						<View>
-							<Text style={{color:'#a020f0',fontSize:16,textDecorationLine:'underline',marginBottom:10,fontWeight:'bold'}}>{`${i+ 1}. ${t.heading}`}</Text>
-							<Text style={{color:'#a020f0',fontSize:12,letterSpacing:1,marginBottom:15}}>{t.info}</Text>
+							<Text style={{color:'white',fontSize:16,textDecorationLine:'underline',marginBottom:10,fontWeight:'bold'}}>{`${i+ 1}. ${t.heading}`}</Text>
+							<Text style={{color:'white',fontSize:12,letterSpacing:1,marginBottom:15}}>{t.info}</Text>
 						</View>)
 					:
 					privacy.map((t,i) => 
 						<View>
-							<Text style={{color:'#a020f0',fontSize:16,textDecorationLine:'underline',marginBottom:10,fontWeight:'bold'}}>{`${i+ 1}. ${t.heading}`}</Text>
-							<Text style={{color:'#a020f0',fontSize:12,letterSpacing:1,marginBottom:15}}>{t.info}</Text>
+							<Text style={{color:'white',fontSize:16,textDecorationLine:'underline',marginBottom:10,fontWeight:'bold'}}>{`${i+ 1}. ${t.heading}`}</Text>
+							<Text style={{color:'white',fontSize:12,letterSpacing:1,marginBottom:15}}>{t.info}</Text>
 						</View>)
 				}
 			</View>
