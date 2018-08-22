@@ -3,7 +3,7 @@ import {
   Platform,
   StyleSheet,
   Text,
-  View,AsyncStorage
+  View,AsyncStorage,AppState
 } from 'react-native'
 console.disableYellowBox = true;
 
@@ -105,40 +105,57 @@ export default class App extends Component<Props> {
         }
     }
 
-    componentWillMount(){
+    componentDidMount(){
+        AppState.addEventListener('change', this.getAppState)
         this.loadAlarms()
         setInterval( () => {
             this.setState({
                 currentTime : this.getDate()
             })
         },1000)
-        this.loadCharities()
+        // this.loadCharities()
     }
 
-    loadCharities = () => {
-        axios.get(`${api}/charities`).then((res,err) => {
-            if(err){
-                console.log(err)
-            }
-            else{
-                console.log(res.data)
-                this.setState({charityList:res.data})
-            }
-        })
+    componentWillUnmount() {
+        AppState.removeEventListener('change', this.getAppState)
     }
 
-    addPayment = (card) => {
-        const token = this.state.me.token
-        card.email = this.state.me.email
-        axios.post(`${api}/card/${this.state.me.id}`,card,{headers: { authorization: "Bearer " + token }}).then((res,err) => {
-            if(err){
-                console.log(err)
-            }
-            else{
-                console.log('RESPONSE FOR ADDING CARD',res.data)
-            }
-        })
+    getAppState = (appState) => {
+        if(appState === 'active'){
+            console.log('App is in the fore front')
+        }
+        else if(appState === 'inactive'){
+            console.log('Inactive')
+        }
+        else{
+            console.log('App is in the background')
+        }
     }
+
+    // loadCharities = () => {
+    //     axios.get(`${api}/charities`).then((res,err) => {
+    //         if(err){
+    //             console.log(err)
+    //         }
+    //         else{
+    //             console.log(res.data)
+    //             this.setState({charityList:res.data})
+    //         }
+    //     })
+    // }
+
+    // addPayment = (card) => {
+    //     const token = this.state.me.token
+    //     card.email = this.state.me.email
+    //     axios.post(`${api}/card/${this.state.me.id}`,card,{headers: { authorization: "Bearer " + token }}).then((res,err) => {
+    //         if(err){
+    //             console.log(err)
+    //         }
+    //         else{
+    //             console.log('RESPONSE FOR ADDING CARD',res.data)
+    //         }
+    //     })
+    // }
 
     getDate = () => {
         var date = new Date()
