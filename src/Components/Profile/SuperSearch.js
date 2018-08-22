@@ -85,6 +85,43 @@ class SuperSearch extends Component<Props> {
               status: 'success',
               charity:'Food for the hungry'
           }]
+     },{
+        id:34,
+            name:'Margot Robbie',
+            email:'margot@gmail.com',
+            customerId: 'cus_aksdhaid813813',
+            verified:true,
+            pendingDonations: 5,
+            Charity:[{
+                name: 'Food for the hungry',
+                email: 'ffh@foodforhungry.com',
+                location: 'Los Angeles',
+                website: 'http://www.foodforhungry.com',
+                orgImage: 'https://i.pinimg.com/736x/22/0c/c2/220cc27703322d06e4eefe9af4c8990c--arianna-grande-ariana-grande-smile.jpg',
+                subtitle: 'This charity is lit',
+                bio: 'akdnaksn iasdn aisdn iasdnma isdm aoismd ioamsdoi amdi msadio masodi amsdma osidmaois dmaoisdmaoimsoi masiod maoisd maisod masiod masoid masoid madoi masdoi amsiodm oiasmd aiosmd',
+                category: 'Health',
+                pendingDonations: 34
+            }],
+            Donation:[{
+                amount: 32,
+                donatedOn: 'Aug 12,2018',
+                transaction: 'tra_asdasd139423',
+                status: 'success',
+                charity:'Food for the hungry'
+            },{
+                amount: 32,
+                donatedOn: 'Aug 12,2018',
+                transaction: 'tra_asdasd139423',
+                status: 'success',
+                charity:'Food for the hungry'
+            },{
+                amount: 32,
+                donatedOn: 'Aug 12,2018',
+                transaction: 'tra_asdasd139423',
+                status: 'success',
+                charity:'Food for the hungry'
+            }]
      }]
     return (
       <View style={styles.container}>
@@ -140,17 +177,21 @@ class SuperSearch extends Component<Props> {
                               <CardTitle 
                                 title={e.name} 
                                 subtitle={e.email}
+                                style={{color:'#a020f0'}}
                                />
                               <CardAction 
                                 separator={true} 
                                 inColumn={false}>
                                       <CardButton
-                                        onPress={() => this.setState({openDetails:e.id,openUp:!this.state.openUp})}
-                                        title="View More"
+                                        onPress={() => this.setState({openDetails:e.id, openUp:!this.state.openUp})}
+                                        title={'Show More'}
+                                        color='#a020f0'
+
                                       />
                                       <CardButton
                                         onPress={() => this.setState({openDetails:e.id,openUp:!this.state.openUp})}
                                         title="Delete User"
+                                        color='red'
                                       />
                               </CardAction>
                         </Card>
@@ -211,7 +252,7 @@ class SuperSearch extends Component<Props> {
                                               </View>
                                               <View style={{flexDirection:'row',padding:10}}>
                                                   <Icon 
-                                                        name='location-on'
+                                                        name='filter-list'
                                                         color='#a020f0'
                                                         size={20}
                                                         iconStyle={{marginRight:10}}
@@ -220,7 +261,7 @@ class SuperSearch extends Component<Props> {
                                               </View>
                                               <View style={{flexDirection:'row',padding:10}}>
                                                   <Icon 
-                                                        name='location-on'
+                                                        name='language'
                                                         color='#a020f0'
                                                         size={20}
                                                         iconStyle={{marginRight:10}}
@@ -229,7 +270,8 @@ class SuperSearch extends Component<Props> {
                                               </View>
                                               <View style={{flexDirection:'row',padding:10}}>
                                                   <Icon 
-                                                        name='location-on'
+                                                        name='open-book'
+                                                        type='entypo'
                                                         color='#a020f0'
                                                         size={20}
                                                         iconStyle={{marginRight:10}}
@@ -238,14 +280,15 @@ class SuperSearch extends Component<Props> {
                                               </View>
                                               <View style={{flexDirection:'row',padding:10}}>
                                                   <Icon 
-                                                        name='location-on'
+                                                        name='open-book'
+                                                        type='entypo'
                                                         color='#a020f0'
                                                         size={20}
                                                         iconStyle={{marginRight:10}}
                                                   />
                                                   <Text style={{color:'#a020f0',fontSize:15,width:'90%'}}>{c.bio}</Text>
                                               </View>
-                                              <TouchableOpacity style={{borderColor:'red',borderWidth:1,justifyContent:'center',alignItems:'center',padding:10}}>
+                                              <TouchableOpacity style={{marginTop:20,marginBottom:20,borderColor:'red',borderWidth:1,justifyContent:'center',alignItems:'center',padding:10}}>
                                                     <Text style={{color:'red'}}>Delete Charity</Text>
                                               </TouchableOpacity>
                                         </View>
@@ -258,7 +301,8 @@ class SuperSearch extends Component<Props> {
                                           <View style={{borderColor:'#a020f0',borderWidth:1,borderBottomWidth:1,flexDirection:'column'}}>
                                               <View style={{flexDirection:'row',padding:10}}>
                                                   <Icon 
-                                                        name='business'
+                                                        name='coin'
+                                                        type='material-community'
                                                         color='#a020f0'
                                                         size={20}
                                                         iconStyle={{marginRight:10}}
@@ -267,7 +311,8 @@ class SuperSearch extends Component<Props> {
                                               </View>
                                               <View style={{flexDirection:'row',padding:10}}>
                                                   <Icon 
-                                                        name='email'
+                                                        name='calendar-check'
+                                                        type='material-community'
                                                         color='#a020f0'
                                                         size={20}
                                                         iconStyle={{marginRight:10}}
@@ -276,7 +321,7 @@ class SuperSearch extends Component<Props> {
                                               </View>
                                               <View style={{flexDirection:'row',padding:10}}>
                                                   <Icon 
-                                                        name='location-on'
+                                                        name='receipt'
                                                         color='#a020f0'
                                                         size={20}
                                                         iconStyle={{marginRight:10}}
@@ -285,8 +330,8 @@ class SuperSearch extends Component<Props> {
                                               </View>
                                               <View style={{flexDirection:'row',padding:10}}>
                                                   <Icon 
-                                                        name='location-on'
-                                                        color='#a020f0'
+                                                        name={d.status ==='success' ? 'check' : 'clear'}
+                                                        color={d.status === 'success' ? 'green' : 'red'}
                                                         size={20}
                                                         iconStyle={{marginRight:10}}
                                                   />
@@ -294,7 +339,7 @@ class SuperSearch extends Component<Props> {
                                               </View>
                                               <View style={{flexDirection:'row',padding:10}}>
                                                   <Icon 
-                                                        name='location-on'
+                                                        name='business'
                                                         color='#a020f0'
                                                         size={20}
                                                         iconStyle={{marginRight:10}}
