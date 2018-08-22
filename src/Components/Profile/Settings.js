@@ -111,17 +111,30 @@ class Settings extends Component<Props> {
                     </TouchableOpacity>
 
                     <TouchableOpacity onPress={() => navigate('Admin')}>
-                        <View style={{borderColor:'#a020f0',borderWidth:1,borderBottomWidth:1,padding:15,flexDirection:'row',marginTop:50}}>
+                        <View style={{borderColor:'#a020f0',borderWidth:1,borderBottomWidth:0,padding:15,flexDirection:'row',marginTop:50}}>
                           <Icon 
-                            name='home-account'
+                            name='chart-line'
                             type='material-community'
                             color={'#a020f0'}
                             size={20}
                             iconStyle={{marginRight:10}}
                           />
-                            <Text style={{color:'#a020f0',fontSize:15}}>Admin</Text>
+                            <Text style={{color:'#a020f0',fontSize:15}}>Analytics</Text>
                         </View>
                     </TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigate('Admin')}>
+                        <View style={{borderColor:'#a020f0',borderWidth:1,borderBottomWidth:1,padding:15,flexDirection:'row'}}>
+                          <Icon 
+                            name='search-plus'
+                            type='font-awesome'
+                            color={'#a020f0'}
+                            size={20}
+                            iconStyle={{marginRight:10}}
+                          />
+                            <Text style={{color:'#a020f0',fontSize:15}}>Super Search</Text>
+                        </View>
+                    </TouchableOpacity>
+
               </View>
         </ScrollView>
       </View>
