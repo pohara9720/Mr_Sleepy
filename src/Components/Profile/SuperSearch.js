@@ -26,7 +26,8 @@ class SuperSearch extends Component<Props> {
         search:'',
         filter:true,
         category:'',
-        openDetails:''
+        openDetails:'',
+        openUp:false
       }
     }
 
@@ -131,7 +132,7 @@ class SuperSearch extends Component<Props> {
         <View style={styles.results}>
             <Text style={{color:'white',fontWeight:'bold'}}>{`12 results`}</Text>
         </View>
-        <ScrollView style={{flex:1,padding:15}}>
+        <ScrollView style={{flex:1}}>
                   {
                     example.map((e,i) => 
                       <View>
@@ -144,14 +145,18 @@ class SuperSearch extends Component<Props> {
                                 separator={true} 
                                 inColumn={false}>
                                       <CardButton
-                                        onPress={() => this.setState({openDetails:e.id})}
+                                        onPress={() => this.setState({openDetails:e.id,openUp:!this.state.openUp})}
                                         title="View More"
+                                      />
+                                      <CardButton
+                                        onPress={() => this.setState({openDetails:e.id,openUp:!this.state.openUp})}
+                                        title="Delete User"
                                       />
                               </CardAction>
                         </Card>
-                        <Collapsible collapsed={this.state.openDetails === e.id ? false : true}>
-                              <View style={{display:'flex',flexDirection:'column',padding:10,backgroundColor:'white'}}>
-                                  <View style={{padding:15,borderColor:'#a020f0',borderWidth:1,borderBottomWidth:0,flexDirection:'row'}}>
+                        <Collapsible collapsed={this.state.openDetails === e.id && this.state.openUp === true ? false : true}>
+                              <View style={{margin:5,display:'flex',flexDirection:'column',backgroundColor:'white'}}>
+                                  <View style={{padding:10,borderBottomWidth:0,flexDirection:'row'}}>
                                         <Icon 
                                               name={e.verified === true ? 'check' : 'remove'}
                                               type='font-awesome'
@@ -161,7 +166,7 @@ class SuperSearch extends Component<Props> {
                                         />
                                         <Text style={{color:'#a020f0',fontSize:15}}>Verified</Text>
                                   </View>
-                                  <View style={{padding:15,borderColor:'#a020f0',borderWidth:1,borderBottomWidth:1,flexDirection:'row'}}>
+                                  <View style={{padding:10,borderColor:'#a020f0',borderBottomWidth:1,flexDirection:'row'}}>
                                         <Icon 
                                               name='key'
                                               type='font-awesome'
@@ -172,84 +177,86 @@ class SuperSearch extends Component<Props> {
                                         <Text style={{color:'#a020f0',fontSize:15}}>Customer ID</Text>
                                         <Text style={{color:'#a020f0',fontSize:15,marginLeft:'auto'}}>{e.customerId}</Text>
                                   </View>
-                              </View>
-                              <View style={{display:'flex',flexDirection:'column',padding:10}}>
-                                <Text>Charities</Text>
+                                  <View style={{display:'flex',flexDirection:'column',padding:10}}>
+                                <Text style={{color:'#a020f0',fontSize:20,fontWeight:'bold'}}>Charities</Text>
                                   {
                                     e.Charity.map((c,i) => 
-                                          <View style={{borderColor:'#a020f0',borderWidth:1,borderBottomWidth:1,flexDirection:'column'}}>
-                                              <View>
+                                          <View style={{borderColor:'#a020f0',flexDirection:'column',borderBottomWidth:1}}>
+                                              <View style={{flexDirection:'row',padding:10}}>
                                                   <Icon 
                                                         name='business'
                                                         color='#a020f0'
                                                         size={20}
                                                         iconStyle={{marginRight:10}}
                                                   />
-                                                  <Text style={{color:'#a020f0',fontSize:15}}>{c.name}</Text>
+                                                  <Text style={{color:'#a020f0',fontSize:15,width:'90%'}}>{c.name}</Text>
                                               </View>
-                                              <View>
+                                              <View style={{flexDirection:'row',padding:10}}>
                                                   <Icon 
                                                         name='email'
                                                         color='#a020f0'
                                                         size={20}
                                                         iconStyle={{marginRight:10}}
                                                   />
-                                                  <Text style={{color:'#a020f0',fontSize:15}}>{c.email}</Text>
+                                                  <Text style={{color:'#a020f0',fontSize:15,width:'90%'}}>{c.email}</Text>
                                               </View>
-                                              <View>
+                                              <View style={{flexDirection:'row',padding:10}}>
                                                   <Icon 
                                                         name='location-on'
                                                         color='#a020f0'
                                                         size={20}
                                                         iconStyle={{marginRight:10}}
                                                   />
-                                                  <Text style={{color:'#a020f0',fontSize:15}}>{c.location}</Text>
+                                                  <Text style={{color:'#a020f0',fontSize:15,width:'90%'}}>{c.location}</Text>
                                               </View>
-                                              <View>
+                                              <View style={{flexDirection:'row',padding:10}}>
                                                   <Icon 
                                                         name='location-on'
                                                         color='#a020f0'
                                                         size={20}
                                                         iconStyle={{marginRight:10}}
                                                   />
-                                                  <Text style={{color:'#a020f0',fontSize:15}}>{c.category}</Text>
+                                                  <Text style={{color:'#a020f0',fontSize:15,width:'90%'}}>{c.category}</Text>
                                               </View>
-                                              <View>
+                                              <View style={{flexDirection:'row',padding:10}}>
                                                   <Icon 
                                                         name='location-on'
                                                         color='#a020f0'
                                                         size={20}
                                                         iconStyle={{marginRight:10}}
                                                   />
-                                                  <Text style={{color:'#a020f0',fontSize:15}}>{c.website}</Text>
+                                                  <Text style={{color:'#a020f0',fontSize:15,width:'90%'}}>{c.website}</Text>
                                               </View>
-                                              <View>
+                                              <View style={{flexDirection:'row',padding:10}}>
                                                   <Icon 
                                                         name='location-on'
                                                         color='#a020f0'
                                                         size={20}
                                                         iconStyle={{marginRight:10}}
                                                   />
-                                                  <Text style={{color:'#a020f0',fontSize:15}}>{c.subtitle}</Text>
+                                                  <Text style={{color:'#a020f0',fontSize:15,width:'90%'}}>{c.subtitle}</Text>
                                               </View>
-                                              <View>
+                                              <View style={{flexDirection:'row',padding:10}}>
                                                   <Icon 
                                                         name='location-on'
                                                         color='#a020f0'
                                                         size={20}
                                                         iconStyle={{marginRight:10}}
                                                   />
-                                                  <Text style={{color:'#a020f0',fontSize:15}}>{c.bio}</Text>
+                                                  <Text style={{color:'#a020f0',fontSize:15,width:'90%'}}>{c.bio}</Text>
                                               </View>
+                                              <TouchableOpacity style={{borderColor:'red',borderWidth:1,justifyContent:'center',alignItems:'center',padding:10}}>
+                                                    <Text style={{color:'red'}}>Delete Charity</Text>
+                                              </TouchableOpacity>
                                         </View>
                                     )}
                               </View>
                               <View style={{display:'flex',flexDirection:'column',padding:10}}>
-                                <Text>Donations</Text>
+                                <Text style={{color:'#a020f0',fontSize:20,fontWeight:'bold'}}>Donations</Text>
                                   {
                                     e.Donation.map((d,i) => 
                                           <View style={{borderColor:'#a020f0',borderWidth:1,borderBottomWidth:1,flexDirection:'column'}}>
-                                              <View>
+                                              <View style={{flexDirection:'row',padding:10}}>
                                                   <Icon 
                                                         name='business'
                                                         color='#a020f0'
@@ -258,25 +265,25 @@ class SuperSearch extends Component<Props> {
                                                   />
                                                   <Text style={{color:'#a020f0',fontSize:15}}>{d.amount}</Text>
                                               </View>
-                                              <View>
+                                              <View style={{flexDirection:'row',padding:10}}>
                                                   <Icon 
                                                         name='email'
                                                         color='#a020f0'
                                                         size={20}
                                                         iconStyle={{marginRight:10}}
                                                   />
-                                                  <Text style={{color:'#a020f0',fontSize:15}}>{d.date}</Text>
+                                                  <Text style={{color:'#a020f0',fontSize:15}}>{d.donatedOn}</Text>
                                               </View>
-                                              <View>
+                                              <View style={{flexDirection:'row',padding:10}}>
                                                   <Icon 
                                                         name='location-on'
                                                         color='#a020f0'
                                                         size={20}
                                                         iconStyle={{marginRight:10}}
                                                   />
-                                                  <Text style={{color:'#a020f0',fontSize:15}}>{d.transation}</Text>
+                                                  <Text style={{color:'#a020f0',fontSize:15}}>{d.transaction}</Text>
                                               </View>
-                                              <View>
+                                              <View style={{flexDirection:'row',padding:10}}>
                                                   <Icon 
                                                         name='location-on'
                                                         color='#a020f0'
@@ -285,7 +292,7 @@ class SuperSearch extends Component<Props> {
                                                   />
                                                   <Text style={{color:'#a020f0',fontSize:15}}>{d.status}</Text>
                                               </View>
-                                              <View>
+                                              <View style={{flexDirection:'row',padding:10}}>
                                                   <Icon 
                                                         name='location-on'
                                                         color='#a020f0'
@@ -296,6 +303,7 @@ class SuperSearch extends Component<Props> {
                                               </View>
                                         </View>
                                     )}
+                              </View>
                               </View>
                       </Collapsible>
                     </View>
