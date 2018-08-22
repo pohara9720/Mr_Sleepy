@@ -3,7 +3,7 @@ import {
   Platform,
   StyleSheet,
   Text,
-  View,Button,ScrollView,TouchableOpacity,Image,TextInput
+  View,Button,ScrollView,TouchableOpacity,Image,TextInput,Linking
 } from 'react-native';
 
 
@@ -289,7 +289,7 @@ class Profile extends Component<Props> {
               </View>
               <View style={{marginTop:15,padding:15}}>
               { this.props.store.accountCharities.length === 0 ?
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => Linking.openURL('http://sleepywebsite.s3-website-us-east-1.amazonaws.com/')}>
                       <View style={{borderColor:'#a020f0',borderWidth:1,borderBottomWidth:0,padding:15,alignItems:'center',flexDirection:'row',justifyContent:'center'}}>
                           <Text style={{color:'#a020f0',fontWeight:'bold',fontSize:15}}>Visit our website</Text>
                           <Icon 
@@ -346,6 +346,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
+    paddingTop:22
   },
   linearGradient:{
     height:230,

@@ -35,60 +35,78 @@ class Receipts extends Component<Props> {
     const backAction = NavigationActions.back({})
     const receiptsList = [{
       date:moment().format('l'),
-      amount: '$6.00'
+      amount: '$6.00',
+      transaction: 'rec_iajiwd2inmimide2m'
     },
     {
       date:moment().format('l'),
-      amount: '$6.00'
+      amount: '$6.00',
+      transaction: 'rec_iajiwd2inmimide2m'
     },{
       date:moment().format('l'),
-      amount: '$6.00'
+      amount: '$6.00',
+      transaction: 'rec_iajiwd2inmimide2m'
     },{
       date:moment().format('l'),
-      amount: '$6.00'
+      amount: '$6.00',
+      transaction: 'rec_iajiwd2inmimide2m'
     },{
       date:moment().format('l'),
-      amount: '$6.00'
+      amount: '$6.00',
+      transaction: 'rec_iajiwd2inmimide2m'
     },{
       date:moment().format('l'),
-      amount: '$6.00'
+      amount: '$6.00',
+      transaction: 'rec_iajiwd2inmimide2m'
     },{
       date:moment().format('l'),
-      amount: '$6.00'
+      amount: '$6.00',
+      transaction: 'rec_iajiwd2inmimide2m'
     },{
       date:moment().format('l'),
-      amount: '$6.00'
+      amount: '$6.00',
+      transaction: 'rec_iajiwd2inmimide2m'
     },{
       date:moment().format('l'),
-      amount: '$6.00'
+      amount: '$6.00',
+      transaction: 'rec_iajiwd2inmimide2m'
     },{
       date:moment().format('l'),
-      amount: '$6.00'
+      amount: '$6.00',
+      transaction: 'rec_iajiwd2inmimide2m'
     },
     {
       date:moment().format('l'),
-      amount: '$6.00'
+      amount: '$6.00',
+      transaction: 'rec_iajiwd2inmimide2m'
     },{
       date:moment().format('l'),
-      amount: '$6.00'
+      amount: '$6.00',
+      transaction: 'rec_iajiwd2inmimide2m'
     },{
       date:moment().format('l'),
-      amount: '$6.00'
+      amount: '$6.00',
+      transaction: 'rec_iajiwd2inmimide2m'
     },{
       date:moment().format('l'),
-      amount: '$6.00'
+      amount: '$6.00',
+      transaction: 'rec_iajiwd2inmimide2m'
     },{
       date:moment().format('l'),
-      amount: '$6.00'
+      amount: '$6.00',
+      transaction: 'rec_iajiwd2inmimide2m'
     },{
       date:moment().format('l'),
-      amount: '$6.00'
+      amount: '$6.00',
+      transaction: 'rec_iajiwd2inmimide2m'
     },{
       date:moment().format('l'),
-      amount: '$6.00'
+      amount: '$6.00',
+      transaction: 'rec_iajiwd2inmimide2m'
     },{
       date:moment().format('l'),
-      amount: '$6.00'
+      amount: '$6.00',
+      transaction: 'rec_iajiwd2inmimide2m'
     }]
     const Back = (props) => {
             return(
@@ -112,9 +130,9 @@ class Receipts extends Component<Props> {
                 receiptsList.map((r,i) => 
                     <ListItem 
                         title={`Week of ${r.date}`}
-                        titleStyle={{fontSize:16,color:'white'}}
-                        // subtitle={alarm.label}
-                        // subtitleStyle={{color:'white'}}
+                        titleStyle={{fontSize:16,color:'white',fontWeight:'bold'}}
+                        subtitle={`conf #: ${r.transaction}`}
+                        subtitleStyle={{color:'white'}}
                         containerStyle={{backgroundColor:'#a020f0',borderTopWidth:0,borderBottomWidth:0,borderRadius:10,marginBottom:5}}
                         hideChevron={true}
                         badge={{ value: `${r.amount}`, textStyle: { color: '#a020f0' }, containerStyle: {backgroundColor:'white' } }}

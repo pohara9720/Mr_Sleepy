@@ -3,7 +3,7 @@ import {
   Platform,
   StyleSheet,
   Text,
-  View,Button,ScrollView,TouchableOpacity,Image
+  View,Button,ScrollView,TouchableOpacity,Image,Linking
 } from 'react-native';
 
 
@@ -50,7 +50,7 @@ class Alarms extends Component<Props> {
               rightComponent={{ icon: 'add', color: '#a020f0', onPress:() => this.navigateTo()}}
               outerContainerStyles={{backgroundColor:'transparent',borderBottomWidth:0,borderBottomColor:'transparent'}}
           />
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => Linking.openURL('http://sleepywebsite.s3-website-us-east-1.amazonaws.com/')}>
                   <Image
                       resizeMode='cover'
                       source={require('../images/bannerAd.png')}
