@@ -28,7 +28,7 @@ class Snapshots extends Component<Props> {
 
   render() {
     const snapshots = [
-    {   date:'Aug 2018',
+    {   date:'Jan 2018',
         userGraph:[{ name: 'Inactive', population: 110},{ name: 'A.N.D', population: 130 },{ name: 'Donors', population: 400 }],
         charityGraph:[{ name: 'None', population: 13 },{ name: '> 10/m', population: 12 },{ name: '< 10/m', population: 30 }],
         lineGraph:{
@@ -44,7 +44,7 @@ class Snapshots extends Component<Props> {
         donationsThisYTD:1202,
         overallDonations:5002
     },
-    {   date:'Aug 2018',
+    {   date:'Feb 2018',
         userGraph:[{ name: 'Inactive', population: 110},{ name: 'A.N.D', population: 130 },{ name: 'Donors', population: 400 }],
         charityGraph:[{ name: 'None', population: 13 },{ name: '> 10/m', population: 12 },{ name: '< 10/m', population: 30 }],
         lineGraph:{
@@ -60,7 +60,7 @@ class Snapshots extends Component<Props> {
         donationsThisYTD:1202,
         overallDonations:5002
     },
-    {   date:'Aug 2018',
+    {   date:'Mar 2018',
         userGraph:[{ name: 'Inactive', population: 110},{ name: 'A.N.D', population: 130 },{ name: 'Donors', population: 400 }],
         charityGraph:[{ name: 'None', population: 13 },{ name: '> 10/m', population: 12 },{ name: '< 10/m', population: 30 }],
         lineGraph:{
@@ -76,7 +76,7 @@ class Snapshots extends Component<Props> {
         donationsThisYTD:1202,
         overallDonations:5002
     },
-    {   date:'Aug 2018',
+    {   date:'April 2018',
         userGraph:[{ name: 'Inactive', population: 110},{ name: 'A.N.D', population: 130 },{ name: 'Donors', population: 400 }],
         charityGraph:[{ name: 'None', population: 13 },{ name: '> 10/m', population: 12 },{ name: '< 10/m', population: 30 }],
         lineGraph:{
@@ -119,7 +119,7 @@ class Snapshots extends Component<Props> {
                 snapshots.map((r,i) => 
                     <ListItem 
                         key={i}
-                        title={`Week of ${r.date}`}
+                        title={`${r.date}`}
                         titleStyle={{fontSize:16,color:'white'}}
                         // subtitle={alarm.label}
                         // subtitleStyle={{color:'white'}}

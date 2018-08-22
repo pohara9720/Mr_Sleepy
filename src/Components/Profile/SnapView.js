@@ -53,7 +53,7 @@ class SnapView extends Component<Props> {
         <Header
             leftComponent={<Back />}
             // rightComponent={{ icon: 'camera-enhance', color: '#fff',onPress:() => navigate('Snapshots') }}
-            centerComponent={{ text: 'SnapView', style: {fontSize:22,color:'white'}}}
+            centerComponent={{ text: `${data.date}`, style: {fontSize:22,color:'white'}}}
             outerContainerStyles={{backgroundColor:'transparent',borderBottomWidth:0}}
         />
         {
@@ -69,6 +69,7 @@ class SnapView extends Component<Props> {
                 averageDonation={data.averageDonation}
                 donationsYTD={data.donationsThisYTD}
                 overallDonations={data.overallDonations}
+                date={data.date}
             />
         }
       </View>

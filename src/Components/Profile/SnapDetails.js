@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
 
 export const SnapDetails = (props) => (
 	<ScrollView>
-            <Text style={{paddingLeft:10,color:'white',fontWeight:'bold',fontSize:25,marginBottom:10,marginTop:30}}>Current Data</Text>
+            <Text style={{paddingLeft:10,color:'white',fontWeight:'bold',fontSize:25,marginBottom:10,marginTop:30}}>{props.date} Data</Text>
             <View  style={styles.current}>
                   <Icon 
                         name='users'

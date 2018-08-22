@@ -96,12 +96,13 @@ class Admin extends Component<Props> {
       <View style={styles.container}>
         <Header
             leftComponent={<Back />}
-            rightComponent={{ icon: 'camera-enhance', color: '#fff',onPress:() => navigate('Snapshots') }}
+            // rightComponent={{ icon: 'camera-enhance', color: '#fff',onPress:() => navigate('Snapshots') }}
             centerComponent={{ text: 'Admin', style: {fontSize:22,color:'white'}}}
             outerContainerStyles={{backgroundColor:'transparent',borderBottomWidth:0}}
         />
         {
             <SnapDetails 
+                date='Current'
                 userGraph={data.userGraph}
                 charityGraph={data.charityGraph}
                 lineGraph={data.lineGraph}

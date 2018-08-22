@@ -109,9 +109,9 @@ class Settings extends Component<Props> {
                             <Text style={{color:'#a020f0',fontSize:15}}>Delete Account</Text>
                         </View>
                     </TouchableOpacity>
-
+                    <Text style={{color:'#a020f0',fontSize:20,marginBottom:5,marginTop:50}}>Admin</Text>
                     <TouchableOpacity onPress={() => navigate('Admin')}>
-                        <View style={{borderColor:'#a020f0',borderWidth:1,borderBottomWidth:0,padding:15,flexDirection:'row',marginTop:50}}>
+                        <View style={{borderColor:'#a020f0',borderWidth:1,borderBottomWidth:0,padding:15,flexDirection:'row'}}>
                           <Icon 
                             name='chart-line'
                             type='material-community'
@@ -120,6 +120,17 @@ class Settings extends Component<Props> {
                             iconStyle={{marginRight:10}}
                           />
                             <Text style={{color:'#a020f0',fontSize:15}}>Analytics</Text>
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigate('Snapshots')}>
+                        <View style={{borderColor:'#a020f0',borderWidth:1,borderBottomWidth:0,padding:15,flexDirection:'row'}}>
+                          <Icon 
+                            name='camera-enhance'
+                            color={'#a020f0'}
+                            size={20}
+                            iconStyle={{marginRight:10}}
+                          />
+                            <Text style={{color:'#a020f0',fontSize:15}}>Snapshot History</Text>
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => navigate('SuperSearch')}>
