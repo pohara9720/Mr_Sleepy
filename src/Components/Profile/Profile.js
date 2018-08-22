@@ -15,6 +15,7 @@ import connect from '../HOC'
 
 
 
+
 class Profile extends Component<Props> {
     constructor(props){
       super(props)

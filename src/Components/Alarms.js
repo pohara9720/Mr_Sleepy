@@ -8,6 +8,7 @@ import {
 
 
 import {Header ,List,ListItem,Icon } from 'react-native-elements'
+import Modal from "react-native-simple-modal"
 import moment from 'moment'
 import LinearGradient from 'react-native-linear-gradient'
 import {  Context } from '../../App'
@@ -111,6 +112,48 @@ class Alarms extends Component<Props> {
                       }
                   </View>
               </ScrollView>
+              <Modal
+                  animationDuration={200}
+                  animationTension={40}
+                  closeOnTouchOutside={false}
+                  containerStyle={{
+                    justifyContent: "center",
+                    margin:0,
+                    padding:0
+                  }}
+                  disableOnBackPress={false}
+                  // modalDidClose={() => PushNotificationsHandler.requestPermissions()}
+                  modalStyle={{
+                    // margin: 20,
+                    // padding: 10,
+                    // backgroundColor: "#a020f0",
+                    borderRadius:10,  
+                    // borderWidth:0,
+                    // margin:0,
+                    // padding:
+                    // borderColor:'white',
+                  }}
+                  offset={0}
+                  open={this.props.store.infoModal}
+                  overlayStyle={{
+                    backgroundColor: "rgba(0, 0, 0, 0.75)",
+                    flex: 1
+                  }}
+              >     
+                  <View style={{alignItems:'center',justifyContent:'center'}}>
+                        <View style={{backgroundColor:'#a020f0',padding:50}}>
+                              <Icon 
+                                color='white'
+                                size={50}
+                                name='notifications-active' 
+                              />
+                              <Text style={{textAlign:'center',color:'white'}}>Mr. Sleepy uses Push Notifications to make sure you receive your alarms!</Text>
+                        </View>
+                        <TouchableOpacity style={{justifyContent:'center',alignItems:'center',padding:12}}onPress={() => this.props.clearInfoModal()}>
+                              <Text style={{color:'#a020f0',fontSize:15}}>Okay</Text>
+                        </TouchableOpacity>
+                  </View>
+              </Modal>
         </View>
       );
     }

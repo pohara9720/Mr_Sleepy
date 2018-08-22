@@ -101,7 +101,8 @@ export default class App extends Component<Props> {
             accountEmail: 'arianagrande@gmail.com',
             accountPassword: '',
             accountPasswordConfirm:'',
-            currentTime: ''
+            currentTime: '',
+            infoModal:true
         }
     }
 
@@ -354,6 +355,8 @@ SPEC ALARM GOING OFF
             switch: (id) => this.switch(id),
 
             addCard: (object) => this.addPayment(object),
+
+            clearInfoModal: () => this.setState({infoModal:false})
 
           }}> 
               {
