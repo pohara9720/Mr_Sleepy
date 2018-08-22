@@ -92,7 +92,6 @@ class Admin extends Component<Props> {
         donationsThisYTD:1202,
         overallDonations:5002
     }
-      
     return (
       <View style={styles.container}>
         <Header

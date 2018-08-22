@@ -47,6 +47,7 @@ class SnapView extends Component<Props> {
             )
      }
     const data = this.props.navigation.state.params.r
+    // console.log('SCREEN',this.props)
     return (
       <View style={styles.container}>
         <Header

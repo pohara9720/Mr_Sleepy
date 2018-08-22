@@ -28,7 +28,7 @@ class Snapshots extends Component<Props> {
 
   render() {
     const snapshots = [
-    {   date:moment().format("MMM YY"),
+    {   date:'Aug 2018',
         userGraph:[{ name: 'Inactive', population: 110},{ name: 'A.N.D', population: 130 },{ name: 'Donors', population: 400 }],
         charityGraph:[{ name: 'None', population: 13 },{ name: '> 10/m', population: 12 },{ name: '< 10/m', population: 30 }],
         lineGraph:{
@@ -44,7 +44,7 @@ class Snapshots extends Component<Props> {
         donationsThisYTD:1202,
         overallDonations:5002
     },
-    {   date:moment().format("MMM YY"),
+    {   date:'Aug 2018',
         userGraph:[{ name: 'Inactive', population: 110},{ name: 'A.N.D', population: 130 },{ name: 'Donors', population: 400 }],
         charityGraph:[{ name: 'None', population: 13 },{ name: '> 10/m', population: 12 },{ name: '< 10/m', population: 30 }],
         lineGraph:{
@@ -60,7 +60,7 @@ class Snapshots extends Component<Props> {
         donationsThisYTD:1202,
         overallDonations:5002
     },
-    {   date:moment().format("MMM YY"),
+    {   date:'Aug 2018',
         userGraph:[{ name: 'Inactive', population: 110},{ name: 'A.N.D', population: 130 },{ name: 'Donors', population: 400 }],
         charityGraph:[{ name: 'None', population: 13 },{ name: '> 10/m', population: 12 },{ name: '< 10/m', population: 30 }],
         lineGraph:{
@@ -76,7 +76,7 @@ class Snapshots extends Component<Props> {
         donationsThisYTD:1202,
         overallDonations:5002
     },
-    {   date:moment().format("MMM YY"),
+    {   date:'Aug 2018',
         userGraph:[{ name: 'Inactive', population: 110},{ name: 'A.N.D', population: 130 },{ name: 'Donors', population: 400 }],
         charityGraph:[{ name: 'None', population: 13 },{ name: '> 10/m', population: 12 },{ name: '< 10/m', population: 30 }],
         lineGraph:{
@@ -104,6 +104,7 @@ class Snapshots extends Component<Props> {
               </Text>
             )
      }
+     // console.log('Snapshots',snapshots)
     return (
       <View style={styles.container}>
         <Header
@@ -124,8 +125,8 @@ class Snapshots extends Component<Props> {
                         // subtitleStyle={{color:'white'}}
                         containerStyle={{backgroundColor:'#a020f0',borderTopWidth:0,borderBottomWidth:0,borderRadius:10,marginBottom:5}}
                         hideChevron={true}
-                        badge={{ value: 'Details', textStyle: { color: '#a020f0' }, containerStyle: {backgroundColor:'white' },onPress:() => navigate('SnapView',{r})}}
-                        // onPressRightIcon={() => this.props.deleteAlarm(i)}
+                        badge={{ value: 'Details', textStyle: { color: '#a020f0' }, containerStyle: {backgroundColor:'white' }}}
+                        onPress={() => navigate('SnapView',{r})}
                         // rightIcon={{name:'remove-circle',color:'red'}}
                     />
                 )
