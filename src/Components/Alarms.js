@@ -118,20 +118,18 @@ class Alarms extends Component<Props> {
                   closeOnTouchOutside={false}
                   containerStyle={{
                     justifyContent: "center",
-                    margin:0,
-                    padding:0
                   }}
                   disableOnBackPress={false}
                   // modalDidClose={() => PushNotificationsHandler.requestPermissions()}
                   modalStyle={{
                     // margin: 20,
                     // padding: 10,
-                    // backgroundColor: "#a020f0",
+                    backgroundColor: "#a020f0",
                     borderRadius:10,  
                     // borderWidth:0,
                     // margin:0,
                     // padding:
-                    // borderColor:'white',
+                    borderColor:'#a020f0',
                   }}
                   offset={0}
                   open={this.props.store.infoModal}
@@ -144,12 +142,13 @@ class Alarms extends Component<Props> {
                         <View style={{backgroundColor:'#a020f0',padding:50}}>
                               <Icon 
                                 color='white'
-                                size={50}
+                                size={70}
                                 name='notifications-active' 
+                                iconStyle={{marginBottom:20}}
                               />
                               <Text style={{textAlign:'center',color:'white'}}>Mr. Sleepy uses Push Notifications to make sure you receive your alarms!</Text>
                         </View>
-                        <TouchableOpacity style={{justifyContent:'center',alignItems:'center',padding:12}}onPress={() => this.props.clearInfoModal()}>
+                        <TouchableOpacity style={{justifyContent:'center',alignItems:'center',padding:12,backgroundColor:'white',width:'107%',marginBottom:-10,borderBottomLeftRadius:10,borderBottomRightRadius:10}}onPress={() => this.props.clearInfoModal()}>
                               <Text style={{color:'#a020f0',fontSize:15}}>Okay</Text>
                         </TouchableOpacity>
                   </View>
