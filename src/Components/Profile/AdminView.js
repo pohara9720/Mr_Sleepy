@@ -15,7 +15,7 @@ import connect from '../HOC'
 
 
 
-class Settings extends Component<Props> {
+class AdminView extends Component<Props> {
     constructor(props){
       super(props)
       this.state={
@@ -42,73 +42,48 @@ class Settings extends Component<Props> {
       <View style={styles.container}>
       <Header
             leftComponent={<Back />}
-            centerComponent={{ text: 'Settings', style: { color: '#a020f0',fontSize:22}}}
+            centerComponent={{ text: 'Admin', style: { color: '#a020f0',fontSize:22}}}
             outerContainerStyles={{backgroundColor:'transparent',borderBottomWidth:0}}
         />
         <ScrollView style={{flex:1}}>
               <View style={{marginTop:15,padding:15}}>
-                  <View style={{borderColor:'#a020f0',borderWidth:1,borderBottomWidth:0,padding:15}}>
-                      <Text style={{color:'#a020f0',fontWeight:'bold',fontSize:15}}>Account</Text>
-                  </View>
-                    <TouchableOpacity onPress={() => navigate('Terms')}>
+                    <Text style={{color:'#a020f0',fontSize:20,marginBottom:5}}>Admin</Text>
+                    <TouchableOpacity onPress={() => navigate('Admin')}>
                         <View style={{borderColor:'#a020f0',borderWidth:1,borderBottomWidth:0,padding:15,flexDirection:'row'}}>
                           <Icon 
-                            name='legal'
+                            name='chart-line'
+                            type='material-community'
+                            color={'#a020f0'}
+                            size={20}
+                            iconStyle={{marginRight:10}}
+                          />
+                            <Text style={{color:'#a020f0',fontSize:15}}>Analytics</Text>
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigate('Snapshots')}>
+                        <View style={{borderColor:'#a020f0',borderWidth:1,borderBottomWidth:0,padding:15,flexDirection:'row'}}>
+                          <Icon 
+                            name='camera-enhance'
+                            color={'#a020f0'}
+                            size={20}
+                            iconStyle={{marginRight:10}}
+                          />
+                            <Text style={{color:'#a020f0',fontSize:15}}>Snapshot History</Text>
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigate('SuperSearch')}>
+                        <View style={{borderColor:'#a020f0',borderWidth:1,padding:15,flexDirection:'row'}}>
+                          <Icon 
+                            name='search-plus'
                             type='font-awesome'
                             color={'#a020f0'}
                             size={20}
                             iconStyle={{marginRight:10}}
                           />
-                            <Text style={{color:'#a020f0',fontSize:15}}>Terms & Conditions</Text>
+                            <Text style={{color:'#a020f0',fontSize:15}}>Super Search</Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => navigate('Privacy')}>
-                      <View style={{borderColor:'#a020f0',borderWidth:1,borderBottomWidth:0,padding:15,flexDirection:'row'}}>
-                        <Icon 
-                          name='legal'
-                          type='font-awesome'
-                          color={'#a020f0'}
-                          size={20}
-                          iconStyle={{marginRight:10}}
-                        />
-                          <Text style={{color:'#a020f0',fontSize:15}}>Privacy Policy</Text>
-                      </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => navigate('Receipts')}>
-                        <View style={{borderColor:'#a020f0',borderWidth:1,borderBottomWidth:0,padding:15,flexDirection:'row'}}>
-                          <Icon 
-                            name={'receipt'}
-                            color={'#a020f0'}
-                            size={20}
-                            iconStyle={{marginRight:10}}
-                          />
-                            <Text style={{color:'#a020f0',fontSize:15}}>Receipts</Text>
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity>
-                        <View style={{borderColor:'#a020f0',borderWidth:1,borderBottomWidth:0,padding:15,flexDirection:'row'}}>
-                          <Icon 
-                            name='logout'
-                            type='material-community'
-                            color={'#a020f0'}
-                            size={20}
-                            iconStyle={{marginRight:10}}
-                          />
-                            <Text style={{color:'#a020f0',fontSize:15}}>Sign out</Text>
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity>
-                        <View style={{borderColor:'#a020f0',borderWidth:1,borderBottomWidth:1,padding:15,flexDirection:'row'}}>
-                          <Icon 
-                            name='account-remove'
-                            type='material-community'
-                            color={'#a020f0'}
-                            size={20}
-                            iconStyle={{marginRight:10}}
-                          />
-                            <Text style={{color:'#a020f0',fontSize:15}}>Delete Account</Text>
-                        </View>
-                    </TouchableOpacity>
+
               </View>
         </ScrollView>
       </View>
@@ -160,4 +135,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default connect(Settings, Context)
+export default connect(AdminView, Context)

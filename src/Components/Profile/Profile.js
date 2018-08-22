@@ -240,6 +240,18 @@ class Profile extends Component<Props> {
                           <Text style={{color:'#a020f0',fontSize:15}}>Settings</Text>
                       </View>
                   </TouchableOpacity>
+                  <TouchableOpacity onPress={() => navigate('AdminView')}>
+                      <View style={{borderColor:'#a020f0',borderWidth:1,borderBottomWidth:1,padding:15,flexDirection:'row',marginTop:5}}>
+                          <Icon 
+                            name='home-account'
+                            type='material-community'
+                            color={'#a020f0'}
+                            size={20}
+                            iconStyle={{marginRight:10}}
+                          />
+                          <Text style={{color:'#a020f0',fontSize:15}}>Admin</Text>
+                      </View>
+                  </TouchableOpacity>
               </View>
 
               <View style={{marginTop:15,padding:15}}>

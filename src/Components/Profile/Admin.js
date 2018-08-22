@@ -97,7 +97,7 @@ class Admin extends Component<Props> {
         <Header
             leftComponent={<Back />}
             // rightComponent={{ icon: 'camera-enhance', color: '#fff',onPress:() => navigate('Snapshots') }}
-            centerComponent={{ text: 'Admin', style: {fontSize:22,color:'white'}}}
+            centerComponent={{ text: 'Analytics', style: {fontSize:22,color:'white'}}}
             outerContainerStyles={{backgroundColor:'transparent',borderBottomWidth:0}}
         />
         {
