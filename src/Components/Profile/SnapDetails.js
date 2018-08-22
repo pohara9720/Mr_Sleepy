@@ -49,8 +49,9 @@ export const SnapDetails = (props) => (
             <Text style={{paddingLeft:10,color:'white',fontWeight:'bold',fontSize:25,marginBottom:10,marginTop:30}}>Current Data</Text>
             <View  style={styles.current}>
                   <Icon 
-                        name={'favorite-border'}
-                        color={'#a020f0'}
+                        name='users'
+                        type='font-awesome'
+                        color='#a020f0'
                         size={20}
                         iconStyle={{marginRight:10}}
                   />
@@ -60,8 +61,9 @@ export const SnapDetails = (props) => (
 
             <View  style={styles.current}>
                   <Icon 
-                        name={'favorite-border'}
-                        color={'#a020f0'}
+                        name='account-check'
+                        type='material-community'
+                        color='#a020f0'
                         size={20}
                         iconStyle={{marginRight:10}}
                   />
@@ -70,8 +72,9 @@ export const SnapDetails = (props) => (
             </View>
             <View  style={styles.current}>
                   <Icon 
-                        name={'favorite-border'}
-                        color={'#a020f0'}
+                        name='account-heart'
+                        type='material-community'
+                        color='#a020f0'
                         size={20}
                         iconStyle={{marginRight:10}}
                   />
@@ -80,8 +83,9 @@ export const SnapDetails = (props) => (
             </View>
             <View  style={styles.current}>
                   <Icon 
-                        name={'favorite-border'}
-                        color={'#a020f0'}
+                        name='account-remove'
+                        type='material-community'
+                        color='#a020f0'
                         size={20}
                         iconStyle={{marginRight:10}}
                   />
@@ -90,8 +94,8 @@ export const SnapDetails = (props) => (
             </View>
             <View  style={styles.current}>
                   <Icon 
-                        name={'favorite-border'}
-                        color={'#a020f0'}
+                        name='business'
+                        color='#a020f0'
                         size={20}
                         iconStyle={{marginRight:10}}
                   />
@@ -129,8 +133,9 @@ export const SnapDetails = (props) => (
 
             <View  style={styles.current}>
                   <Icon 
-                        name={'favorite-border'}
-                        color={'#a020f0'}
+                        name='coin'
+                        type='material-community'
+                        color='#a020f0'
                         size={20}
                         iconStyle={{marginRight:10}}
                   />
@@ -139,8 +144,8 @@ export const SnapDetails = (props) => (
             </View>
             <View  style={styles.current}>
                   <Icon 
-                        name={'favorite-border'}
-                        color={'#a020f0'}
+                        name='attach-money'
+                        color='#a020f0'
                         size={20}
                         iconStyle={{marginRight:10}}
                   />
@@ -149,7 +154,8 @@ export const SnapDetails = (props) => (
             </View>
             <View  style={styles.current}>
                   <Icon 
-                        name={'favorite-border'}
+                        name='money'
+                        type='font-awesome'
                         color={'#a020f0'}
                         size={20}
                         iconStyle={{marginRight:10}}

@@ -46,9 +46,7 @@ class SnapView extends Component<Props> {
               </Text>
             )
      }
-    console.log('SNAPVIEW',this.props)
     const data = this.props.navigation.state.params.r
-      
     return (
       <View style={styles.container}>
         <Header
