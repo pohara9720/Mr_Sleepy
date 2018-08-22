@@ -15,6 +15,7 @@ import Receipts from '../Profile/Receipts'
 import Snapshots from '../Profile/Snapshots'
 import SnapView from '../Profile/SnapView'
 import Admin from '../Profile/Admin'
+import SuperSearch from '../Profile/SuperSearch'
 import CharityProfile from '../AddAlarm/CharityProfile'
 // import {Tabs} from './Tabs'
 
@@ -37,6 +38,7 @@ const ProfileRoutes = StackNavigator({
     Admin: { screen: props => <Admin {...props} />},
     Snapshots: { screen: props => <Snapshots {...props} />},
     SnapView: { screen: props => <SnapView {...props} />},
+    SuperSearch: { screen: props => <SuperSearch {...props} />},
 },
 {
     headerMode: 'none',

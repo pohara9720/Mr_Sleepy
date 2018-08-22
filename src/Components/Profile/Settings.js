@@ -122,7 +122,7 @@ class Settings extends Component<Props> {
                             <Text style={{color:'#a020f0',fontSize:15}}>Analytics</Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => navigate('Admin')}>
+                    <TouchableOpacity onPress={() => navigate('SuperSearch')}>
                         <View style={{borderColor:'#a020f0',borderWidth:1,borderBottomWidth:1,padding:15,flexDirection:'row'}}>
                           <Icon 
                             name='search-plus'
