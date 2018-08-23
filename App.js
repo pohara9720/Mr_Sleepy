@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import {
   Platform,
   StyleSheet,
-  Text,
+  Text,Linking,
   View,AsyncStorage,AppState
 } from 'react-native'
 console.disableYellowBox = true;
@@ -103,7 +103,7 @@ export default class App extends Component<Props> {
             accountPassword: '',
             accountPasswordConfirm:'',
             currentTime: '',
-            infoModal:true
+            infoModal:false
         }
     }
 
@@ -116,6 +116,7 @@ export default class App extends Component<Props> {
                 currentTime : this.getDate()
             })
         },1000)
+        
         // this.loadCharities()
     }
 
@@ -146,6 +147,7 @@ export default class App extends Component<Props> {
                 playSound: true, // (optional) default: true
                 soundName: 'sleepyprod.wav', // (optional) Sound to play when the notification is shown. Value of 'default' plays the default sound. It can be set to a custom sound such as 'android.resource://com.xyz/raw/my_sound'. It will look for the 'my_sound' audio file in 'res/raw' directory and play it. default: 'default' (default sound is played)
                 repeatType: 'day', // (optional) Repeating interval. Check 'Repeating Notifications' section for more info.
+                repeatTime: day, //should the number of milliseconds between each interval.
                 actions: '["Snooze", "Stop"]',
                 date: fireAt // in 60 secs
             });
@@ -158,6 +160,7 @@ export default class App extends Component<Props> {
                 playSound: true, // (optional) default: true
                 soundName: 'sleepyprod.wav', // (optional) Sound to play when the notification is shown. Value of 'default' plays the default sound. It can be set to a custom sound such as 'android.resource://com.xyz/raw/my_sound'. It will look for the 'my_sound' audio file in 'res/raw' directory and play it. default: 'default' (default sound is played)
                 repeatType: 'day', // (optional) Repeating interval. Check 'Repeating Notifications' section for more info.
+                repeatTime: day,//should the number of milliseconds between each interval.
                 actions: '["Snooze", "Stop"]',
                 date: fireAt // in 60 secs
             });
@@ -408,7 +411,9 @@ SPEC ALARM GOING OFF
 
             addCard: (object) => this.addPayment(object),
 
-            clearInfoModal: () => this.clearInfoModal()
+            clearInfoModal: () => this.clearInfoModal(),
+
+            triggerInfoModal: () => this.setState({infoModal:true})
 
           }}> 
               {

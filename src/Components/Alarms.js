@@ -11,9 +11,9 @@ import {Header ,List,ListItem,Icon } from 'react-native-elements'
 import Modal from "react-native-simple-modal"
 import moment from 'moment'
 import LinearGradient from 'react-native-linear-gradient'
-import {  Context } from '../../App'
+import { Context } from '../../App'
 import connect from './HOC'
-
+import PushNotification from 'react-native-push-notification'
 
 
 
@@ -23,6 +23,18 @@ class Alarms extends Component<Props> {
       this.state ={
         edit:false
       }
+    }
+
+    componentDidMount(){
+        PushNotification.checkPermissions((callback) => {
+            console.log('CALLBACK',callback)
+            if(callback.alert !== 1|| callback.badge  !== 1|| callback.sound !== 1){
+                this.props.triggerInfoModal()
+            }
+            else{
+                null
+            }
+        })
     }
 
     navigateTo = () => {
@@ -115,7 +127,7 @@ class Alarms extends Component<Props> {
               <Modal
                   animationDuration={200}
                   animationTension={40}
-                  closeOnTouchOutside={false}
+                  closeOnTouchOutside={true}
                   containerStyle={{
                     justifyContent: "center",
                   }}
@@ -143,7 +155,7 @@ class Alarms extends Component<Props> {
                               />
                               <Text style={{textAlign:'center',color:'white'}}>Mr. Sleepy uses Push Notifications to make sure you receive your alarms!</Text>
                         </View>
-                        <TouchableOpacity style={{justifyContent:'center',alignItems:'center',padding:12,backgroundColor:'white',width:'107%',marginBottom:-10,borderBottomLeftRadius:10,borderBottomRightRadius:10}}onPress={() => this.props.clearInfoModal()}>
+                        <TouchableOpacity style={{justifyContent:'center',alignItems:'center',padding:12,backgroundColor:'white',width:'107%',marginBottom:-10,borderBottomLeftRadius:10,borderBottomRightRadius:10}}onPress={() => Linking.openURL('app-settings:')}>
                               <Text style={{color:'#a020f0',fontSize:15}}>Okay</Text>
                         </TouchableOpacity>
                   </View>
