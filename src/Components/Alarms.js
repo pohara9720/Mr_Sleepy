@@ -27,7 +27,7 @@ class Alarms extends Component<Props> {
 
     componentDidMount(){
         PushNotification.checkPermissions((callback) => {
-            console.log('CALLBACK',callback)
+            // console.log('CALLBACK',callback)
             if(callback.alert !== 1|| callback.badge  !== 1|| callback.sound !== 1){
                 this.props.triggerInfoModal()
             }
