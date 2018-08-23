@@ -34,10 +34,12 @@ class AddAlarm extends Component<Props> {
       this.props.navigation.dispatch(backAction)
       this.props.cancelAlarm()
     }
+
     errorMessage = () => {
         this.setState({modal:true})
         setTimeout(() => this.setState({modal:false}),2500)
     }
+    
     createAlarm = () => {
         if(this.props.store.charitySelect === null){
             this.errorMessage()

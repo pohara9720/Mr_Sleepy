@@ -115,8 +115,7 @@ export default class App extends Component<Props> {
             this.setState({
                 currentTime : this.getDate()
             })
-        },1000)
-        
+        },1000)        
         // this.loadCharities()
     }
 
@@ -227,8 +226,8 @@ export default class App extends Component<Props> {
         return time
     }
 
+
     syncDays = (alarm) => {
-      // console.log(alarm)
       const time = moment(alarm.time).format('h:mm:ss a')
 
       if(alarm.frequency[0].option === 'Everyday'){
@@ -369,7 +368,7 @@ SPEC ALARM GOING OFF
       // console.log('Current Time',this.state.currentTime)
       const newAlarm = {
           time:this.state.timeSelect,
-          frequency: this.state.frequency,
+          frequency: this.state.frequency.length === 0 ? [{option:'Just Once'}] : this.state.frequency,
           label: this.state.label,
           charity: this.state.charitySelect,
           switch: true

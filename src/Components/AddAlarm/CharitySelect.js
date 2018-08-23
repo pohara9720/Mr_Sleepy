@@ -88,7 +88,7 @@ class CharitySelect extends Component<Props> {
                       <View style={{display:'flex',flexDirection:'row',flexWrap:'wrap'}}>
                           {
                             categories.map((c,i) => 
-                              <Badge onPress={() => c === 'Clear' ? this.setState({category:'',filter:true}) : this.setState({category:c})} containerStyle={ this.state.category === c ? {backgroundColor: '#a020f0',margin:5,borderColor:'white',borderWidth:1} : {backgroundColor: 'white',margin:5,borderWidth:1,borderColor:'transparent'}}>
+                              <Badge key={i} onPress={() => c === 'Clear' ? this.setState({category:'',filter:true}) : this.setState({category:c})} containerStyle={ this.state.category === c ? {backgroundColor: '#a020f0',margin:5,borderColor:'white',borderWidth:1} : {backgroundColor: 'white',margin:5,borderWidth:1,borderColor:'transparent'}}>
                                     <Text style={this.state.category === c ? {color:'white',fontWeight:'bold'} : {color:'#a020f0',fontWeight:'bold'}}>{c}</Text>
                               </Badge>)
                           }
@@ -110,9 +110,8 @@ class CharitySelect extends Component<Props> {
               </LinearGradient>
               :
               searchedCharities.map((l,i) => 
-                <View style={{borderRadius:10}}>
+                <View key={i} style={{borderRadius:10}}>
                   <TouchableOpacity 
-                      key={i}
                       style={{borderRadius:10}}
                       onPress={() => this.viewProfile(l)}>
                       <Card
