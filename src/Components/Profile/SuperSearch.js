@@ -142,7 +142,7 @@ class SuperSearch extends Component<Props> {
                 inputStyle={{color:'#a020f0',backgroundColor:'white'}}
                 // clearIcon={this.state.search ? {icon:'cancel',color:'#02E7FE'} : null}
                 icon={{ type: 'font-awesome', name: 'search'}}
-                placeholder='Filter by name or location' 
+                placeholder='Search by email' 
             />
             <Icon
                 name='sort'

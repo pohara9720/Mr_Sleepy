@@ -122,13 +122,8 @@ class Alarms extends Component<Props> {
                   disableOnBackPress={false}
                   // modalDidClose={() => PushNotificationsHandler.requestPermissions()}
                   modalStyle={{
-                    // margin: 20,
-                    // padding: 10,
                     backgroundColor: "#a020f0",
                     borderRadius:10,  
-                    // borderWidth:0,
-                    // margin:0,
-                    // padding:
                     borderColor:'#a020f0',
                   }}
                   offset={0}

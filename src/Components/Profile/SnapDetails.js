@@ -185,7 +185,7 @@ export const SnapDetails = (props) => (
                 />
             </View>
             <Text style={{paddingLeft:5,color:'white',fontWeight:'bold',fontSize:25,marginBottom:10,marginTop:30}}>Profit Distribution</Text>
-            <View style={{shadowColor: 'white',shadowOpacity: 1,shadowRadius: 10,alignItems:'center'}}>
+            <View style={{shadowColor: 'white',shadowOpacity: 1,shadowRadius: 10,alignItems:'center',marginBottom:50}}>
                 <LineChart
                   data={props.lineGraph}
                   width={screenWidth-10}

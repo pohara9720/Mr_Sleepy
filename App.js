@@ -12,6 +12,7 @@ import Login from './src/Components/Auth/Login'
 import Tabs from './src/Components/Nav/Tabs'
 import moment from 'moment'
 import axios from 'axios'
+import PushNotification from 'react-native-push-notification'
 
 export const Context = React.createContext()
 export const api = 'http://localhost:4000'
