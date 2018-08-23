@@ -6,6 +6,7 @@
  */
 
 #import "AppDelegate.h"
+// I ADD THIS LINE BELOW
 #import <React/RCTPushNotificationManager.h>
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
@@ -32,6 +33,8 @@
   return YES;
 }
 
+
+// I ADDED ALL THIS BEFORE END
  // Required to register for notifications
  - (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
  {

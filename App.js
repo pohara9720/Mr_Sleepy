@@ -109,6 +109,7 @@ export default class App extends Component<Props> {
 
     componentDidMount(){
         AppState.addEventListener('change', this.getAppState)
+        this.configurePushNotifications()
         this.loadAlarms()
         setInterval( () => {
             this.setState({
@@ -134,6 +135,21 @@ export default class App extends Component<Props> {
         }
     }
 
+    sendNotification = (object,time) => {
+      const now = Date.now()
+      const then = time
+      const fireAt = moment(now).diff(then)
+        PushNotification.localNotificationSchedule({
+            // title: object.message, // (optional)
+            message: object.message, // (required)
+            playSound: true, // (optional) default: true
+            soundName: 'sleepyprod.wav', // (optional) Sound to play when the notification is shown. Value of 'default' plays the default sound. It can be set to a custom sound such as 'android.resource://com.xyz/raw/my_sound'. It will look for the 'my_sound' audio file in 'res/raw' directory and play it. default: 'default' (default sound is played)
+            number: '10', // (optional) Valid 32 bit integer specified as string. default: none (Cannot be zero)
+            repeatType: 'day', // (optional) Repeating interval. Check 'Repeating Notifications' section for more info.
+            actions: '["Snooze", "Stop"]',
+            date: fireAt // in 60 secs
+        });
+    }
     // loadCharities = () => {
     //     axios.get(`${api}/charities`).then((res,err) => {
     //         if(err){
@@ -158,6 +174,28 @@ export default class App extends Component<Props> {
     //         }
     //     })
     // }
+
+    configurePushNotifications = () => {
+        PushNotification.configure({
+            onNotification: (notification) =>  {
+                console.log( 'NOTIFICATION:', notification );
+                // required on iOS only (see fetchCompletionHandler docs: https://facebook.github.io/react-native/docs/pushnotificationios.html)
+                // notification.finish(PushNotificationIOS.FetchResult.NoData);
+            },
+            // IOS ONLY (optional): default: all - Permissions to register.
+            permissions: {
+                alert: true,
+                badge: true,
+                sound: true
+            },
+            requestPermissions: true
+        });
+    }
+
+    clearInfoModal = () => {
+        this.setState({infoModal:false})
+        // PushNotificationsHandler.requestPermissions()
+    }
 
     getDate = () => {
         var date = new Date()
@@ -357,7 +395,7 @@ SPEC ALARM GOING OFF
 
             addCard: (object) => this.addPayment(object),
 
-            clearInfoModal: () => this.setState({infoModal:false})
+            clearInfoModal: () => this.clearInfoModal()
 
           }}> 
               {
