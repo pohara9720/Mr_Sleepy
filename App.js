@@ -169,7 +169,9 @@ export default class App extends Component<Props> {
           }
 
       console.log('Minutes til fire',minutesToFire)
-      const triggerIn = ((minutesToFire * 1000) * 1000)
+      const triggerIn = new Date(Date.now() + (minutesToFire * 60000))
+      const test = moment(triggerIn).format('h:mm a')
+      console.log('TIME',test)
       console.log('Trigger in',triggerIn)
         // if(Platform.OS === 'ios'){
         //     PushNotification.localNotificationSchedule({
