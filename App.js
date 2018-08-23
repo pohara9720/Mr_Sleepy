@@ -136,7 +136,15 @@ export default class App extends Component<Props> {
         }
     }
 
-    sendNotification = (alarm) => {
+    stopAlarm = (id) => {
+          PushNotification.cancelLocalNotifications({id});
+    }
+
+    fireSnooze = () => {
+        this.sendNotification(alarm,true)
+    }
+
+    sendNotification = (alarm,snooze) => {
       const now = Date.now()
       const then = alarm.time
       const fireAt = moment(now).diff(then)
@@ -147,7 +155,7 @@ export default class App extends Component<Props> {
                 playSound: true, // (optional) default: true
                 soundName: 'sleepyprod.wav', // (optional) Sound to play when the notification is shown. Value of 'default' plays the default sound. It can be set to a custom sound such as 'android.resource://com.xyz/raw/my_sound'. It will look for the 'my_sound' audio file in 'res/raw' directory and play it. default: 'default' (default sound is played)
                 repeatType: 'day', // (optional) Repeating interval. Check 'Repeating Notifications' section for more info.
-                repeatTime: day, //should the number of milliseconds between each interval.
+                repeatTime: `${snooze === true ? new Date(Date.now() + 420000) : day}`, //should the number of milliseconds between each interval.
                 actions: '["Snooze", "Stop"]',
                 date: fireAt // in 60 secs
             });
