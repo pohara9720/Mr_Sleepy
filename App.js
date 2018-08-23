@@ -147,10 +147,30 @@ export default class App extends Component<Props> {
         console.log('asdas')
     }
 
-    sendNotification = (alarm,id,fireAt) => {
+    sendNotification = (alarm,id) => {
       console.log('Alarm',alarm)
       const time = moment(alarm.time).format('h:mm a')
-      console.log('Minutes til fire',fireAt)
+      const date = new Date()
+      var getTime = date.getTime()
+      const now = moment(date)
+      var eventTime= moment(alarm.time); // Timestamp - Sun, 21 Apr 2013 13:00:00 GMT
+      // var currentTime = moment(now); // Timestamp - Sun, 21 Apr 2013 12:30:00 GMT
+      // var diffTime = eventTime - currentTime;
+       // var d = moment().duration(then.diff(now))
+      var diffInMinutes = eventTime.diff(now, 'minutes')
+      // console.log('BEFORE LOGIC',diffInMinutes)
+      let minutesToFire
+
+          if(diffInMinutes < 0){
+              minutesToFire = Math.abs((Math.abs(diffInMinutes + 720) * 2) + diffInMinutes)
+          }
+          else{
+              minutesToFire = diffInMinutes
+          }
+
+      console.log('Minutes til fire',minutesToFire)
+      const triggerIn = ((minutesToFire * 1000) * 1000)
+      console.log('Trigger in',triggerIn)
         // if(Platform.OS === 'ios'){
         //     PushNotification.localNotificationSchedule({
         //         userInfo: {id:id},
@@ -160,7 +180,7 @@ export default class App extends Component<Props> {
         //         repeatType:`${alarm.frequency[0].option === 'Everyday' ? 'day' : null}`, // (optional) Repeating interval. Check 'Repeating Notifications' section for more info.
         //         // repeatTime: , //should the number of milliseconds between each interval.
         //         actions: '["Snooze", "Stop"]',
-        //         date: new Date(Date.now() + (fireAt * 1000)) // in 60 secs
+        //         date: triggerIn // in 60 secs
         //     });
         // }else{
         //     PushNotification.localNotificationSchedule({
@@ -173,7 +193,7 @@ export default class App extends Component<Props> {
         //         repeatType:`${alarm.frequency[0].option === 'Everyday' ? 'day' : null}`, // (optional) Repeating interval. Check 'Repeating Notifications' section for more info.
         //         // repeatTime: day,//should the number of milliseconds between each interval.
         //         actions: '["Snooze", "Stop"]',
-        //         date: fireAt // in 60 secs
+        //         date: triggerIn // in 60 secs
         //     });
         // }
     }
@@ -292,29 +312,29 @@ export default class App extends Component<Props> {
     setTimes = () => {
       var onAlarms = this.state.alarmList.filter(x => x.switch)
         for(let i = 0 ; i < onAlarms.length; i++) {
-            if(p.frequency[0].length < 1){
+            if(onAlarms[i].frequency[0].length < 1){
                   this.sendFrequencyNotifications()
             }else{
                 var p = onAlarms[i]
                 var getDate = new Date()
                 var getTime = getDate.getTime()
                 const now = moment(getDate)
-                var eventTime= moment(p.time); // Timestamp - Sun, 21 Apr 2013 13:00:00 GMT
-                var currentTime = moment(now); // Timestamp - Sun, 21 Apr 2013 12:30:00 GMT
-                var diffTime = eventTime - currentTime;
-                 // var d = moment().duration(then.diff(now))
-                var diffInMinutes = eventTime.diff(now, 'minutes')
-                // console.log('BEFORE LOGIC',diffInMinutes)
-                let minutesToFire
+                // var eventTime= moment(p.time); // Timestamp - Sun, 21 Apr 2013 13:00:00 GMT
+                // // var currentTime = moment(now); // Timestamp - Sun, 21 Apr 2013 12:30:00 GMT
+                // // var diffTime = eventTime - currentTime;
+                //  // var d = moment().duration(then.diff(now))
+                // var diffInMinutes = eventTime.diff(now, 'minutes')
+                // // console.log('BEFORE LOGIC',diffInMinutes)
+                // let minutesToFire
 
-                    if(diffInMinutes < 0){
-                        minutesToFire = Math.abs((Math.abs(diffInMinutes + 720) * 2) + diffInMinutes)
-                    }
-                    else{
-                        minutesToFire = diffInMinutes
-                    }
+                //     if(diffInMinutes < 0){
+                //         minutesToFire = Math.abs((Math.abs(diffInMinutes + 720) * 2) + diffInMinutes)
+                //     }
+                //     else{
+                //         minutesToFire = diffInMinutes
+                //     }
 
-                this.sendNotification(p,i,minutesToFire)
+                this.sendNotification(p,i)
             }
           // setInterval(() => {
           //       this.syncDays(onAlarms[i])
