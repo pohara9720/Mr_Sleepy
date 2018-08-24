@@ -134,6 +134,7 @@ export default class App extends Component<Props> {
         }
         else{
             console.log('App is in the background')
+            this.testNotification()
         }
     }
 
@@ -252,6 +253,19 @@ export default class App extends Component<Props> {
 
     }
 
+    testNotification = () => {
+        PushNotification.localNotificationSchedule({
+            userInfo: {id:3},
+            message: 'This is a Mr. Sleepy Test Alarm', // (required)
+            playSound: true, // (optional) default: true
+            soundName: 'mp3sleepy.mp3', // (optional) Sound to play when the notification is shown. Value of 'default' plays the default sound. It can be set to a custom sound such as 'android.resource://com.xyz/raw/my_sound'. It will look for the 'my_sound' audio file in 'res/raw' directory and play it. default: 'default' (default sound is played)
+            // repeatType:`${alarm.frequency[0].option === 'Everyday' ? 'day' : ''}`, // (optional) Repeating interval. Check 'Repeating Notifications' section for more info.
+            // repeatTime: , //should the number of milliseconds between each interval.
+            // actions: '["Snooze", "Stop"]',
+            date: new Date(Date.now() + (5 * 1000)) // in 60 secs
+        });
+    }
+
     sendNotification = (alarm,snooze) => {
 
       const time = moment(alarm.time).format('h:mm a')
@@ -289,7 +303,7 @@ export default class App extends Component<Props> {
                 repeatType:`${alarm.frequency[0].option === 'Everyday' ? 'day' : ''}`, // (optional) Repeating interval. Check 'Repeating Notifications' section for more info.
                 // repeatTime: , //should the number of milliseconds between each interval.
                 actions: '["Snooze", "Stop"]',
-                date: `${snooze === true ? snoozeTrigger : triggerIn}` // in 60 secs
+                date: `${snooze === true ? snoozeTrigger.toISOString() : triggerIn.toISOString()}` // in 60 secs
             });
         }else{
             PushNotification.localNotificationSchedule({
