@@ -111,11 +111,11 @@ export default class App extends Component<Props> {
         AppState.addEventListener('change', this.getAppState)
         this.configurePushNotifications()
         this.loadAlarms()
-        setInterval( () => {
-            this.setState({
-                currentTime : this.getDate()
-            })
-        },1000)        
+        // setInterval( () => {
+        //     this.setState({
+        //         currentTime : this.getDate()
+        //     })
+        // },1000)        
         // this.loadCharities()
     }
 
@@ -143,12 +143,100 @@ export default class App extends Component<Props> {
         this.sendNotification(alarm,true)
     }
 
-    sendFrequencyNotifications(){
-        console.log('asdas')
+    sortFrequencies = (alarm) => {
+      console.log('FREQUENCY ALARM',alarm)
+        const today = moment().day()
+        for(let i = 0; i < alarm.frequency.length;i++){
+            if(alarm.frequency[i].option === 'Sundays'){
+                const dayNeeded = 7
+                // if we haven't yet passed the day of the week that I need:
+                    if (today <= dayNeeded) { 
+                      // then just give me this week's instance of that day
+                      const nextInstance = moment().isoWeekday(dayNeeded)
+                      this.sendRepeatingNotification(nextInstance,alarm,i)
+                    } else {
+                      // otherwise, give me *next week's* instance of that same day
+                      const nextInstance = moment().add(1, 'weeks').isoWeekday(dayNeeded)
+                      this.sendRepeatingNotification(nextInstance,alarm,i)
+                    }
+
+                // console.log('SUNDAY SHOULD BE 7:',dayNeeded,alarm.frequency[i].option)
+            }
+            else{
+                const dayNeeded = alarm.frequency[i].id - 1
+                // if we haven't yet passed the day of the week that I need:
+                  if (today <= dayNeeded) { 
+                    // then just give me this week's instance of that day
+                    const nextInstance = moment().isoWeekday(dayNeeded,)
+                    this.sendRepeatingNotification(nextInstance,alarm,i)
+                  } else {
+                    // otherwise, give me *next week's* instance of that same day
+                      const nextInstance = moment().add(1, 'weeks').isoWeekday(dayNeeded,i)
+                      this.sendRepeatingNotification(nextInstance,alarm,i)
+                  }
+                // console.log('Other days:',dayNeeded,alarm.frequency[i].option)
+            }
+        }
+    }
+
+    sendRepeatingNotification = (instance,alarm,id) => {
+        // console.log('Instance',instance.format('dd h:mm a'))
+        const time = moment(alarm.time).format('h:mm a')
+        var eventTime= moment(alarm.time)
+        // const interval = moment(alarm.time).valueOf()
+        // console.log('INTERVAL',interval)
+        // console.log(eventTime.format('hh:mm a'))
+        var diffInMinutes = eventTime.diff(instance, 'minutes')
+        let minutesToFire
+
+          if(diffInMinutes < 0){
+              minutesToFire = Math.abs((Math.abs(diffInMinutes + 720) * 2) + diffInMinutes) + 1800
+          }
+          else{
+              minutesToFire = diffInMinutes
+          }
+        // const test = instance + (minutesToFire * 6000)
+        // console.log('TEST',minutesToFire)
+        const triggerIn = new Date(Date.now() + (minutesToFire * 60000))
+        const test = moment(triggerIn).format(' dd h:mm a')
+        console.log(test)
+       // const test2 =  moment(test).format("dd hh:mm a")
+       // console.log("TEST 2",test2)
+       //  console.log('remainder',instance + (minutesToFire * 6000))
+        // const newInstance = (instance + (diffInMinutes * 60000))
+        // console.log('Day and Time after add',moment(newInstance).format('dd hh:mm a'))
+        // console.log('MINUTES CONVERTED',Math.abs(diffInMinutes) / 60)
+        // console.log('milliseconds til alarm',instance + (diffInMinutes * 60000))
+        // if(Platform.OS === 'ios'){
+        //     PushNotification.localNotificationSchedule({
+        //         userInfo: {id:id},
+        //         message: `${alarm.label === '' ? `Wake up its ${time}` : alarm.label}`, // (required)
+        //         playSound: true, // (optional) default: true
+        //         soundName: 'sleepyprod.wav', // (optional) Sound to play when the notification is shown. Value of 'default' plays the default sound. It can be set to a custom sound such as 'android.resource://com.xyz/raw/my_sound'. It will look for the 'my_sound' audio file in 'res/raw' directory and play it. default: 'default' (default sound is played)
+        //         repeatType:'week', // (optional) Repeating interval. Check 'Repeating Notifications' section for more info.
+        //         // repeatTime: , //should the number of milliseconds between each interval.
+        //         actions: '["Snooze", "Stop"]',
+        //         date: instance// in 60 secs
+        //     });
+        // }else{
+        //     PushNotification.localNotificationSchedule({
+        //         id: `${id}`, // (optional) Valid unique 32 bit integer specified as string. default: Autogenerated Unique ID
+        //         vibrate: true, // (optional) default: true
+        //         vibration: 300, // vibration length in milliseconds, ignored if vibrate=false, default: 1000
+        //         message: `${alarm.label === '' ? `Wake up its ${time}` : alarm.label}`, // (required)
+        //         playSound: true, // (optional) default: true
+        //         soundName: 'sleepyprod.wav', // (optional) Sound to play when the notification is shown. Value of 'default' plays the default sound. It can be set to a custom sound such as 'android.resource://com.xyz/raw/my_sound'. It will look for the 'my_sound' audio file in 'res/raw' directory and play it. default: 'default' (default sound is played)
+        //         repeatType:`${alarm.frequency[0].option === 'Everyday' ? 'day' : null}`, // (optional) Repeating interval. Check 'Repeating Notifications' section for more info.
+        //         // repeatTime: day,//should the number of milliseconds between each interval.
+        //         actions: '["Snooze", "Stop"]',
+        //         date: instance // in 60 secs
+        //     });
+        // }
+
     }
 
     sendNotification = (alarm,id) => {
-      console.log('Alarm',alarm)
+      // console.log('Alarm',alarm)
       const time = moment(alarm.time).format('h:mm a')
       const date = new Date()
       var getTime = date.getTime()
@@ -168,36 +256,36 @@ export default class App extends Component<Props> {
               minutesToFire = diffInMinutes
           }
 
-      console.log('Minutes til fire',minutesToFire)
+      // console.log('Minutes til fire',minutesToFire)
       const triggerIn = new Date(Date.now() + (minutesToFire * 60000))
       const test = moment(triggerIn).format('h:mm a')
-      console.log('TIME',test)
-      console.log('Trigger in',triggerIn)
-        if(Platform.OS === 'ios'){
-            PushNotification.localNotificationSchedule({
-                userInfo: {id:id},
-                message: `${alarm.label === '' ? `Wake up its ${time}` : alarm.label}`, // (required)
-                playSound: true, // (optional) default: true
-                soundName: 'sleepyprod.wav', // (optional) Sound to play when the notification is shown. Value of 'default' plays the default sound. It can be set to a custom sound such as 'android.resource://com.xyz/raw/my_sound'. It will look for the 'my_sound' audio file in 'res/raw' directory and play it. default: 'default' (default sound is played)
-                repeatType:`${alarm.frequency[0].option === 'Everyday' ? 'day' : null}`, // (optional) Repeating interval. Check 'Repeating Notifications' section for more info.
-                // repeatTime: , //should the number of milliseconds between each interval.
-                actions: '["Snooze", "Stop"]',
-                date: triggerIn // in 60 secs
-            });
-        }else{
-            PushNotification.localNotificationSchedule({
-                id: `${id}`, // (optional) Valid unique 32 bit integer specified as string. default: Autogenerated Unique ID
-                vibrate: true, // (optional) default: true
-                vibration: 300, // vibration length in milliseconds, ignored if vibrate=false, default: 1000
-                message: `${alarm.label === '' ? `Wake up its ${time}` : alarm.label}`, // (required)
-                playSound: true, // (optional) default: true
-                soundName: 'sleepyprod.wav', // (optional) Sound to play when the notification is shown. Value of 'default' plays the default sound. It can be set to a custom sound such as 'android.resource://com.xyz/raw/my_sound'. It will look for the 'my_sound' audio file in 'res/raw' directory and play it. default: 'default' (default sound is played)
-                repeatType:`${alarm.frequency[0].option === 'Everyday' ? 'day' : null}`, // (optional) Repeating interval. Check 'Repeating Notifications' section for more info.
-                // repeatTime: day,//should the number of milliseconds between each interval.
-                actions: '["Snooze", "Stop"]',
-                date: triggerIn // in 60 secs
-            });
-        }
+      // console.log('TIME',test)
+      // console.log('Trigger in',triggerIn)
+        // if(Platform.OS === 'ios'){
+        //     PushNotification.localNotificationSchedule({
+        //         userInfo: {id:id},
+        //         message: `${alarm.label === '' ? `Wake up its ${time}` : alarm.label}`, // (required)
+        //         playSound: true, // (optional) default: true
+        //         soundName: 'sleepyprod.wav', // (optional) Sound to play when the notification is shown. Value of 'default' plays the default sound. It can be set to a custom sound such as 'android.resource://com.xyz/raw/my_sound'. It will look for the 'my_sound' audio file in 'res/raw' directory and play it. default: 'default' (default sound is played)
+        //         repeatType:`${alarm.frequency[0].option === 'Everyday' ? 'day' : ''}`, // (optional) Repeating interval. Check 'Repeating Notifications' section for more info.
+        //         // repeatTime: , //should the number of milliseconds between each interval.
+        //         actions: '["Snooze", "Stop"]',
+        //         date: triggerIn // in 60 secs
+        //     });
+        // }else{
+        //     PushNotification.localNotificationSchedule({
+        //         id: `${id}`, // (optional) Valid unique 32 bit integer specified as string. default: Autogenerated Unique ID
+        //         vibrate: true, // (optional) default: true
+        //         vibration: 300, // vibration length in milliseconds, ignored if vibrate=false, default: 1000
+        //         message: `${alarm.label === '' ? `Wake up its ${time}` : alarm.label}`, // (required)
+        //         playSound: true, // (optional) default: true
+        //         soundName: 'sleepyprod.wav', // (optional) Sound to play when the notification is shown. Value of 'default' plays the default sound. It can be set to a custom sound such as 'android.resource://com.xyz/raw/my_sound'. It will look for the 'my_sound' audio file in 'res/raw' directory and play it. default: 'default' (default sound is played)
+        //         repeatType:`${alarm.frequency[0].option === 'Everyday' ? 'day' : ''}`, // (optional) Repeating interval. Check 'Repeating Notifications' section for more info.
+        //         // repeatTime: day,//should the number of milliseconds between each interval.
+        //         actions: '["Snooze", "Stop"]',
+        //         date: triggerIn // in 60 secs
+        //     });
+        // }
     }
     // loadCharities = () => {
     //     axios.get(`${api}/charities`).then((res,err) => {
@@ -314,8 +402,9 @@ export default class App extends Component<Props> {
     setTimes = () => {
       var onAlarms = this.state.alarmList.filter(x => x.switch)
         for(let i = 0 ; i < onAlarms.length; i++) {
-            if(onAlarms[i].frequency[0].length < 1){
-                  this.sendFrequencyNotifications()
+            if(onAlarms[i].frequency.length > 1){
+                  console.log('caught')
+                  this.sortFrequencies(onAlarms[i])
             }else{
                 var p = onAlarms[i]
                 var getDate = new Date()
