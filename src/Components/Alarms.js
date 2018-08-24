@@ -35,12 +35,18 @@ class Alarms extends Component<Props> {
                 null
             }
         })
+        
     }
 
     navigateTo = () => {
       const {navigate} = this.props.navigation
       navigate('AddAlarm')
       this.setState({edit:false})
+    }
+
+    deletLastAlarm = (id) => {
+        this.setState({edit:false})
+        this.props.deleteAlarm(id)
     }
 
     render() {
@@ -76,6 +82,7 @@ class Alarms extends Component<Props> {
                                   style={styles.btnContainer}
                                   onPress={() => navigate('AddAlarm')}
                                   >
+
                                 <LinearGradient  colors={[ '#7016a8' ,'#a020f0']} start={{x: 1, y: 2}} end={{x: 0.9, y: 0}} style={styles.linearGradient}>
                                   <View style={styles.customBtns}>
                                       <Icon 
@@ -100,7 +107,7 @@ class Alarms extends Component<Props> {
                                       subtitleStyle={{color:'white'}}
                                       containerStyle={{backgroundColor:'transparent',borderTopWidth:0,borderBottomWidth:0}}
                                       hideChevron={false}
-                                      onPressRightIcon={() => this.props.deleteAlarm(i)}
+                                      onPressRightIcon={() => this.props.store.alarmList.length === 1 ? this.deletLastAlarm(i) : this.props.deleteAlarm(i)}
                                       rightIcon={{name:'remove-circle',color:'red'}}
                                   />
                                 :

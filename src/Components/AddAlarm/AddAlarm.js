@@ -36,8 +36,8 @@ class AddAlarm extends Component<Props> {
     }
 
     errorMessage = () => {
-        this.setState({modal:true})
-        setTimeout(() => this.setState({modal:false}),2500)
+        this.props.triggerAddErrorModal()
+        setTimeout(() => this.props.closeAddErrorModal(),3000)
     }
     
     createAlarm = () => {
@@ -226,14 +226,41 @@ class AddAlarm extends Component<Props> {
             </ScrollView>
         </View>
         <Modal
-            offset={this.state.offset}
-            open={this.state.modal}
-            modalDidOpen={() => console.log('modal did open')}
-            // modalDidClose={() => this.setState({open: false})}
-            style={{alignItems: 'center'}}>
-                <View style={{alignItems:'center',padding:30,backgroundColor:'#a020f0'}}>
-                    <Text style={{color:'white',textAlign:'center',fontWeight:'bold'}}>Time and Charity are required to create an alarm.</Text>
-                </View>
+            animationDuration={200}
+            animationTension={40}
+            closeOnTouchOutside={true}
+            containerStyle={{
+              justifyContent: "center",
+            }}
+            disableOnBackPress={false}
+            // modalDidClose={() => PushNotificationsHandler.requestPermissions()}
+            modalStyle={{
+              backgroundColor: "#a020f0",
+              borderRadius:10,  
+              borderColor:'#a020f0',
+            }}
+            offset={0}
+            open={this.props.store.addErrorModal}
+            overlayStyle={{
+              backgroundColor: "rgba(0, 0, 0, 0.75)",
+              flex: 1
+            }}
+        >     
+            <View style={{alignItems:'center',justifyContent:'center'}}>
+                  <View style={{backgroundColor:'#a020f0',padding:50}}>
+                        <Icon 
+                          color='white'
+                          type='material-community'
+                          size={70}
+                          name='heart' 
+                          iconStyle={{marginBottom:20}}
+                        />
+                        <Text style={{textAlign:'center',color:'white'}}>Please select a charity to continue adding this alarm</Text>
+                  </View>
+                  <TouchableOpacity style={{justifyContent:'center',alignItems:'center',padding:12,backgroundColor:'white',width:'107%',marginBottom:-10,borderBottomLeftRadius:10,borderBottomRightRadius:10}}onPress={() => this.props.closeAddErrorModal()}>
+                        <Text style={{color:'#a020f0',fontSize:15}}>Okay</Text>
+                  </TouchableOpacity>
+            </View>
         </Modal>
       </View>
     );
