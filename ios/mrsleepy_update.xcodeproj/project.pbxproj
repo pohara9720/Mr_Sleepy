@@ -58,6 +58,7 @@
 		CC2A5E62212E7B15004E012F /* sleepyprod.wav in Resources */ = {isa = PBXBuildFile; fileRef = CC2A5E61212E7B15004E012F /* sleepyprod.wav */; };
 		CCD9D1E1212E36120093FA81 /* libRCTPushNotification.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCD9D1DE212E35D90093FA81 /* libRCTPushNotification.a */; };
 		CCE52D7F212FCF2600505E89 /* mp3sleepy.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CCE52D7E212FCF2600505E89 /* mp3sleepy.mp3 */; };
+		CCE52D81212FD23C00505E89 /* prodsleepy.wav in Resources */ = {isa = PBXBuildFile; fileRef = CCE52D80212FD23C00505E89 /* prodsleepy.wav */; };
 		F47B2DD9C0DD4599A4234130 /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0965D5B0CFA44AAF948BDCB9 /* libRNVectorIcons.a */; };
 /* End PBXBuildFile section */
 
@@ -439,6 +440,7 @@
 		CC2A5E61212E7B15004E012F /* sleepyprod.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = sleepyprod.wav; path = ../src/audio/sleepyprod.wav; sourceTree = "<group>"; };
 		CCD9D1D8212E35D80093FA81 /* RCTPushNotification.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTPushNotification.xcodeproj; path = "../node_modules/react-native/Libraries/PushNotificationIOS/RCTPushNotification.xcodeproj"; sourceTree = "<group>"; };
 		CCE52D7E212FCF2600505E89 /* mp3sleepy.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = mp3sleepy.mp3; path = ../src/audio/mp3sleepy.mp3; sourceTree = "<group>"; };
+		CCE52D80212FD23C00505E89 /* prodsleepy.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = prodsleepy.wav; path = ../src/audio/prodsleepy.wav; sourceTree = "<group>"; };
 		CE80E301E6BC4354AC77EBD2 /* RNCardIO.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNCardIO.xcodeproj; path = "../node_modules/react-native-awesome-card-io/ios/RNCardIO.xcodeproj"; sourceTree = "<group>"; };
 		D379CE6333324FE2BB4CEA72 /* roboto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = roboto.ttf; path = ../src/assets/roboto.ttf; sourceTree = "<group>"; };
 		D3A63A9B72184A79AF9B569D /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
@@ -635,6 +637,7 @@
 		5550BA065E2B4A408FC87EB8 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				CCE52D80212FD23C00505E89 /* prodsleepy.wav */,
 				6662264AF8DC4AC1AF98FE2F /* Entypo.ttf */,
 				43DC324DCD5F4C3FA82E0408 /* EvilIcons.ttf */,
 				CCE52D7E212FCF2600505E89 /* mp3sleepy.mp3 */,
@@ -1336,6 +1339,7 @@
 				51C126122FB14E0D8886B53D /* Zocial.ttf in Resources */,
 				A9B7975F116049B29ED27739 /* roboto.ttf in Resources */,
 				5C6060E6284F4D05926B839B /* reg.ttf in Resources */,
+				CCE52D81212FD23C00505E89 /* prodsleepy.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
