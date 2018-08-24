@@ -303,7 +303,7 @@ export default class App extends Component<Props> {
                 repeatType:`${alarm.frequency[0].option === 'Everyday' ? 'day' : ''}`, // (optional) Repeating interval. Check 'Repeating Notifications' section for more info.
                 // repeatTime: , //should the number of milliseconds between each interval.
                 actions: '["Snooze", "Stop"]',
-                date: `${snooze === true ? snoozeTrigger.toISOString() : triggerIn.toISOString()}` // in 60 secs
+                date: `${snooze === true ? snoozeTrigger : triggerIn}` // in 60 secs
             });
         }else{
             PushNotification.localNotificationSchedule({
