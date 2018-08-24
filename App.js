@@ -150,7 +150,7 @@ export default class App extends Component<Props> {
             if(alarm.frequency[i].option === 'Sundays'){
                 const dayNeeded = 7
                 // if we haven't yet passed the day of the week that I need:
-                    if (today <= dayNeeded) { 
+                    if (today < dayNeeded) { 
                       // then just give me this week's instance of that day
                       const nextInstance = moment().isoWeekday(dayNeeded)
                       this.sendRepeatingNotification(nextInstance,alarm,i)
@@ -165,7 +165,7 @@ export default class App extends Component<Props> {
             else{
                 const dayNeeded = alarm.frequency[i].id - 1
                 // if we haven't yet passed the day of the week that I need:
-                  if (today <= dayNeeded) { 
+                  if (today < dayNeeded) { 
                     // then just give me this week's instance of that day
                     const nextInstance = moment().isoWeekday(dayNeeded,)
                     this.sendRepeatingNotification(nextInstance,alarm,i)
@@ -180,26 +180,55 @@ export default class App extends Component<Props> {
     }
 
     sendRepeatingNotification = (instance,alarm,id) => {
-        // console.log('Instance',instance.format('dd h:mm a'))
-        const time = moment(alarm.time).format('h:mm a')
-        var eventTime= moment(alarm.time)
-        // const interval = moment(alarm.time).valueOf()
-        // console.log('INTERVAL',interval)
-        // console.log(eventTime.format('hh:mm a'))
-        var diffInMinutes = eventTime.diff(instance, 'minutes')
-        let minutesToFire
+        console.log('Instance',instance.format('dd h:mm a'))
+        // const time = moment(alarm.time).format('h:mm a')
+        var eventTime= moment(alarm.time).valueOf()
+        console.log('TIME',eventTime)
+        var lets = moment(eventTime).format('HH:mm a')
+        console.log('LETS' ,lets)
+        // const then = new Date(instance)
+        // const thenHours = then.getHours()
+        // const thenMins = then.getMinutes()
+        // const playTime = new Date(alarm.time).getTime()
+        // const test = moment(playTime)
+        // const hours = playTime.getHours()
+        // const mins = playTime.getMinutes()
+        // var d = moment.duration(timeOfAlarm.diff(dayOfAlarm))
+        // console.log('testTime',d)
+        // var diffInMinutes = instance.diff(test, 'minutes')
+        // console.log(diffInMinutes)
+        //  let minutesToFire
 
-          if(diffInMinutes < 0){
-              minutesToFire = Math.abs((Math.abs(diffInMinutes + 720) * 2) + diffInMinutes) + 1800
-          }
-          else{
-              minutesToFire = diffInMinutes
-          }
+        //   if(diffInMinutes < 0){
+        //       minutesToFire = Math.abs((Math.abs(diffInMinutes + 720) * 2) + diffInMinutes) + 1800
+        //   }
+        //   else{
+        //       minutesToFire = diffInMinutes
+        //   }
+
+        // const then = new Date(instance + (minutesToFire * 60000))
+        // console.log('THEN',then)
+        // // const interval = moment(alarm.time).valueOf()
+        // // console.log('INTERVAL',interval)
+        // // console.log(eventTime.format('hh:mm a'))
+        // var diffInMinutes = instance.diff(testTime, 'minutes')
+        
+        // var duration = Math.abs(diffInMinutes.asHours())
+        // console.log(duration)
+        // console.log('MINUTES TO FIRE',diffInMinutes)
+        // let minutesToFire
+
+        //   if(diffInMinutes < 0){
+        //       minutesToFire = Math.abs((Math.abs(diffInMinutes + 720) * 2) + diffInMinutes) + 1800
+        //   }
+        //   else{
+        //       minutesToFire = diffInMinutes
+        //   }
         // const test = instance + (minutesToFire * 6000)
         // console.log('TEST',minutesToFire)
-        const triggerIn = new Date(Date.now() + (minutesToFire * 60000))
-        const test = moment(triggerIn).format(' dd h:mm a')
-        console.log(test)
+        // const triggerIn = new Date(Date.now() + (minutesToFire * 60000))
+        // const test = moment(triggerIn).format(' dd h:mm a')
+        // console.log(test)
        // const test2 =  moment(test).format("dd hh:mm a")
        // console.log("TEST 2",test2)
        //  console.log('remainder',instance + (minutesToFire * 6000))
