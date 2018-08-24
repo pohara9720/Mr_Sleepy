@@ -292,7 +292,13 @@ export default class App extends Component<Props> {
       const triggerIn = new Date(Date.now() + (minutesToFire * 60000))
       const snoozeTrigger = new Date(Date.now() + (7 * 60000))
       const test = moment(triggerIn).format('h:mm a')
-      console.log('TIME',test)
+        let trigger 
+        if(snooze === true){
+            trigger = snoozeTrigger
+        }
+        else{
+            trigger = triggerIn
+        }
 
         if(Platform.OS === 'ios'){
             PushNotification.localNotificationSchedule({
@@ -303,7 +309,7 @@ export default class App extends Component<Props> {
                 repeatType:`${alarm.frequency[0].option === 'Everyday' ? 'day' : ''}`, // (optional) Repeating interval. Check 'Repeating Notifications' section for more info.
                 // repeatTime: , //should the number of milliseconds between each interval.
                 actions: '["Snooze", "Stop"]',
-                date: `${snooze === true ? snoozeTrigger : triggerIn}` // in 60 secs
+                date: trigger // in 60 secs
             });
         }else{
             PushNotification.localNotificationSchedule({
@@ -316,7 +322,7 @@ export default class App extends Component<Props> {
                 repeatType:`${alarm.frequency[0].option === 'Everyday' ? 'day' : ''}`, // (optional) Repeating interval. Check 'Repeating Notifications' section for more info.
                 // repeatTime: day,//should the number of milliseconds between each interval.
                 actions: '["Snooze", "Stop"]',
-                date: `${snooze === true ? snoozeTrigger : triggerIn}` // in 60 secs
+                date: trigger // in 60 secs
             });
         }
     }
