@@ -20,7 +20,7 @@ import Sound from 'react-native-sound'
 export const Context = React.createContext()
 export const api = 'http://localhost:4000'
 
-const whoosh = new Sound('sleepyprod.wa', Sound.MAIN_BUNDLE, (error) => {
+const whoosh = new Sound('alarm.wav', Sound.MAIN_BUNDLE, (error) => {
     if (error) {
       console.log('failed to load the sound', error);
       return;
@@ -46,16 +46,16 @@ export default class App extends Component<Props> {
             donations:[],
             accountCharities:[],
             charityList:[
-            //{
-            //   name:'Dua Lipa',
-            //   category:'Health',
-            //   short: 'This is a foundation that gives money to dua lipa',
-            //   image:'https://cdn.pixabay.com/photo/2017/05/09/21/49/gecko-2299365_960_720.jpg',
-            //   website:'www.dualipa.com',
-            //   email: 'dualipa@dl.com',
-            //   location: 'Los Angeles',
-            //   full:'Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit '
-            // }
+            {
+              name:'Dua Lipa',
+              category:'Health',
+              short: 'This is a foundation that gives money to dua lipa',
+              image:'https://cdn.pixabay.com/photo/2017/05/09/21/49/gecko-2299365_960_720.jpg',
+              website:'www.dualipa.com',
+              email: 'dualipa@dl.com',
+              location: 'Los Angeles',
+              full:'Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit '
+            }
             ],
             charityProfile:'',
             accountName: 'Ariana Grande',
@@ -93,7 +93,7 @@ export default class App extends Component<Props> {
         }
         else{
             console.log('App is in the background')
-            this.testNotification()
+            // this.testNotification()
             // SystemSetting.setVolume(1)
         }
     }
@@ -267,7 +267,7 @@ export default class App extends Component<Props> {
                 userInfo: {id:alarm.id},
                 message: `${alarm.label === '' ? `Wake up its ${time}` : alarm.label}`, // (required)
                 playSound: true, // (optional) default: true
-                soundName: 'sleepyprod.wav', // (optional) Sound to play when the notification is shown. Value of 'default' plays the default sound. It can be set to a custom sound such as 'android.resource://com.xyz/raw/my_sound'. It will look for the 'my_sound' audio file in 'res/raw' directory and play it. default: 'default' (default sound is played)
+                soundName: 'alarm.wav', // (optional) Sound to play when the notification is shown. Value of 'default' plays the default sound. It can be set to a custom sound such as 'android.resource://com.xyz/raw/my_sound'. It will look for the 'my_sound' audio file in 'res/raw' directory and play it. default: 'default' (default sound is played)
                 repeatType:`${alarm.frequency[0].option === 'Everyday' ? 'day' : ''}`, // (optional) Repeating interval. Check 'Repeating Notifications' section for more info.
                 // repeatTime: , //should the number of milliseconds between each interval.
                 actions: '["Snooze", "Stop"]',
@@ -280,7 +280,7 @@ export default class App extends Component<Props> {
                 vibration: 300, // vibration length in milliseconds, ignored if vibrate=false, default: 1000
                 message: `${alarm.label === '' ? `Wake up its ${time}` : alarm.label}`, // (required)
                 playSound: true, // (optional) default: true
-                soundName: 'sleepyprod.wav', // (optional) Sound to play when the notification is shown. Value of 'default' plays the default sound. It can be set to a custom sound such as 'android.resource://com.xyz/raw/my_sound'. It will look for the 'my_sound' audio file in 'res/raw' directory and play it. default: 'default' (default sound is played)
+                soundName: 'alarm.wav', // (optional) Sound to play when the notification is shown. Value of 'default' plays the default sound. It can be set to a custom sound such as 'android.resource://com.xyz/raw/my_sound'. It will look for the 'my_sound' audio file in 'res/raw' directory and play it. default: 'default' (default sound is played)
                 repeatType:`${alarm.frequency[0].option === 'Everyday' ? 'day' : ''}`, // (optional) Repeating interval. Check 'Repeating Notifications' section for more info.
                 // repeatTime: day,//should the number of milliseconds between each interval.
                 actions: '["Snooze", "Stop"]',
@@ -319,20 +319,20 @@ export default class App extends Component<Props> {
                 console.log( 'NOTIFICATION:', notification );
                 Sound.setCategory('Playback')
                 whoosh.setVolume(1)
-                whoosh.play((success) => {
-                    if (success) {
-                        console.log('successfully finished playing');
-                        whoosh.setNumberOfLoops(-1)
-                    } else {
-                      console.log('playback failed due to audio decoding errors');
-                      // reset the player to its uninitialized state (android only)
-                      // this is the only option to recover after an error occured and use the player again
-                      whoosh.reset();
-                    }
-                })
+                // whoosh.play((success) => {
+                //     if (success) {
+                //         console.log('successfully finished playing');
+                //         whoosh.setNumberOfLoops(-1)
+                //     } else {
+                //       console.log('playback failed due to audio decoding errors');
+                //       // reset the player to its uninitialized state (android only)
+                //       // this is the only option to recover after an error occured and use the player again
+                //       whoosh.reset();
+                //     }
+                // })
                 
                 // required on iOS only (see fetchCompletionHandler docs: https://facebook.github.io/react-native/docs/pushnotificationios.html)
-                notification.finish(PushNotificationIOS.FetchResult.NoData);
+                // notification.finish(PushNotificationIOS.FetchResult.NoData);
             },
             // IOS ONLY (optional): default: all - Permissions to register.
             permissions: {
