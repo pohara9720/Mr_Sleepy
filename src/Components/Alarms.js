@@ -160,7 +160,7 @@ class Alarms extends Component<Props> {
                                 name='notifications-active' 
                                 iconStyle={{marginBottom:20}}
                               />
-                              <Text style={{textAlign:'center',color:'white'}}>Mr. Sleepy uses Push Notifications to make sure you receive your alarms!</Text>
+                              <Text style={{textAlign:'center',color:'white'}}>Mr. Sleepy uses Push Notifications to make sure you receive your alarms! Would you like to give us permission to send you notifications? Don't worry we only use notifications for alarms!</Text>
                         </View>
                         <TouchableOpacity style={{justifyContent:'center',alignItems:'center',padding:12,backgroundColor:'white',width:'107%',marginBottom:-10,borderBottomLeftRadius:10,borderBottomRightRadius:10}}onPress={() => Linking.openURL('app-settings:')}>
                               <Text style={{color:'#a020f0',fontSize:15}}>Okay</Text>
