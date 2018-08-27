@@ -13,10 +13,21 @@ import Tabs from './src/Components/Nav/Tabs'
 import moment from 'moment'
 import axios from 'axios'
 import PushNotification from 'react-native-push-notification'
+import SystemSetting from 'react-native-system-setting'
 const uuidv4 = require('uuid/v4')
+import Sound from 'react-native-sound'
 
 export const Context = React.createContext()
 export const api = 'http://localhost:4000'
+
+const whoosh = new Sound('sleepyprod.wa', Sound.MAIN_BUNDLE, (error) => {
+    if (error) {
+      console.log('failed to load the sound', error);
+      return;
+    }
+    // loaded successfully
+    console.log('duration in seconds: ' + whoosh.getDuration() + 'number of channels: ' + whoosh.getNumberOfChannels());
+});
 
 
 type Props = {};
@@ -34,70 +45,18 @@ export default class App extends Component<Props> {
             alarmList:[],
             donations:[],
             accountCharities:[],
-            charityList:[{
-              name:'Dua Lipa',
-              category:'Health',
-              short: 'This is a foundation that gives money to dua lipa',
-              image:'https://cdn.pixabay.com/photo/2017/05/09/21/49/gecko-2299365_960_720.jpg',
-              website:'www.dualipa.com',
-              email: 'dualipa@dl.com',
-              location: 'Los Angeles',
-              full:'Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit '
-            },{
-              name:'Dua Foundation',
-              category:'Health',
-              short: 'This is a foundation that gives money to dua lipa',
-              image:'https://cdn.pixabay.com/photo/2017/05/09/21/49/gecko-2299365_960_720.jpg',
-              website:'www.dualipa.com',
-              email: 'dualipa@dl.com',
-              location: 'Arizona',
-              full:'Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit '
-            },{
-              name:'Lipa Foundation',
-              category:'Health',
-              short: 'This is a foundation that gives money to dua lipa',
-              image:'https://cdn.pixabay.com/photo/2017/05/09/21/49/gecko-2299365_960_720.jpg',
-              website:'www.dualipa.com',
-              email: 'dualipa@dl.com',
-              location: 'Miami',
-              full:'Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit '
-            },{
-              name:'Dudation',
-              category:'Health',
-              short: 'This is a foundation that gives money to dua lipa',
-              image:'https://cdn.pixabay.com/photo/2017/05/09/21/49/gecko-2299365_960_720.jpg',
-              website:'www.dualipa.com',
-              email: 'dualipa@dl.com',
-              location: 'Delaware',
-              full:'Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit '
-            },{
-              name:'Dua Lipa tion',
-              category:'Health',
-              short: 'This is a foundation that gives money to dua lipa',
-              image:'https://cdn.pixabay.com/photo/2017/05/09/21/49/gecko-2299365_960_720.jpg',
-              website:'www.dualipa.com',
-              email: 'dualipa@dl.com',
-              location: 'Los Angeles',
-              full:'Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit '
-            },{
-              name:'a Foundation',
-              category:'Health',
-              short: 'This is a foundation that gives money to dua lipa',
-              image:'https://cdn.pixabay.com/photo/2017/05/09/21/49/gecko-2299365_960_720.jpg',
-              website:'www.dualipa.com',
-              email: 'dualipa@dl.com',
-              location: 'Los Angeles',
-              full:'Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit '
-            },{
-              name:'Dua on',
-              category:'Health',
-              short: 'This is a foundation that gives money to dua lipa',
-              image:'https://cdn.pixabay.com/photo/2017/05/09/21/49/gecko-2299365_960_720.jpg',
-              website:'www.dualipa.com',
-              email: 'dualipa@dl.com',
-              location: 'Los Angeles',
-              full:'Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit '
-            }],
+            charityList:[
+            //{
+            //   name:'Dua Lipa',
+            //   category:'Health',
+            //   short: 'This is a foundation that gives money to dua lipa',
+            //   image:'https://cdn.pixabay.com/photo/2017/05/09/21/49/gecko-2299365_960_720.jpg',
+            //   website:'www.dualipa.com',
+            //   email: 'dualipa@dl.com',
+            //   location: 'Los Angeles',
+            //   full:'Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit '
+            // }
+            ],
             charityProfile:'',
             accountName: 'Ariana Grande',
             accountEmail: 'arianagrande@gmail.com',
@@ -135,6 +94,7 @@ export default class App extends Component<Props> {
         else{
             console.log('App is in the background')
             this.testNotification()
+            // SystemSetting.setVolume(1)
         }
     }
 
@@ -268,6 +228,8 @@ export default class App extends Component<Props> {
 
     sendNotification = (alarm,snooze) => {
 
+      // SystemSetting.setVolume(1)
+
       const time = moment(alarm.time).format('h:mm a')
       const currentTime = moment().format('LT')
       const date = new Date()
@@ -355,8 +317,22 @@ export default class App extends Component<Props> {
         PushNotification.configure({
             onNotification: (notification) =>  {
                 console.log( 'NOTIFICATION:', notification );
+                Sound.setCategory('Playback')
+                whoosh.setVolume(1)
+                whoosh.play((success) => {
+                    if (success) {
+                        console.log('successfully finished playing');
+                        whoosh.setNumberOfLoops(-1)
+                    } else {
+                      console.log('playback failed due to audio decoding errors');
+                      // reset the player to its uninitialized state (android only)
+                      // this is the only option to recover after an error occured and use the player again
+                      whoosh.reset();
+                    }
+                })
+                
                 // required on iOS only (see fetchCompletionHandler docs: https://facebook.github.io/react-native/docs/pushnotificationios.html)
-                // notification.finish(PushNotificationIOS.FetchResult.NoData);
+                notification.finish(PushNotificationIOS.FetchResult.NoData);
             },
             // IOS ONLY (optional): default: all - Permissions to register.
             permissions: {

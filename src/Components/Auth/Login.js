@@ -167,7 +167,8 @@ const styles = StyleSheet.create({
       justifyContent:'center',
       alignItems:'center',
       flexGrow:1,
-      marginTop:30
+      marginTop:30,
+      // borderRadius:300
     },
     authBox:{
       padding:20,
