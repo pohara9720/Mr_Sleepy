@@ -44,6 +44,10 @@ class Payments extends Component<Props> {
     
   }
 
+   componentWillUnmount(){
+        this.setState({values:''})
+    }
+
   render() {
     console.log(this.state)
     const {navigate} = this.props.navigation
@@ -56,6 +60,7 @@ class Payments extends Component<Props> {
               </Text>
             )
      }
+
      const Save = (props) => {
             return(
               <Text
@@ -146,6 +151,7 @@ class Payments extends Component<Props> {
             animationDuration={200}
             animationTension={40}
             closeOnTouchOutside={true}
+            modalDidClose={() => navigate('Alarms')}
             containerStyle={{
               justifyContent: "center",
             }}

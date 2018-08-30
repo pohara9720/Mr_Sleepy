@@ -35,7 +35,6 @@ class Alarms extends Component<Props> {
                 null
             }
         })
-        
     }
 
     navigateTo = () => {
