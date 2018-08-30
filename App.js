@@ -21,14 +21,14 @@ import Sound from 'react-native-sound'
 export const Context = React.createContext()
 export const api = 'http://localhost:4000'
 
-const whoosh = new Sound('alarm.wav', Sound.MAIN_BUNDLE, (error) => {
-    if (error) {
-      console.log('failed to load the sound', error);
-      return;
-    }
-    // loaded successfully
-    console.log('duration in seconds: ' + whoosh.getDuration() + 'number of channels: ' + whoosh.getNumberOfChannels());
-});
+// const whoosh = new Sound('alarm.wav', Sound.MAIN_BUNDLE, (error) => {
+//     if (error) {
+//       console.log('failed to load the sound', error);
+//       return;
+//     }
+//     // loaded successfully
+//     console.log('duration in seconds: ' + whoosh.getDuration() + 'number of channels: ' + whoosh.getNumberOfChannels());
+// });
 
 
 type Props = {};
@@ -65,7 +65,10 @@ export default class App extends Component<Props> {
             accountPasswordConfirm:'',
             currentTime: '',
             infoModal:false,
-            addErrorModal:false
+            addErrorModal:false,
+            cardAdded:false,
+            loading:false,
+            cardError:false
         }
     }
 
@@ -303,25 +306,31 @@ export default class App extends Component<Props> {
     //     })
     // }
 
-    // addPayment = (card) => {
-    //     const token = this.state.me.token
-    //     card.email = this.state.me.email
-    //     axios.post(`${api}/card/${this.state.me.id}`,card,{headers: { authorization: "Bearer " + token }}).then((res,err) => {
-    //         if(err){
-    //             console.log(err)
-    //         }
-    //         else{
-    //             console.log('RESPONSE FOR ADDING CARD',res.data)
-    //         }
-    //     })
-    // }
+    addPayment = (card) => {
+        console.log('CARD',card)
+        // const token = this.state.me.token
+        // card.email = this.state.me.email
+        // axios.post(`${api}/card/${this.state.me.id}`,card).then((res,err) => {
+        axios.post(`${api}/card/1`,card).then((res,err) => {
+            if(err){
+                console.log(err)
+                this.setState({cardError:true})
+                setTimeout(() => this.setState({loading:false,cardError:false}),2000)
+            }
+            else{
+                console.log('RESPONSE FOR ADDING CARD',res.data)
+                this.setState({cardAdded:true})
+                setTimeout(() => this.setState({cardAdded:false,loading:false}),2000)
+            }
+        })
+    }
 
     configurePushNotifications = () => {
         PushNotification.configure({
             onNotification: (notification) =>  {
                 console.log( 'NOTIFICATION:', notification );
-                Sound.setCategory('Playback')
-                whoosh.setVolume(1)
+                // Sound.setCategory('Playback')
+                // whoosh.setVolume(1)
                 // whoosh.play((success) => {
                 //     if (success) {
                 //         console.log('successfully finished playing');
@@ -587,6 +596,8 @@ export default class App extends Component<Props> {
             closeAddErrorModal: () => this.setState({addErrorModal:false}),
 
             triggerAddErrorModal: () => this.setState({addErrorModal:true}),
+
+            loading: (bool) => this.setState({loading:bool})
 
           }}> 
               {

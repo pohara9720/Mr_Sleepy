@@ -12,7 +12,7 @@ import { FormLabel, FormInput,Button, Header,SearchBar } from 'react-native-elem
 import { StackNavigator } from 'react-navigation';
 import LinearGradient from 'react-native-linear-gradient';
 import axios from 'axios'
-import logo from '../../images/logo.png'
+import logo from '../../images/whitecircle.png'
 import connect from '../HOC'
 import { Context } from '../../../App'
 
@@ -41,7 +41,7 @@ class Login extends Component<{}> {
                               <Image source={logo} resizeMode='cover' style={styles.image} />
                           </View>
                           <View style={styles.authBox}>
-                          <Text style={{color:'#a020f0',fontWeight:'bold',paddingLeft:10,fontSize:25,marginBottom:5,fontFamily:'roboto'}}>Login</Text>
+                          <Text style={{color:'#a020f0',fontWeight:'bold',paddingLeft:10,fontSize:25,marginBottom:5}}>Login</Text>
                               <SearchBar 
                                   raised
                                   noIcon
@@ -64,14 +64,14 @@ class Login extends Component<{}> {
                                   placeholderTextColor={ this.state.error ? 'red' : '#a020f0'}
                                   containerStyle={{backgroundColor:'transparent',borderTopWidth:0,borderBottomWidth:0,marginTop:10}}
                               />
-                              <Text onPress={() => console.log('forgot')} style={{color:'#a020f0',fontSize:12,marginLeft:'auto',paddingRight:10,marginBottom:10,fontFamily:'roboto'}}>Forgot Password?</Text>
+                              <Text onPress={() => console.log('forgot')} style={{color:'#a020f0',fontSize:12,marginLeft:'auto',paddingRight:10,marginBottom:10}}>Forgot Password?</Text>
                               </View>
                               <TouchableOpacity onPress={() => this.props.authenticate()} style={styles.button}>
                                   <Text style={{color:'white',fontWeight:'bold'}} >Login</Text>
                               </TouchableOpacity>
                           </View>
                           <View style={styles.switch}>
-                              <Text style={{color:'white',fontSize:18,width:'90%',textAlign:'center',fontFamily:'roboto'}} onPress={() => this.setState({login:false})}>New User? <Text style={{textDecorationLine:'underline'}}>Sign up here</Text></Text>
+                              <Text style={{color:'white',fontSize:18,width:'90%',textAlign:'center'}} onPress={() => this.setState({login:false})}>New User? <Text style={{textDecorationLine:'underline'}}>Sign up here</Text></Text>
                           </View>
                       </ScrollView>
                   </KeyboardAvoidingView>
@@ -81,11 +81,11 @@ class Login extends Component<{}> {
                           <View>
                               <View  style={styles.logo}>
                                   <Image source={logo} resizeMode='cover' style={{height:100,width:100,marginBottom:20}} />
-                                  <Text style={{color:'white',textAlign:'center',fontFamily:'roboto'}}>Change the world in your sleep with Mr. Sleepy. The alarm clock that donates a dollar to a charity of your choice when you Snooze!</Text>
+                                  <Text style={{color:'white',textAlign:'center'}}>Change the world in your sleep with Mr. Sleepy. The alarm clock that donates a dollar to a charity of your choice when you Snooze!</Text>
                               </View>
                           </View>
                           <View style={styles.authBox2}>
-                          <Text style={{color:'#a020f0',fontWeight:'bold',paddingLeft:10,fontSize:25,marginBottom:5,fontFamily:'roboto'}}>Sign up</Text>
+                          <Text style={{color:'#a020f0',fontWeight:'bold',paddingLeft:10,fontSize:25,marginBottom:5}}>Sign up</Text>
                               <SearchBar 
                                   // raised
                                   noIcon
@@ -121,11 +121,11 @@ class Login extends Component<{}> {
                                   <Text style={{color:'white',fontWeight:'bold'}}>Sign up</Text>
                               </TouchableOpacity>
                               <View style={{justifyContent:'center',alignItems:'center',marginTop:10}}>
-                                  <Text style={{color:'#a020f0',width:'90%',textAlign:'center',fontFamily:'roboto'}}>By signing up you agree to our <Text style={{textDecorationLine:'underline'}}>Terms & Conditions</Text> and <Text style={{textDecorationLine:'underline'}}>Privacy Policy</Text></Text>
+                                  <Text style={{color:'#a020f0',width:'90%',textAlign:'center'}}>By signing up you agree to our <Text style={{textDecorationLine:'underline'}}>Terms & Conditions</Text> and <Text style={{textDecorationLine:'underline'}}>Privacy Policy</Text></Text>
                               </View>
                           </View>
                           <View style={styles.switch}>
-                              <Text style={{color:'white',fontSize:15,width:'90%',textAlign:'center',fontFamily:'roboto'}} onPress={() => this.setState({login:true})}>Already have an account? <Text style={{textDecorationLine:'underline'}}>Login here</Text></Text>
+                              <Text style={{color:'white',fontSize:15,width:'90%',textAlign:'center'}} onPress={() => this.setState({login:true})}>Already have an account? <Text style={{textDecorationLine:'underline'}}>Login here</Text></Text>
                           </View>
                       </ScrollView>
                   </KeyboardAvoidingView>
@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
       borderWidth:1,
       color:'#a020f0',
       height:40,
-      fontFamily:'roboto'
+   
       
     },
     errorInput:{
@@ -161,7 +161,7 @@ const styles = StyleSheet.create({
       borderWidth:1,
       color:'#a020f0',
       height:40,
-      fontFamily:'roboto'
+   
     },
     logo:{
       justifyContent:'center',
@@ -176,7 +176,10 @@ const styles = StyleSheet.create({
       borderRadius:10,
       flexGrow:1,
       marginTop:50,
-      marginBottom:30
+      marginBottom:30,
+      shadowColor: 'white',
+      shadowOpacity: 1,
+      shadowRadius: 10
     },
      authBox2:{
       padding:20,
@@ -184,7 +187,10 @@ const styles = StyleSheet.create({
       borderRadius:10,
       flexGrow:1,
       marginTop:30,
-      marginBottom:15
+      marginBottom:15,
+      shadowColor: 'white',
+      shadowOpacity: 1,
+      shadowRadius: 10
     },
     button:{
       justifyContent:'center',
@@ -195,11 +201,14 @@ const styles = StyleSheet.create({
       marginTop:10,
       marginRight:9,
       marginLeft:9,
-      // fontFamily:'roboto'
+      
     },
     image:{
       height:200,
       width:200,
+      shadowColor: 'white',
+      shadowOpacity: 1,
+      shadowRadius: 10
     },
     switch:{
       display:'flex',

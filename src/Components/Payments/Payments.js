@@ -3,7 +3,7 @@ import {
   Platform,
   StyleSheet,
   Text,
-  View,Button,ScrollView,TouchableOpacity
+  View,Button,ScrollView,TouchableOpacity,ActivityIndicator
 } from 'react-native';
 
 
@@ -12,6 +12,7 @@ import { CreditCardInput, LiteCreditCardInput } from "rn-credit-card-view"
 import LinearGradient from 'react-native-linear-gradient'
 import {  Context } from '../../../App'
 import connect from '../HOC'
+import Modal from "react-native-simple-modal"
 
 
 
@@ -21,7 +22,8 @@ class Payments extends Component<Props> {
       super(props)
       this.state={
           edit:false,
-          values:''
+          values:'',
+          error:false
       }
     }
 
@@ -29,8 +31,21 @@ class Payments extends Component<Props> {
     _onChange = (form) => {
     this.setState({values:form})
   }
+  validate = () => {
+    const values = this.state.values.values
+    if(this.state.values.valid === true){
+        this.props.loading(true)
+        this.props.addCard(values)
+    }
+    else{
+      this.setState({error:true})
+      setTimeout(() => this.setState({error:false}),2000)
+    }
+    
+  }
 
   render() {
+    console.log(this.state)
     const {navigate} = this.props.navigation
     const Edit = (props) => {
             return(
@@ -45,7 +60,7 @@ class Payments extends Component<Props> {
             return(
               <Text
                  style={{fontSize:14,color:'#a020f0',justifyContent:"center"}}
-                 onPress={() => this.props.addCard({values})}>
+                 onPress={() => this.validate()}>
                  {this.state.values === '' ? '' : 'Save'}
               </Text>
             )
@@ -58,6 +73,12 @@ class Payments extends Component<Props> {
             centerComponent={{ text: 'Manage Payments', style: {fontSize:22,color:'#a020f0'}}}
             outerContainerStyles={{backgroundColor:'transparent',borderBottomWidth:0}}
         />
+        {
+            this.state.error ? 
+            <View style={{display:'flex',justifyContent:'center',alignItems:'center',backgroundColor:'red',padding:15}}>
+                <Text style={{color:'white',fontWeight:'bold'}}>One or more fields is invalid</Text>
+          </View> : null
+        }
         <ScrollView style={{flex:1,padding:15}}>
             <CreditCardInput 
               requiresName={true}
@@ -121,6 +142,62 @@ class Payments extends Component<Props> {
           }
           
         </ScrollView>
+        <Modal
+            animationDuration={200}
+            animationTension={40}
+            closeOnTouchOutside={true}
+            containerStyle={{
+              justifyContent: "center",
+            }}
+            disableOnBackPress={false}
+            // modalDidClose={() => PushNotificationsHandler.requestPermissions()}
+            modalStyle={{
+              backgroundColor: this.props.store.cardAdded ? "white" : this.props.store.cardError ? 'white' : "#a020f0",
+              borderRadius:10,  
+              borderColor:'#a020f0',
+            }}
+            offset={0}
+            open={this.props.store.loading}
+            overlayStyle={{
+              backgroundColor: "rgba(0, 0, 0, 0.75)",
+              flex: 1
+            }}
+        >     
+            {
+              this.props.store.cardAdded ? 
+              <View style={{alignItems:'center',justifyContent:'center'}}>
+                  <View style={{backgroundColor:'#00ff41',padding:50}}>
+                        <Icon 
+                          color='white'
+                          size={70}
+                          type='material-community'
+                          name='checkbox-marked-circle-outline' 
+                          iconStyle={{marginBottom:20}}
+                        />
+                        <Text style={{textAlign:'center',color:'white'}}>Your card has been successfully added!</Text>
+                  </View>
+            </View> : 
+            this.props.store.cardAdded ?
+              <View style={{alignItems:'center',justifyContent:'center'}}>
+                  <View style={{backgroundColor:'red',padding:50}}>
+                        <Icon 
+                          color='white'
+                          size={70}
+                          name='error' 
+                          iconStyle={{marginBottom:20}}
+                        />
+                        <Text style={{textAlign:'center',color:'white'}}>Your card has been successfully added!</Text>
+                  </View>
+            </View>
+            :
+            <View style={{alignItems:'center',justifyContent:'center'}}>
+                  <View style={{backgroundColor:'#a020f0',padding:50}}>
+                        <ActivityIndicator size="large" color="white" />
+                        <Text style={{textAlign:'center',color:'white'}}>Adding your card...</Text>
+                  </View>
+            </View>
+            }
+        </Modal>
       </View>
     );
   }
