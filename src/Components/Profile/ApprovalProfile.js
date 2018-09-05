@@ -47,7 +47,6 @@ class ApprovalProfile extends Component<Props> {
 
 
   render() {
-    // const {navigate} = this.props.navigation
     const profile = this.props.navigation.state.params.r
     return (
       <View style={styles.container}> 
