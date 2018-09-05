@@ -68,7 +68,8 @@ export default class App extends Component<Props> {
             addErrorModal:false,
             cardAdded:false,
             loading:false,
-            cardError:false
+            cardError:false,
+            approvals:[]
         }
     }
 
@@ -86,6 +87,20 @@ export default class App extends Component<Props> {
 
     componentWillUnmount() {
         AppState.removeEventListener('change', this.getAppState)
+    }
+
+    async loadApprovals(){
+        await axios.get(`${api}/approvals`).then((res,err) => {
+            if(err){
+                console.log(err)
+            }
+            else{
+                console.log(res.data)
+                this.setState({approvals:res.data})
+            }
+        }).catch((err) => {
+            console.log(err)
+        })
     }
 
     getAppState = (appState) => {
@@ -294,8 +309,8 @@ export default class App extends Component<Props> {
             });
         }
     }
-    // loadCharities = () => {
-    //     axios.get(`${api}/charities`).then((res,err) => {
+    // async loadCharities = () => {
+    //     await axios.get(`${api}/charities`).then((res,err) => {
     //         if(err){
     //             console.log(err)
     //         }
@@ -326,32 +341,32 @@ export default class App extends Component<Props> {
     }
 
     async approveCharity(id){
-        const user = {email:this.state.me.email}
+        const user = {email:'pat.oharaiv@gmail.com'}
         console.log(id)
-        // await axios.put(`${api}/approvecharity/${id}`,user).then((res,err) => {
-        //     if(err){
-        //         console.log(err)
-        //     }
-        //     else{
-        //         console.log('RESPONSE FOR ADDING CARD',res.data)
-        //     }
-        // })
+        await axios.put(`${api}/approvecharity/${id}/${'pat.oharaiv@gmail.com'}`,user).then((res,err) => {
+            if(err){
+                console.log(err)
+            }
+            else{
+                console.log('RESPONSE FOR ADDING CARD',res.data)
+            }
+        })
     }
 
      async rejectCharity(id,reason){
         const payload = {
             reason,
-            email:this.state.me.email
+            email:'pat.oharaiv@gmail.com'
         }
         console.log(id,payload)
-        // await axios.post(`${api}/rejectcharity/${id}`,payload).then((res,err) => {
-        //     if(err){
-        //         console.log(err)
-        //     }
-        //     else{
-        //         console.log('RESPONSE FOR ADDING CARD',res.data)
-        //     }
-        // })
+        await axios.post(`${api}/rejectcharity/${id}`,payload).then((res,err) => {
+            if(err){
+                console.log(err)
+            }
+            else{
+                console.log('RESPONSE FOR ADDING CARD',res.data)
+            }
+        })
     }
 
     configurePushNotifications = () => {
@@ -630,7 +645,9 @@ export default class App extends Component<Props> {
 
             approveCharity : (id) => this.approveCharity(id),
 
-            rejectCharity: (id,reason) => this.rejectCharity(id,reason)
+            rejectCharity: (id,reason) => this.rejectCharity(id,reason),
+
+            loadApprovals: () => this.loadApprovals()
 
           }}> 
               {

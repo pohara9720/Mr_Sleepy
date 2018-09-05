@@ -28,42 +28,14 @@ class ApprovalList extends Component<Props> {
         }
     }
 
-   
+   componentDidMount(){
+      this.props.loadApprovals()
+   }
 
   render() {
     const {navigate} = this.props.navigation
     const backAction = NavigationActions.back({})
-    const test = [{
-              id:1,
-              name:'Dua Lipa1',
-              category:'Health',
-              short: 'This is a foundation that gives money to dua lipa',
-              image:'https://cdn.pixabay.com/photo/2017/05/09/21/49/gecko-2299365_960_720.jpg',
-              website:'www.dualipa.com',
-              email: 'dualipa@dl.com',
-              location: 'Los Angeles',
-              full:'Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit '
-            },{
-              id:2,
-              name:'Dua Lipa2',
-              category:'Health',
-              short: 'This is a foundation that gives money to dua lipa',
-              image:'https://cdn.pixabay.com/photo/2017/05/09/21/49/gecko-2299365_960_720.jpg',
-              website:'www.dualipa.com',
-              email: 'dualipa@dl.com',
-              location: 'Los Angeles',
-              full:'Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit '
-            },{
-              id:3,
-              name:'Dua Lipa3',
-              category:'Health',
-              short: 'This is a foundation that gives money to dua lipa',
-              image:'https://cdn.pixabay.com/photo/2017/05/09/21/49/gecko-2299365_960_720.jpg',
-              website:'www.dualipa.com',
-              email: 'dualipa@dl.com',
-              location: 'Los Angeles',
-              full:'Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit '
-            }]
+
     const Back = (props) => {
             return(
               <Text
@@ -83,14 +55,14 @@ class ApprovalList extends Component<Props> {
         <ScrollView style={{flex:1,padding:15}}>
           <View>
             {
-                test.map((r,i) => 
+                this.props.store.approvals.map((r,i) => 
                     <ListItem
                         key={i}
                         // roundAvatar
-                        avatar={{uri:r.image}} 
+                        avatar={{uri:r.orgImage}} 
                         title={r.name}
                         titleStyle={{fontSize:16,color:'white',fontWeight:'bold'}}
-                        subtitle={r.short}
+                        subtitle={r.subtitle}
                         subtitleStyle={{color:'white'}}
                         containerStyle={{backgroundColor:'#a020f0',borderTopWidth:0,borderBottomWidth:0,borderRadius:10,marginBottom:5}}
                         hideChevron={true}

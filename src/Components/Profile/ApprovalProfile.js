@@ -77,11 +77,11 @@ class ApprovalProfile extends Component<Props> {
             <LinearGradient  colors={[ '#7016a8' ,'#a020f0']} start={{x: 1, y: 2}} end={{x: 0.9, y: 0}} style={styles.linearGradient}>
               <View style={{alignItems:'center'}}>
                 <Image 
-                  source={{uri:profile.image}}
+                  source={{uri:profile.orgImage}}
                   resizeMode='cover'
                   style={styles.image}
                 />
-                <Text style={styles.title}>{profile.name}</Text>
+                <Text style={styles.title}>{`${profile.name} (${profile.category})`}</Text>
                 <TouchableOpacity
                     style={{borderRadius:25,marginTop:10,paddingBottom:20}}
                     onPress={() => this.deny(profile.id,this.state.reason)}>
@@ -145,7 +145,7 @@ class ApprovalProfile extends Component<Props> {
                       <Text style={{color:'#a020f0',fontWeight:'bold',fontSize:15}}>Summary</Text>
                   </View>
                   <View style={{borderColor:'#a020f0',borderWidth:1,borderBottomWidth:1,padding:15,flexDirection:'row'}}>
-                      <Text style={{color:'#a020f0',fontSize:15}}>{profile.full}</Text>
+                      <Text style={{color:'#a020f0',fontSize:15}}>{profile.bio}</Text>
                   </View>
               </View>
         </ScrollView>
