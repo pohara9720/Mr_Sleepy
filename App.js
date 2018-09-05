@@ -328,7 +328,7 @@ export default class App extends Component<Props> {
     async approveCharity(id){
         const user = {email:this.state.me.email}
         console.log(id)
-        // await axios.put(`${api}/approvecharity/${id}`).then((res,err) => {
+        // await axios.put(`${api}/approvecharity/${id}`,user).then((res,err) => {
         //     if(err){
         //         console.log(err)
         //     }
