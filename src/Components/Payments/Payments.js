@@ -183,7 +183,7 @@ class Payments extends Component<Props> {
                         <Text style={{textAlign:'center',color:'white'}}>Your card has been successfully added!</Text>
                   </View>
             </View> : 
-            this.props.store.cardAdded ?
+            this.props.store.cardError ?
               <View style={{alignItems:'center',justifyContent:'center'}}>
                   <View style={{backgroundColor:'red',padding:50}}>
                         <Icon 

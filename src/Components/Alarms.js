@@ -59,20 +59,33 @@ class Alarms extends Component<Props> {
                 </Text>
               )
        }
+       const Center = () => {
+          return(
+                <Image resizeMode='contain' style={{marginRight:'auto',height:40}} source={require('../images/purplehat.png')}/>
+                   
+              )
+       }
        // console.log(this.props.store)
       return (
         <View style={styles.container}>
           <Header
               leftComponent={this.props.store.alarmList !== null && this.props.store.alarmList.length === 0 ? null : <Edit />}
-              centerComponent={{ text: 'Mr. Sleepy', style: {fontSize:22,color:'#a020f0'}}}
+              centerComponent={{ text: 'Mr. Sleepy', style: { color: '#a020f0',fontSize:22}}}
               rightComponent={{ icon: 'add', color: '#a020f0', onPress:() => this.navigateTo()}}
               outerContainerStyles={{backgroundColor:'transparent',borderBottomWidth:0,borderBottomColor:'transparent'}}
           />
               <TouchableOpacity onPress={() => Linking.openURL('http://sleepywebsite.s3-website-us-east-1.amazonaws.com/')}>
-                  <Image
-                      resizeMode='cover'
-                      source={require('../images/bannerAd.png')}
-                      style={{height:140,width:'100%'}}/>
+                  <LinearGradient  colors={[ '#8E2DE2' ,'#4A00E0']} start={{x: 1, y: 2}} end={{x: 0.9, y: 0}} style={styles.bannerGrad}>
+                        <View style={styles.banner}>
+                            <Icon 
+                              name={'favorite'}
+                              color={'white'}
+                              size={12}
+                              iconStyle={styles.customIcon}
+                            />
+                            <Text style={{fontSize:12,color:'white',marginLeft:10}}>Do you want to add your charity to Mr .Sleepy? Click here</Text> 
+                        </View>
+                  </LinearGradient>
               </TouchableOpacity>
                <ScrollView style={styles.container}>
                   <View style={{borderTopWidth:0}}>
@@ -179,6 +192,15 @@ const styles = StyleSheet.create({
     borderTopColor:'transparent',
     borderBottomWidth:0,
     // fontFamily:'roboto'
+  },
+  bannerGrad:{
+    width:'100%',
+    padding:10,
+    alignItems:'center'
+  },
+  banner:{
+    flexDirection:'row',
+    
   },
   linearGradient:{
     borderRadius:10,

@@ -325,6 +325,31 @@ export default class App extends Component<Props> {
         })
     }
 
+    async approveCharity(id){
+        console.log(id)
+        // await axios.put(`${api}/approvecharity/${id}`).then((res,err) => {
+        //     if(err){
+        //         console.log(err)
+        //     }
+        //     else{
+        //         console.log('RESPONSE FOR ADDING CARD',res.data)
+        //     }
+        // })
+    }
+
+     async rejectCharity(id,reason){
+        const payload = {reason}
+        console.log(id,payload)
+        // await axios.post(`${api}/rejectcharity/${id}`,payload).then((res,err) => {
+        //     if(err){
+        //         console.log(err)
+        //     }
+        //     else{
+        //         console.log('RESPONSE FOR ADDING CARD',res.data)
+        //     }
+        // })
+    }
+
     configurePushNotifications = () => {
         PushNotification.configure({
             onNotification: (notification) =>  {
@@ -597,7 +622,11 @@ export default class App extends Component<Props> {
 
             triggerAddErrorModal: () => this.setState({addErrorModal:true}),
 
-            loading: (bool) => this.setState({loading:bool})
+            loading: (bool) => this.setState({loading:bool}),
+
+            approveCharity : (id) => this.approveCharity(id),
+
+            rejectCharity: (id,reason) => this.rejectCharity(id,reason)
 
           }}> 
               {

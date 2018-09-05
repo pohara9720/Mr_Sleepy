@@ -17,6 +17,8 @@ import SnapView from '../Profile/SnapView'
 import Admin from '../Profile/Admin'
 import SuperSearch from '../Profile/SuperSearch'
 import AdminView from '../Profile/AdminView'
+import ApprovalList from '../Profile/ApprovalList'
+import ApprovalProfile from '../Profile/ApprovalProfile'
 import CharityProfile from '../AddAlarm/CharityProfile'
 // import {Tabs} from './Tabs'
 
@@ -41,6 +43,8 @@ const ProfileRoutes = StackNavigator({
     SnapView: { screen: props => <SnapView {...props} />},
     SuperSearch: { screen: props => <SuperSearch {...props} />},
     AdminView: { screen: props => <AdminView {...props} />},
+    ApprovalList: { screen: props => <ApprovalList {...props} />},
+    ApprovalProfile: { screen: props => <ApprovalProfile {...props} />},
 },
 {
     headerMode: 'none',

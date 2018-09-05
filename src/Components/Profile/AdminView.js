@@ -72,7 +72,7 @@ class AdminView extends Component<Props> {
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => navigate('SuperSearch')}>
-                        <View style={{borderColor:'#a020f0',borderWidth:1,padding:15,flexDirection:'row'}}>
+                        <View style={{borderColor:'#a020f0',borderWidth:1,borderBottomWidth:0,padding:15,flexDirection:'row'}}>
                           <Icon 
                             name='search-plus'
                             type='font-awesome'
@@ -83,7 +83,18 @@ class AdminView extends Component<Props> {
                             <Text style={{color:'#a020f0',fontSize:15}}>Super Search</Text>
                         </View>
                     </TouchableOpacity>
-
+                    <TouchableOpacity onPress={() => navigate('ApprovalList')}>
+                        <View style={{borderColor:'#a020f0',borderWidth:1,padding:15,flexDirection:'row'}}>
+                          <Icon 
+                            name='approval'
+                            type='material-community'
+                            color={'#a020f0'}
+                            size={20}
+                            iconStyle={{marginRight:10}}
+                          />
+                            <Text style={{color:'#a020f0',fontSize:15}}>Charity Approval</Text>
+                        </View>
+                    </TouchableOpacity>
               </View>
         </ScrollView>
       </View>

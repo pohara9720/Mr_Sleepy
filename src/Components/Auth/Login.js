@@ -151,8 +151,6 @@ const styles = StyleSheet.create({
       borderWidth:1,
       color:'#a020f0',
       height:40,
-   
-      
     },
     errorInput:{
       borderRadius:10,
