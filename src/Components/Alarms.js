@@ -26,6 +26,8 @@ class Alarms extends Component<Props> {
     }
 
     componentDidMount(){
+      const {navigate} = this.props.navigation
+      navigate('Snooze')
         PushNotification.checkPermissions((callback) => {
             // console.log('CALLBACK',callback)
             if(callback.alert !== 1|| callback.badge  !== 1|| callback.sound !== 1){

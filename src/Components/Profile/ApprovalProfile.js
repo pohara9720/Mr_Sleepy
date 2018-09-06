@@ -3,7 +3,7 @@ import {
   Platform,
   StyleSheet,
   Text,
-  View,Button,ScrollView,TouchableOpacity,Image,TextInput,Linking
+  View,Button,ScrollView,TouchableOpacity,Image,TextInput,Linking,ActivityIndicator
 } from 'react-native';
 
 
@@ -12,6 +12,7 @@ import { NavigationActions } from 'react-navigation'
 import LinearGradient from 'react-native-linear-gradient'
 import {  Context } from '../../../App'
 import connect from '../HOC'
+import Modal from "react-native-simple-modal"
 
 
 
@@ -47,6 +48,7 @@ class ApprovalProfile extends Component<Props> {
 
 
   render() {
+    const {navigate} = this.props.navigation
     const profile = this.props.navigation.state.params.r
     return (
       <View style={styles.container}> 
@@ -149,6 +151,63 @@ class ApprovalProfile extends Component<Props> {
                   </View>
               </View>
         </ScrollView>
+        <Modal
+            animationDuration={200}
+            animationTension={40}
+            closeOnTouchOutside={true}
+            modalDidClose={() => navigate('AdminView')}
+            containerStyle={{
+              justifyContent: "center",
+            }}
+            disableOnBackPress={false}
+            // modalDidClose={() => PushNotificationsHandler.requestPermissions()}
+            modalStyle={{
+              backgroundColor: this.props.store.charityApproved ? "white" : this.props.store.systemError ? 'white' : "#a020f0",
+              borderRadius:10,  
+              borderColor:'#a020f0',
+            }}
+            offset={0}
+            open={this.props.store.loading}
+            overlayStyle={{
+              backgroundColor: "rgba(0, 0, 0, 0.75)",
+              flex: 1
+            }}
+        >     
+            {
+              this.props.store.charityApproved ? 
+              <View style={{alignItems:'center',justifyContent:'center'}}>
+                  <View style={{backgroundColor:'#00ff41',padding:50}}>
+                        <Icon 
+                          color='white'
+                          size={70}
+                          type='material-community'
+                          name='checkbox-marked-circle-outline' 
+                          iconStyle={{marginBottom:20}}
+                        />
+                        <Text style={{textAlign:'center',color:'white'}}>Success</Text>
+                  </View>
+            </View> : 
+            this.props.store.systemError ?
+              <View style={{alignItems:'center',justifyContent:'center'}}>
+                  <View style={{backgroundColor:'red',padding:50}}>
+                        <Icon 
+                          color='white'
+                          size={70}
+                          name='error' 
+                          iconStyle={{marginBottom:20}}
+                        />
+                        <Text style={{textAlign:'center',color:'white'}}>Call failed</Text>
+                  </View>
+            </View>
+            :
+            <View style={{alignItems:'center',justifyContent:'center'}}>
+                  <View style={{backgroundColor:'#a020f0',padding:50}}>
+                        <ActivityIndicator size="large" color="white" />
+                        <Text style={{textAlign:'center',color:'white'}}>Sending decision...</Text>
+                  </View>
+            </View>
+            }
+        </Modal>
       </View>
     );
   }

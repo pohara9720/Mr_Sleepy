@@ -1,6 +1,7 @@
 import React from 'react'
 import { StackNavigator } from 'react-navigation'
 import AddAlarm from '../AddAlarm/AddAlarm'
+import Snooze from '../AddAlarm/Snooze'
 import CharitySelect from '../AddAlarm/CharitySelect'
 import LabelSelect from '../AddAlarm/LabelSelect'
 import RepeatSelect from '../AddAlarm/RepeatSelect'
@@ -52,6 +53,7 @@ const ProfileRoutes = StackNavigator({
 
 const AlarmRoutes = StackNavigator({
 	Alarms: { screen: props => <Alarms {...props} />},
+    Snooze: { screen: props => <Snooze {...props} />},
 	AddAlarm: { screen: props => <AddAlarm {...props} />},
 	CharityProfile: { screen: props => <CharityProfile {...props} />},
     CharitySelect: { screen: props => <CharitySelect {...props} />},

@@ -36,7 +36,14 @@ export default class App extends Component<Props> {
     constructor(props){
         super(props)
         this.state ={
-            me:false,
+            me:{
+                id:1,
+                name:'patrick',
+                email:'pat.oharaiv@gmail.com',
+                snoozer_customerId:'cus_DYJDcI149ywkNh',
+                snoozer_subscription:'sub_DYIl4NsVrTbEpV',
+                tempChar:1
+            },
             timeSelect:'',
             datePicker: false,
             frequency: [],
@@ -69,7 +76,10 @@ export default class App extends Component<Props> {
             cardAdded:false,
             loading:false,
             cardError:false,
-            approvals:[]
+            approvals:[],
+            snoozes:null,
+            charityApproved:false,
+            systemError:false
         }
     }
 
@@ -100,6 +110,7 @@ export default class App extends Component<Props> {
             }
         }).catch((err) => {
             console.log(err)
+            this.setState({systemError:true})
         })
     }
 
@@ -309,24 +320,43 @@ export default class App extends Component<Props> {
             });
         }
     }
-    // async loadCharities = () => {
-    //     await axios.get(`${api}/charities`).then((res,err) => {
-    //         if(err){
-    //             console.log(err)
-    //         }
-    //         else{
-    //             console.log(res.data)
-    //             this.setState({charityList:res.data})
-    //         }
-    //     })
-    // }
+    async loadCharities(){
+        await axios.get(`${api}/charities`).then((res,err) => {
+            if(err){
+                console.log(err)
+            }
+            else{
+                console.log(res.data)
+                const filter = res.data.filter(x => x.approved === true)
+                this.setState({charityList:filter})
+            }
+        }).catch((err) => {
+            console.log(err)
+            this.setState({systemError:true})
+        })
+    }
 
-    addPayment = (card) => {
+    async snoozePressed(){
+        await axios.post(`${api}/snooze/${this.state.me.id}/${this.state.me.tempChar}`).then((res,err) => {
+            if(err){
+                console.log(err)
+            }
+            else{
+                console.log('RESPONSE FOR ADDING TO PENDING DONATIONS',res.data)
+            }
+        }).catch((err) => {
+            console.log(err)
+            this.setState({systemError:true})
+        })
+    }
+
+    async addPayment(card){
         console.log('CARD',card)
         // const token = this.state.me.token
+        card.customer = this.state.me.snoozer_customerId
         // card.email = this.state.me.email
         // axios.post(`${api}/card/${this.state.me.id}`,card).then((res,err) => {
-        axios.post(`${api}/card/1`,card).then((res,err) => {
+        await axios.post(`${api}/card/${this.state.me.id}`,card).then((res,err) => {
             if(err){
                 console.log(err)
                 this.setState({cardError:true})
@@ -337,10 +367,14 @@ export default class App extends Component<Props> {
                 this.setState({cardAdded:true})
                 setTimeout(() => this.setState({cardAdded:false,loading:false}),2000)
             }
+        }).catch((err) => {
+            console.log(err)
+            this.setState({systemError:true})
         })
     }
 
     async approveCharity(id){
+        this.setState({loading:true})
         const user = {email:'pat.oharaiv@gmail.com'}
         console.log(id)
         await axios.put(`${api}/approvecharity/${id}/${'pat.oharaiv@gmail.com'}`,user).then((res,err) => {
@@ -349,11 +383,17 @@ export default class App extends Component<Props> {
             }
             else{
                 console.log('RESPONSE FOR ADDING CARD',res.data)
+                this.setState({charityApproved:true})
+                setTimeout(() => this.setState({charityApproved:false,loading:false}),2000)
             }
+        }).catch((err) => {
+            console.log(err)
+            this.setState({systemError:true})
         })
     }
 
      async rejectCharity(id,reason){
+        this.setState({loading:true})
         const payload = {
             reason,
             email:'pat.oharaiv@gmail.com'
@@ -365,7 +405,12 @@ export default class App extends Component<Props> {
             }
             else{
                 console.log('RESPONSE FOR ADDING CARD',res.data)
+                this.setState({charityApproved:true})
+                setTimeout(() => this.setState({charityApproved:false,loading:false}),2000)
             }
+        }).catch((err) => {
+            console.log(err)
+            this.setState({systemError:true})
         })
     }
 
@@ -579,7 +624,7 @@ export default class App extends Component<Props> {
     }
   
     render() {
-      // console.log('Current Time',this.state.currentTime)
+      console.log(this.state)
       const newAlarm = {
           id: uuidv4(),
           time:this.state.timeSelect,
@@ -647,7 +692,9 @@ export default class App extends Component<Props> {
 
             rejectCharity: (id,reason) => this.rejectCharity(id,reason),
 
-            loadApprovals: () => this.loadApprovals()
+            loadApprovals: () => this.loadApprovals(),
+
+            snoozePressed: () => this.snoozePressed()
 
           }}> 
               {
