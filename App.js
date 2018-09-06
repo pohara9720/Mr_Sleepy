@@ -36,14 +36,15 @@ export default class App extends Component<Props> {
     constructor(props){
         super(props)
         this.state ={
-            me:{
-                id:1,
-                name:'patrick',
-                email:'pat.oharaiv@gmail.com',
-                snoozer_customerId:'cus_DYJDcI149ywkNh',
-                snoozer_subscription:'sub_DYIl4NsVrTbEpV',
-                tempChar:1
-            },
+            // me:{
+            //     id:1,
+            //     name:'patrick',
+            //     email:'pat.oharaiv@gmail.com',
+            //     snoozer_customerId:'cus_DYJDcI149ywkNh',
+            //     snoozer_subscription:'sub_DYIl4NsVrTbEpV',
+            //     tempChar:1
+            // },
+            me:false,
             timeSelect:'',
             datePicker: false,
             frequency: [],
