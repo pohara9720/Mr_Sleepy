@@ -176,7 +176,7 @@ class ApprovalProfile extends Component<Props> {
             {
               this.props.store.charityApproved ? 
               <View style={{alignItems:'center',justifyContent:'center'}}>
-                  <View style={{backgroundColor:'#00ff41',padding:50}}>
+                  <View style={{backgroundColor:'#00ff41',padding:50,width:'100%'}}>
                         <Icon 
                           color='white'
                           size={70}
@@ -189,7 +189,7 @@ class ApprovalProfile extends Component<Props> {
             </View> : 
             this.props.store.systemError ?
               <View style={{alignItems:'center',justifyContent:'center'}}>
-                  <View style={{backgroundColor:'red',padding:50}}>
+                  <View style={{backgroundColor:'red',padding:50,width:'100%'}}>
                         <Icon 
                           color='white'
                           size={70}
