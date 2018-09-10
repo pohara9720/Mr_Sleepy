@@ -36,15 +36,15 @@ export default class App extends Component<Props> {
     constructor(props){
         super(props)
         this.state ={
-            // me:{
-            //     id:1,
-            //     name:'patrick',
-            //     email:'pat.oharaiv@gmail.com',
-            //     snoozer_customerId:'cus_DYJDcI149ywkNh',
-            //     snoozer_subscription:'sub_DYIl4NsVrTbEpV',
-            //     tempChar:1
-            // },
-            me:false,
+            me:{
+                id:2,
+                name:'patrick',
+                email:'pat.oharaiv@gmail.com',
+                snoozer_customerId:'cus_DZn8hqUplKJH3u',
+                snoozer_subscription:'sub_DZn8E7KYC4KJ1O',
+                tempChar:3
+            },
+            // me:false,
             timeSelect:'',
             datePicker: false,
             frequency: [],
@@ -338,6 +338,8 @@ export default class App extends Component<Props> {
     }
 
     async snoozePressed(){
+        // console.log(this.state.me.id)
+        // console.log(this.state.me.tempChar)
         await axios.post(`${api}/snooze/${this.state.me.id}/${this.state.me.tempChar}`).then((res,err) => {
             if(err){
                 console.log(err)
