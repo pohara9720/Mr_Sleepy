@@ -33,6 +33,9 @@ class Admin extends Component<Props> {
         }
     }
 
+    componentDidMount(){
+        this.props.getCurrentSnapshot()
+    }
   render() {
     
     const {navigate} = this.props.navigation
@@ -47,14 +50,13 @@ class Admin extends Component<Props> {
             )
      }
      const userPie = [
-        { name: 'Inactive', population: 110},
-        { name: 'A.N.D', population: 130 },
-        { name: 'Donors', population: 400 },
+        { name: 'Inactive', population:`${this.props.currentSnapshot.users}` - `${this.props.currentSnapshot.activeUsers}`},
+        { name: 'A.N.D', population: `${this.props.currentSnapshot.activeUsers - this.props.currentSnapshot.snoozers}` },
+        { name: 'Donors', population: `${this.props.currentSnapshot.snoozers}`},
     ]
     const charityPie = [
-        { name: 'None', population: 13 },
-        { name: '> 10/m', population: 12 },
-        { name: '< 10/m', population: 30 },
+        { name: 'Dead', population: (100 - `${this.props.currentSnapshot.activeCharityPercent}`)},
+        { name: 'Receiving', population: `${this.props.currentSnapshot.activeCharityPercent}` },
     ]
   
 
@@ -77,20 +79,21 @@ class Admin extends Component<Props> {
     // const donationsThisYTD = null // Donations made for current YTD
 
     const data = {
-        userGraph:[{ name: 'Inactive', population: 110},{ name: 'A.N.D', population: 130 },{ name: 'Donors', population: 400 }],
-        charityGraph:[{ name: 'None', population: 13 },{ name: '> 10/m', population: 12 },{ name: '< 10/m', population: 30 }],
+        userGraph:[{ name: 'Inactive', population:(this.props.currentSnapshot.users - this.props.currentSnapshot.activeUsers)},{ name: 'A.N.D', population: (this.props.currentSnapshot.activeUsers - this.props.currentSnapshot.snoozers)},{ name: 'Donors', population:this.props.currentSnapshot.snoozers}],
+        charityGraph:[{ name: 'Dead', population: (100 - this.props.currentSnapshot.activeCharityPercent)},{ name: 'Receiving', population: this.props.currentSnapshot.activeCharityPercent}],
         lineGraph:{
                 labels: ['January', 'April','August','December'],
                 datasets: [{data: [ 20, 45, 28, 80, 99, 43,100,300,123,303,500,1000,1200,400,1300,1500,2000 ]}]
         },
-        totalUsers:230,
-        activeUsers:180,
-        inactiveUsers:50,
-        usersDonating:130,
-        totalCharities:50,
-        averageDonation:16,
-        donationsThisYTD:1202,
-        overallDonations:5002
+        //NEED PROPER LINE GRAPH
+        totalUsers:this.props.currentSnapshot.users,
+        activeUsers: this.props.currentSnapshot.activeUsers,
+        inactiveUsers:(this.props.currentSnapshot.users - this.props.currentSnapshot.activeUsers),
+        usersDonating:this.props.currentSnapshot.snoozers,
+        totalCharities:this.props.currentSnapshot.charities,
+        // averageDonation:16,
+        donationsThisYTD:this.props.currentSnapshot.donationsThisYTD,
+        overallDonations:this.props.currentSnapshot.donationsEver
     }
     return (
       <View style={styles.container}>

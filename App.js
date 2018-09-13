@@ -54,19 +54,9 @@ export default class App extends Component<Props> {
             alarmList:[],
             donations:[],
             accountCharities:[],
-            charityList:[
-            {
-              name:'Dua Lipa',
-              category:'Health',
-              short: 'This is a foundation that gives money to dua lipa',
-              image:'https://cdn.pixabay.com/photo/2017/05/09/21/49/gecko-2299365_960_720.jpg',
-              website:'www.dualipa.com',
-              email: 'dualipa@dl.com',
-              location: 'Los Angeles',
-              full:'Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit Dua lipa is lit '
-            }
-            ],
+            charityList:[],
             charityProfile:'',
+            currentSnapshot:'',
             accountName: 'Ariana Grande',
             accountEmail: 'arianagrande@gmail.com',
             accountPassword: '',
@@ -375,7 +365,16 @@ export default class App extends Component<Props> {
             this.setState({systemError:true})
         })
     }
-
+    async getCurrentSnapshot(){
+        await axios.get('/currentsnapshot').then((res,err) => {
+            if(err){
+                console.log(err)
+            }else{
+                console.log('SNAP DATA',res.data)
+                this.setState({currentSnapshot:res.data.current})
+            }
+        })
+    }
     async approveCharity(id){
         this.setState({loading:true})
         const user = {email:'pat.oharaiv@gmail.com'}
@@ -697,7 +696,9 @@ export default class App extends Component<Props> {
 
             loadApprovals: () => this.loadApprovals(),
 
-            snoozePressed: () => this.snoozePressed()
+            snoozePressed: () => this.snoozePressed(),
+
+            getCurrentSnapshot: () => this.getCurrentSnapshot(),
 
           }}> 
               {
