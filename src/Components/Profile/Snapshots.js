@@ -27,72 +27,7 @@ class Snapshots extends Component<Props> {
     }
 
   render() {
-    const snapshots = [
-    {   date:'Jan 2018',
-        userGraph:[{ name: 'Inactive', population: 110},{ name: 'A.N.D', population: 130 },{ name: 'Donors', population: 400 }],
-        charityGraph:[{ name: 'None', population: 13 },{ name: '> 10/m', population: 12 },{ name: '< 10/m', population: 30 }],
-        lineGraph:{
-                labels: ['January', 'April','August','December'],
-                datasets: [{data: [ 20, 45, 28, 80, 99, 43,100,300,123,303,500,1000,1200,400,1300,1500,2000 ]}]
-        },
-        totalUsers:230,
-        activeUsers:180,
-        inactiveUsers:50,
-        usersDonating:130,
-        totalCharities:50,
-        averageDonation:16,
-        donationsThisYTD:1202,
-        overallDonations:5002
-    },
-    {   date:'Feb 2018',
-        userGraph:[{ name: 'Inactive', population: 110},{ name: 'A.N.D', population: 130 },{ name: 'Donors', population: 400 }],
-        charityGraph:[{ name: 'None', population: 13 },{ name: '> 10/m', population: 12 },{ name: '< 10/m', population: 30 }],
-        lineGraph:{
-                labels: ['January', 'April','August','December'],
-                datasets: [{data: [ 20, 45, 28, 80, 99, 43,100,300,123,303,500,1000,1200,400,1300,1500,2000 ]}]
-        },
-        totalUsers:230,
-        activeUsers:180,
-        inactiveUsers:50,
-        usersDonating:130,
-        totalCharities:50,
-        averageDonation:16,
-        donationsThisYTD:1202,
-        overallDonations:5002
-    },
-    {   date:'Mar 2018',
-        userGraph:[{ name: 'Inactive', population: 110},{ name: 'A.N.D', population: 130 },{ name: 'Donors', population: 400 }],
-        charityGraph:[{ name: 'None', population: 13 },{ name: '> 10/m', population: 12 },{ name: '< 10/m', population: 30 }],
-        lineGraph:{
-                labels: ['January', 'April','August','December'],
-                datasets: [{data: [ 20, 45, 28, 80, 99, 43,100,300,123,303,500,1000,1200,400,1300,1500,2000 ]}]
-        },
-        totalUsers:230,
-        activeUsers:180,
-        inactiveUsers:50,
-        usersDonating:130,
-        totalCharities:50,
-        averageDonation:16,
-        donationsThisYTD:1202,
-        overallDonations:5002
-    },
-    {   date:'April 2018',
-        userGraph:[{ name: 'Inactive', population: 110},{ name: 'A.N.D', population: 130 },{ name: 'Donors', population: 400 }],
-        charityGraph:[{ name: 'None', population: 13 },{ name: '> 10/m', population: 12 },{ name: '< 10/m', population: 30 }],
-        lineGraph:{
-                labels: ['January', 'April','August','December'],
-                datasets: [{data: [ 20, 45, 28, 80, 99, 43,100,300,123,303,500,1000,1200,400,1300,1500,2000 ]}]
-        },
-        totalUsers:230,
-        activeUsers:180,
-        inactiveUsers:50,
-        usersDonating:130,
-        totalCharities:50,
-        averageDonation:16,
-        donationsThisYTD:1202,
-        overallDonations:5002
-    }
-  ]
+    
     const {navigate} = this.props.navigation
     const backAction = NavigationActions.back({})
     const Back = (props) => {
@@ -116,10 +51,10 @@ class Snapshots extends Component<Props> {
         <ScrollView style={{flex:1,padding:15}}>
           <View>
             {
-                snapshots.map((r,i) => 
+                this.props.store.snapshots.map((r,i) => 
                     <ListItem 
                         key={i}
-                        title={`${r.date}`}
+                        title={`${moment(r.createdAt).format('MMM YY')}`}
                         titleStyle={{fontSize:16,color:'white'}}
                         // subtitle={alarm.label}
                         // subtitleStyle={{color:'white'}}

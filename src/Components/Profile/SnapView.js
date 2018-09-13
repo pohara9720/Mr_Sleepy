@@ -33,6 +33,10 @@ class SnapView extends Component<Props> {
         }
     }
 
+    componentDidMount(){
+      this.props.loadLineData(this.props.navigation.state.params.r.createdAt)
+    }
+
   render() {
     
     const {navigate} = this.props.navigation
@@ -47,29 +51,50 @@ class SnapView extends Component<Props> {
             )
      }
     const data = this.props.navigation.state.params.r
-    // console.log('SCREEN',this.props)
+    const labels = this.props.store.lineData.map(x => moment(x.date).format('M/D'))
+    const numbers = this.props.store.lineData.map(z => z.donations)
+    console.log('NUMBER',numbers)
+    const lineNum = numbers.map(y => y.length)
+    console.log('NUMBER2',lineNum)
+    const snapData = {
+        userGraph:[{ name: 'Inactive', population:(data.users - data.activeUsers)},{ name: 'A.N.D', population: (data.activeUsers - data.snoozers)},{ name: 'Donors', population:data.snoozers}],
+        charityGraph:[{ name: 'Dead', population: (100 - data.activeCharityPercent)},{ name: 'Receiving', population: data.activeCharityPercent}],
+        lineGraph:{
+                labels: labels,
+                datasets: [{data: lineNum}]
+        },
+        //NEED PROPER LINE GRAPH
+        totalUsers:data.users,
+        activeUsers: data.activeUsers,
+        inactiveUsers:(data.users - data.activeUsers),
+        usersDonating:data.snoozers,
+        totalCharities:data.charities,
+        averageDonation:`$1.00`,
+        donationsThisYTD:data.donationsThisYTD,
+        overallDonations:data.donationsEver
+    }
     return (
       <View style={styles.container}>
         <Header
             leftComponent={<Back />}
             // rightComponent={{ icon: 'camera-enhance', color: '#fff',onPress:() => navigate('Snapshots') }}
-            centerComponent={{ text: `${data.date}`, style: {fontSize:22,color:'white'}}}
+            centerComponent={{ text: `${moment(data.createdAt).format('MMM YY')}`, style: {fontSize:22,color:'white'}}}
             outerContainerStyles={{backgroundColor:'transparent',borderBottomWidth:0}}
         />
         {
             <SnapDetails 
-                userGraph={data.userGraph}
-                charityGraph={data.charityGraph}
-                lineGraph={data.lineGraph}
-                totalUsers={data.totalUsers}
-                activeUsers={data.activeUsers}
-                inactiveUsers={data.inactiveUsers}
-                usersDonating={data.usersDonating}
-                totalCharities={data.totalCharities}
-                averageDonation={data.averageDonation}
-                donationsYTD={data.donationsThisYTD}
-                overallDonations={data.overallDonations}
-                date={data.date}
+                userGraph={snapData.userGraph}
+                charityGraph={snapData.charityGraph}
+                lineGraph={snapData.lineGraph}
+                totalUsers={snapData.totalUsers}
+                activeUsers={snapData.activeUsers}
+                inactiveUsers={snapData.inactiveUsers}
+                usersDonating={snapData.usersDonating}
+                totalCharities={snapData.totalCharities}
+                averageDonation={snapData.averageDonation}
+                donationsYTD={snapData.donationsThisYTD}
+                overallDonations={snapData.overallDonations}
+                date={moment(data.createdAt).format('MMM YY')}
             />
         }
       </View>

@@ -11,6 +11,7 @@ import {Header,Badge,Icon} from 'react-native-elements'
 import LinearGradient from 'react-native-linear-gradient'
 import {  Context } from '../../../App'
 import connect from '../HOC'
+import moment from 'moment'
 
 
 
@@ -21,6 +22,13 @@ class AdminView extends Component<Props> {
       this.state={
           
       }
+    }
+
+    componentDidMount(){
+        const date = {date:moment().format()}
+        this.props.getCurrentSnapshot()
+        this.props.getSnapshots()
+        this.props.loadLineData(date)
     }
 
   render() {

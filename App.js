@@ -57,6 +57,8 @@ export default class App extends Component<Props> {
             charityList:[],
             charityProfile:'',
             currentSnapshot:'',
+            snapshots:[],
+            lineData:'',
             accountName: 'Ariana Grande',
             accountEmail: 'arianagrande@gmail.com',
             accountPassword: '',
@@ -83,7 +85,7 @@ export default class App extends Component<Props> {
         //         currentTime : this.getDate()
         //     })
         // },1000)        
-        // this.loadCharities()
+        this.loadCharities()
     }
 
     componentWillUnmount() {
@@ -343,6 +345,19 @@ export default class App extends Component<Props> {
         })
     }
 
+    async getSnapshots(){
+        await axios.get(`${api}/snapshots`).then((res,err) => {
+            if(err){
+                console.log(err)
+            }
+            else{
+                this.setState({snapshots:res.data})
+            }
+        }).catch((err) => {
+            console.log(err)
+        })
+    }
+
     async addPayment(card){
         console.log('CARD',card)
         // const token = this.state.me.token
@@ -365,16 +380,33 @@ export default class App extends Component<Props> {
             this.setState({systemError:true})
         })
     }
+
     async getCurrentSnapshot(){
-        await axios.get('/currentsnapshot').then((res,err) => {
+        await axios.get(`${api}/currentsnapshot`).then((res,err) => {
             if(err){
                 console.log(err)
             }else{
                 console.log('SNAP DATA',res.data)
-                this.setState({currentSnapshot:res.data.current})
+                this.setState({currentSnapshot:res.data})
             }
+        }).catch((err)=>{
+            console.log(err)
         })
     }
+
+    async loadLineData(date){
+        await axios.post(`${api}/linegraph`,date).then((res,err) => {
+            if(err){
+                console.log(err)
+            }else{
+                console.log('LINE DATA',res.data)
+                this.setState({lineData:res.data})
+            }
+        }).catch((err)=>{
+            console.log(err)
+        })
+    }
+
     async approveCharity(id){
         this.setState({loading:true})
         const user = {email:'pat.oharaiv@gmail.com'}
@@ -699,6 +731,10 @@ export default class App extends Component<Props> {
             snoozePressed: () => this.snoozePressed(),
 
             getCurrentSnapshot: () => this.getCurrentSnapshot(),
+
+            loadLineData: (date) => this.loadLineData(date),
+
+            getSnapshots:() => this.getSnapshots()
 
           }}> 
               {

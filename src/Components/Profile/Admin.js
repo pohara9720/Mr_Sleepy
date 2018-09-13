@@ -34,7 +34,9 @@ class Admin extends Component<Props> {
     }
 
     componentDidMount(){
-        this.props.getCurrentSnapshot()
+        // const date = {date:moment().format()}
+        // this.props.getCurrentSnapshot()
+        // this.props.loadLineData(date)
     }
   render() {
     
@@ -49,52 +51,29 @@ class Admin extends Component<Props> {
               </Text>
             )
      }
-     const userPie = [
-        { name: 'Inactive', population:`${this.props.currentSnapshot.users}` - `${this.props.currentSnapshot.activeUsers}`},
-        { name: 'A.N.D', population: `${this.props.currentSnapshot.activeUsers - this.props.currentSnapshot.snoozers}` },
-        { name: 'Donors', population: `${this.props.currentSnapshot.snoozers}`},
-    ]
-    const charityPie = [
-        { name: 'Dead', population: (100 - `${this.props.currentSnapshot.activeCharityPercent}`)},
-        { name: 'Receiving', population: `${this.props.currentSnapshot.activeCharityPercent}` },
-    ]
-  
-
-    const lineData = {
-        labels: ['January', 'April','August','December'],
-        datasets: [{
-          data: [ 20, 45, 28, 80, 99, 43,100,300,123,303,500,1000,1200,400,1300,1500,2000 ]
-        }]
-    }
-
-    // const charities =  getAllCharities() // All charities
-
-    // const averageDonation= null // Average amount people snooze 
-    // const snoozers = null // Number of users pushing snooze
-    // const snoozePercentage = null // number of ppl snoozing divided by active users
-    // const topCharities = charitySpectrum(top) // Top 5 charities
-    // const bottomCharities = charitySpectrum(bottom) // Bottom 5 charities,
-    // const donationsEver = loadAllDonations() // Donations made total ever
-    // const donationThisMonth = null // Donations made in current month
-    // const donationsThisYTD = null // Donations made for current YTD
-
+    const labels = this.props.store.lineData.map(x => moment(x.date).format('M/D'))
+    const numbers = this.props.store.lineData.map(z => z.donations)
+    console.log('NUMBER',numbers)
+    const lineNum = numbers.map(y => y.length)
+    console.log('NUMBER2',lineNum)
     const data = {
-        userGraph:[{ name: 'Inactive', population:(this.props.currentSnapshot.users - this.props.currentSnapshot.activeUsers)},{ name: 'A.N.D', population: (this.props.currentSnapshot.activeUsers - this.props.currentSnapshot.snoozers)},{ name: 'Donors', population:this.props.currentSnapshot.snoozers}],
-        charityGraph:[{ name: 'Dead', population: (100 - this.props.currentSnapshot.activeCharityPercent)},{ name: 'Receiving', population: this.props.currentSnapshot.activeCharityPercent}],
+        userGraph:[{ name: 'Inactive', population:(this.props.store.currentSnapshot.users - this.props.store.currentSnapshot.activeUsers)},{ name: 'A.N.D', population: (this.props.store.currentSnapshot.activeUsers - this.props.store.currentSnapshot.snoozers)},{ name: 'Donors', population:this.props.store.currentSnapshot.snoozers}],
+        charityGraph:[{ name: 'Dead', population: (100 - this.props.store.currentSnapshot.activeCharityPercent)},{ name: 'Receiving', population: this.props.store.currentSnapshot.activeCharityPercent}],
         lineGraph:{
-                labels: ['January', 'April','August','December'],
-                datasets: [{data: [ 20, 45, 28, 80, 99, 43,100,300,123,303,500,1000,1200,400,1300,1500,2000 ]}]
+                labels: labels,
+                datasets: [{data: lineNum}]
         },
         //NEED PROPER LINE GRAPH
-        totalUsers:this.props.currentSnapshot.users,
-        activeUsers: this.props.currentSnapshot.activeUsers,
-        inactiveUsers:(this.props.currentSnapshot.users - this.props.currentSnapshot.activeUsers),
-        usersDonating:this.props.currentSnapshot.snoozers,
-        totalCharities:this.props.currentSnapshot.charities,
-        // averageDonation:16,
-        donationsThisYTD:this.props.currentSnapshot.donationsThisYTD,
-        overallDonations:this.props.currentSnapshot.donationsEver
+        totalUsers:this.props.store.currentSnapshot.users,
+        activeUsers: this.props.store.currentSnapshot.activeUsers,
+        inactiveUsers:(this.props.store.currentSnapshot.users - this.props.store.currentSnapshot.activeUsers),
+        usersDonating:this.props.store.currentSnapshot.snoozers,
+        totalCharities:this.props.store.currentSnapshot.charities,
+        averageDonation:`$1.00`,
+        donationsThisYTD:this.props.store.currentSnapshot.donationsThisYTD,
+        overallDonations:this.props.store.currentSnapshot.donationsEver
     }
+    console.log(data.lineGraph.datasets)
     return (
       <View style={styles.container}>
         <Header
