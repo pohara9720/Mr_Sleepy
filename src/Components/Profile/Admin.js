@@ -71,6 +71,8 @@ class Admin extends Component<Props> {
         totalCharities:this.props.store.currentSnapshot.charities,
         averageDonation:`$1.00`,
         donationsThisYTD:this.props.store.currentSnapshot.donationsThisYTD,
+        topCharities: this.props.store.currentSnapshot.topCharities,
+        bottomCharities: this.props.store.currentSnapshot.bottomCharities,
         overallDonations:this.props.store.currentSnapshot.donationsEver
     }
     console.log(data.lineGraph.datasets)
@@ -93,6 +95,8 @@ class Admin extends Component<Props> {
                 inactiveUsers={data.inactiveUsers}
                 usersDonating={data.usersDonating}
                 totalCharities={data.totalCharities}
+                topCharities={data.topCharities}
+                bottomCharities={data.bottomCharities}
                 averageDonation={data.averageDonation}
                 donationsYTD={data.donationsThisYTD}
                 overallDonations={data.overallDonations}

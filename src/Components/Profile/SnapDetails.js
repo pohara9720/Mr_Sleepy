@@ -94,6 +94,26 @@ export const SnapDetails = (props) => (
             </View>
             <View  style={styles.current}>
                   <Icon 
+                        name='thumb-up'
+                        color='#a020f0'
+                        size={20}
+                        iconStyle={{marginRight:10}}
+                  />
+                  <Text style={{color:'#a020f0',fontSize:15}}>Top Charities</Text>
+                  <Text style={{marginLeft:'auto',color:'#a020f0',fontSize:15,fontWeight:'bold'}}>{props.topCharities}</Text>
+            </View>
+            <View  style={styles.current}>
+                  <Icon 
+                        name='thumb-down'
+                        color='#a020f0'
+                        size={20}
+                        iconStyle={{marginRight:10}}
+                  />
+                  <Text style={{color:'#a020f0',fontSize:15}}>Bottom Charities</Text>
+                  <Text style={{marginLeft:'auto',color:'#a020f0',fontSize:15,fontWeight:'bold'}}>{props.bottomCharities}</Text>
+            </View>
+            <View  style={styles.current}>
+                  <Icon 
                         name='business'
                         color='#a020f0'
                         size={20}

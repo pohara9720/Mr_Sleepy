@@ -69,6 +69,8 @@ class SnapView extends Component<Props> {
         inactiveUsers:(data.users - data.activeUsers),
         usersDonating:data.snoozers,
         totalCharities:data.charities,
+        bottomCharities:data.bottomCharities,
+        topCharities:data.topCharities,
         averageDonation:`$1.00`,
         donationsThisYTD:data.donationsThisYTD,
         overallDonations:data.donationsEver
@@ -93,6 +95,8 @@ class SnapView extends Component<Props> {
                 totalCharities={snapData.totalCharities}
                 averageDonation={snapData.averageDonation}
                 donationsYTD={snapData.donationsThisYTD}
+                topCharities={snapData.topCharities}
+                bottomCharities={snapData.bottomCharities}
                 overallDonations={snapData.overallDonations}
                 date={moment(data.createdAt).format('MMM YY')}
             />
