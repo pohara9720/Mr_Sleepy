@@ -14,7 +14,7 @@ import LinearGradient from 'react-native-linear-gradient'
 import Collapsible from 'react-native-collapsible'
 import {  Context } from '../../../App'
 import connect from '../HOC'
-
+import moment from 'moment'
 
 
 
@@ -26,18 +26,24 @@ class SuperSearch extends Component<Props> {
         search:'',
         filter:true,
         category:'',
-        openDetails:'',
-        openUp:false
       }
     }
 
+  submit = () => {
+      if(this.state.category === 'Charity'){
+          this.props.searchCharityEmail(this.state.search)
+      }
+      else{
+        this.props.searchUserEmail(this.state.search)
+      }
+   }
 
 
   render() {
     const {navigate} = this.props.navigation
     const backAction = NavigationActions.back({})
-    const categories = ['Charity','User','Donation']
-    
+    const categories = ['Charity','User']
+    const test = []
     const Back = (props) => {
             return(
               <Text
@@ -48,81 +54,10 @@ class SuperSearch extends Component<Props> {
             )
      }
 
-     const example = [{
-          id:34,
-          name:'John Appleseed',
-          email:'japple@appl.com',
-          customerId: 'cus_aksdhaid813813',
-          verified:true,
-          pendingDonations: 5,
-          Charity:[{
-              name: 'Food for the hungry',
-              email: 'ffh@foodforhungry.com',
-              location: 'Los Angeles',
-              website: 'http://www.foodforhungry.com',
-              orgImage: 'https://i.pinimg.com/736x/22/0c/c2/220cc27703322d06e4eefe9af4c8990c--arianna-grande-ariana-grande-smile.jpg',
-              subtitle: 'This charity is lit',
-              bio: 'akdnaksn iasdn aisdn iasdnma isdm aoismd ioamsdoi amdi msadio masodi amsdma osidmaois dmaoisdmaoimsoi masiod maoisd maisod masiod masoid masoid madoi masdoi amsiodm oiasmd aiosmd',
-              category: 'Health',
-              pendingDonations: 34
-          }],
-          Donation:[{
-              amount: 32,
-              donatedOn: 'Aug 12,2018',
-              transaction: 'tra_asdasd139423',
-              status: 'success',
-              charity:'Food for the hungry'
-          },{
-              amount: 32,
-              donatedOn: 'Aug 12,2018',
-              transaction: 'tra_asdasd139423',
-              status: 'success',
-              charity:'Food for the hungry'
-          },{
-              amount: 32,
-              donatedOn: 'Aug 12,2018',
-              transaction: 'tra_asdasd139423',
-              status: 'success',
-              charity:'Food for the hungry'
-          }]
-     },{
-        id:34,
-            name:'Margot Robbie',
-            email:'margot@gmail.com',
-            customerId: 'cus_aksdhaid813813',
-            verified:true,
-            pendingDonations: 5,
-            Charity:[{
-                name: 'Food for the hungry',
-                email: 'ffh@foodforhungry.com',
-                location: 'Los Angeles',
-                website: 'http://www.foodforhungry.com',
-                orgImage: 'https://i.pinimg.com/736x/22/0c/c2/220cc27703322d06e4eefe9af4c8990c--arianna-grande-ariana-grande-smile.jpg',
-                subtitle: 'This charity is lit',
-                bio: 'akdnaksn iasdn aisdn iasdnma isdm aoismd ioamsdoi amdi msadio masodi amsdma osidmaois dmaoisdmaoimsoi masiod maoisd maisod masiod masoid masoid madoi masdoi amsiodm oiasmd aiosmd',
-                category: 'Health',
-                pendingDonations: 34
-            }],
-            Donation:[{
-                amount: 32,
-                donatedOn: 'Aug 12,2018',
-                transaction: 'tra_asdasd139423',
-                status: 'success',
-                charity:'Food for the hungry'
-            },{
-                amount: 32,
-                donatedOn: 'Aug 12,2018',
-                transaction: 'tra_asdasd139423',
-                status: 'success',
-                charity:'Food for the hungry'
-            },{
-                amount: 32,
-                donatedOn: 'Aug 12,2018',
-                transaction: 'tra_asdasd139423',
-                status: 'success',
-                charity:'Food for the hungry'
-            }]
-     }]
+     
+     // console.log(this.props.store.adminSearchResults)
+     const e = this.props.store.adminSearchResults
+     
     return (
       <View style={styles.container}>
         <Header
@@ -135,7 +70,7 @@ class SuperSearch extends Component<Props> {
                 round
                 lightTheme
                 onChangeText={(e) => this.setState({search:e})}
-                onClearText={(e) => this.setState({search:false})}
+                // onClearText={(e) => this.setState({search:false})}
                 containerStyle={{backgroundColor:'transparent',borderBottomWidth:0,borderTopWidth:0,width:'90%'}}
                 // cancelButtonTitle={'Cancel'}
                 // showLoadingIcon={true}
@@ -158,7 +93,7 @@ class SuperSearch extends Component<Props> {
                       <View style={{display:'flex',flexDirection:'row',flexWrap:'wrap'}}>
                           {
                             categories.map((c,i) => 
-                              <Badge onPress={() => c === 'Clear' ? this.setState({category:'',filter:true}) : this.setState({category:c})} containerStyle={ this.state.category === c ? {backgroundColor: '#a020f0',margin:5,borderColor:'white',borderWidth:1} : {backgroundColor: 'white',margin:5,borderWidth:1,borderColor:'transparent'}}>
+                              <Badge key={i} onPress={() => c === 'Clear' ? this.setState({category:'',filter:true}) : this.setState({category:c})} containerStyle={ this.state.category === c ? {backgroundColor: '#a020f0',margin:5,borderColor:'white',borderWidth:1} : {backgroundColor: 'white',margin:5,borderWidth:1,borderColor:'transparent'}}>
                                     <Text style={this.state.category === c ? {color:'white',fontWeight:'bold'} : {color:'#a020f0',fontWeight:'bold'}}>{c}</Text>
                               </Badge>)
                           }
@@ -166,37 +101,39 @@ class SuperSearch extends Component<Props> {
                   </View>
               </View>
         </Collapsible>
-        <View style={styles.results}>
-            <Text style={{color:'white',fontWeight:'bold'}}>{`12 results`}</Text>
+        <View style={{justifyContent:'center',alignItems:'center'}}>
+            <TouchableOpacity onPress={() => this.submit()} style={{width:'30%',borderRadius:15,flexDirection:'row',justifyContent:'center',alignItems:'center',padding:10,borderColor:'white',borderWidth:1}}>
+                  <Icon 
+                      name='search'
+                      color='white'
+                  />
+                  <Text style={{color:'white'}}>Search</Text>
+            </TouchableOpacity>
         </View>
         <ScrollView style={{flex:1}}>
                   {
-                    example.map((e,i) => 
+                    this.props.store.adminSearchResults === '' ? null :
                       <View>
-                          <Card>
-                              <CardTitle 
-                                title={e.name} 
-                                subtitle={e.email}
-                                style={{color:'#a020f0'}}
-                               />
-                              <CardAction 
-                                separator={true} 
-                                inColumn={false}>
-                                      <CardButton
-                                        onPress={() => this.setState({openDetails:e.id, openUp:!this.state.openUp})}
-                                        title={'Show More'}
-                                        color='#a020f0'
-
-                                      />
-                                      <CardButton
-                                        onPress={() => this.setState({openDetails:e.id,openUp:!this.state.openUp})}
-                                        title="Delete User"
-                                        color='red'
-                                      />
-                              </CardAction>
-                        </Card>
-                        <Collapsible collapsed={this.state.openDetails === e.id && this.state.openUp === true ? false : true}>
                               <View style={{margin:5,display:'flex',flexDirection:'column',backgroundColor:'white'}}>
+                                 <Text style={{color:'#a020f0',fontSize:20,fontWeight:'bold',padding:10}}>User Info</Text>
+                                  <View style={{padding:10,borderBottomWidth:0,flexDirection:'row'}}>
+                                        <Icon 
+                                              name='account-circle'
+                                              color='#a020f0'
+                                              size={20}
+                                              iconStyle={{marginRight:10}}
+                                        />
+                                        <Text style={{color:'#a020f0',fontSize:15}}>{e.name}</Text>
+                                  </View>
+                                  <View style={{padding:10,borderBottomWidth:0,flexDirection:'row'}}>
+                                        <Icon 
+                                              name='email'
+                                              color='#a020f0'
+                                              size={20}
+                                              iconStyle={{marginRight:10}}
+                                        />
+                                        <Text style={{color:'#a020f0',fontSize:15}}>{e.email}</Text>
+                                  </View>
                                   <View style={{padding:10,borderBottomWidth:0,flexDirection:'row'}}>
                                         <Icon 
                                               name={e.verified === true ? 'check' : 'remove'}
@@ -207,6 +144,17 @@ class SuperSearch extends Component<Props> {
                                         />
                                         <Text style={{color:'#a020f0',fontSize:15}}>Verified</Text>
                                   </View>
+                                  <View style={{padding:10,borderColor:'#a020f0',borderBottomWidth:0,flexDirection:'row'}}>
+                                        <Icon 
+                                              name='key'
+                                              type='font-awesome'
+                                              color='#a020f0'
+                                              size={20}
+                                              iconStyle={{marginRight:10}}
+                                        />
+                                        <Text style={{color:'#a020f0',fontSize:15}}>Snoozer ID</Text>
+                                        <Text style={{color:'#a020f0',fontSize:15,marginLeft:'auto'}}>{e.snoozer_customerId}</Text>
+                                  </View>
                                   <View style={{padding:10,borderColor:'#a020f0',borderBottomWidth:1,flexDirection:'row'}}>
                                         <Icon 
                                               name='key'
@@ -215,14 +163,14 @@ class SuperSearch extends Component<Props> {
                                               size={20}
                                               iconStyle={{marginRight:10}}
                                         />
-                                        <Text style={{color:'#a020f0',fontSize:15}}>Customer ID</Text>
-                                        <Text style={{color:'#a020f0',fontSize:15,marginLeft:'auto'}}>{e.customerId}</Text>
+                                        <Text style={{color:'#a020f0',fontSize:15}}>Connected Acct.</Text>
+                                        <Text style={{color:'#a020f0',fontSize:15,marginLeft:'auto'}}>{e.connected_accountId}</Text>
                                   </View>
                                   <View style={{display:'flex',flexDirection:'column',padding:10}}>
                                 <Text style={{color:'#a020f0',fontSize:20,fontWeight:'bold'}}>Charities</Text>
                                   {
-                                    e.Charity.map((c,i) => 
-                                          <View style={{borderColor:'#a020f0',flexDirection:'column',borderBottomWidth:1}}>
+                                    e.Charities.map((c,j) => 
+                                          <View key={j} style={{borderColor:'#a020f0',flexDirection:'column',borderBottomWidth:1}}>
                                               <View style={{flexDirection:'row',padding:10}}>
                                                   <Icon 
                                                         name='business'
@@ -297,8 +245,8 @@ class SuperSearch extends Component<Props> {
                               <View style={{display:'flex',flexDirection:'column',padding:10}}>
                                 <Text style={{color:'#a020f0',fontSize:20,fontWeight:'bold'}}>Donations</Text>
                                   {
-                                    e.Donation.map((d,i) => 
-                                          <View style={{borderColor:'#a020f0',borderWidth:1,borderBottomWidth:1,flexDirection:'column'}}>
+                                    e.Donations.map((d,f) => 
+                                          <View key={f} style={{borderColor:'#a020f0',borderWidth:1,borderBottomWidth:1,flexDirection:'column'}}>
                                               <View style={{flexDirection:'row',padding:10}}>
                                                   <Icon 
                                                         name='coin'
@@ -317,7 +265,7 @@ class SuperSearch extends Component<Props> {
                                                         size={20}
                                                         iconStyle={{marginRight:10}}
                                                   />
-                                                  <Text style={{color:'#a020f0',fontSize:15}}>{d.donatedOn}</Text>
+                                                  <Text style={{color:'#a020f0',fontSize:15}}>{moment(d.createdAt).format('MMM dd YY')}</Text>
                                               </View>
                                               <View style={{flexDirection:'row',padding:10}}>
                                                   <Icon 
@@ -326,16 +274,7 @@ class SuperSearch extends Component<Props> {
                                                         size={20}
                                                         iconStyle={{marginRight:10}}
                                                   />
-                                                  <Text style={{color:'#a020f0',fontSize:15}}>{d.transaction}</Text>
-                                              </View>
-                                              <View style={{flexDirection:'row',padding:10}}>
-                                                  <Icon 
-                                                        name={d.status ==='success' ? 'check' : 'clear'}
-                                                        color={d.status === 'success' ? 'green' : 'red'}
-                                                        size={20}
-                                                        iconStyle={{marginRight:10}}
-                                                  />
-                                                  <Text style={{color:'#a020f0',fontSize:15}}>{d.status}</Text>
+                                                  <Text style={{color:'#a020f0',fontSize:15}}>{d.invoiceId}</Text>
                                               </View>
                                               <View style={{flexDirection:'row',padding:10}}>
                                                   <Icon 
@@ -344,15 +283,14 @@ class SuperSearch extends Component<Props> {
                                                         size={20}
                                                         iconStyle={{marginRight:10}}
                                                   />
-                                                  <Text style={{color:'#a020f0',fontSize:15}}>{d.charity}</Text>
+                                                  <Text style={{color:'#a020f0',fontSize:15}}>{d.Charity.name}</Text>
                                               </View>
                                         </View>
                                     )}
                               </View>
                               </View>
-                      </Collapsible>
                     </View>
-                  )}
+                  }
         </ScrollView>
       </View>
     );
@@ -367,7 +305,8 @@ const styles = StyleSheet.create({
   results:{
     display:'flex',
     alignItems:'center',
-    marginBottom:15
+    marginBottom:15,
+    marginTop:10
   },
   linearGradient:{
     borderRadius:10,

@@ -33,81 +33,7 @@ class Receipts extends Component<Props> {
   render() {
     const {navigate} = this.props.navigation
     const backAction = NavigationActions.back({})
-    const receiptsList = [{
-      date:moment().format('l'),
-      amount: '$6.00',
-      transaction: 'rec_iajiwd2inmimide2m'
-    },
-    {
-      date:moment().format('l'),
-      amount: '$6.00',
-      transaction: 'rec_iajiwd2inmimide2m'
-    },{
-      date:moment().format('l'),
-      amount: '$6.00',
-      transaction: 'rec_iajiwd2inmimide2m'
-    },{
-      date:moment().format('l'),
-      amount: '$6.00',
-      transaction: 'rec_iajiwd2inmimide2m'
-    },{
-      date:moment().format('l'),
-      amount: '$6.00',
-      transaction: 'rec_iajiwd2inmimide2m'
-    },{
-      date:moment().format('l'),
-      amount: '$6.00',
-      transaction: 'rec_iajiwd2inmimide2m'
-    },{
-      date:moment().format('l'),
-      amount: '$6.00',
-      transaction: 'rec_iajiwd2inmimide2m'
-    },{
-      date:moment().format('l'),
-      amount: '$6.00',
-      transaction: 'rec_iajiwd2inmimide2m'
-    },{
-      date:moment().format('l'),
-      amount: '$6.00',
-      transaction: 'rec_iajiwd2inmimide2m'
-    },{
-      date:moment().format('l'),
-      amount: '$6.00',
-      transaction: 'rec_iajiwd2inmimide2m'
-    },
-    {
-      date:moment().format('l'),
-      amount: '$6.00',
-      transaction: 'rec_iajiwd2inmimide2m'
-    },{
-      date:moment().format('l'),
-      amount: '$6.00',
-      transaction: 'rec_iajiwd2inmimide2m'
-    },{
-      date:moment().format('l'),
-      amount: '$6.00',
-      transaction: 'rec_iajiwd2inmimide2m'
-    },{
-      date:moment().format('l'),
-      amount: '$6.00',
-      transaction: 'rec_iajiwd2inmimide2m'
-    },{
-      date:moment().format('l'),
-      amount: '$6.00',
-      transaction: 'rec_iajiwd2inmimide2m'
-    },{
-      date:moment().format('l'),
-      amount: '$6.00',
-      transaction: 'rec_iajiwd2inmimide2m'
-    },{
-      date:moment().format('l'),
-      amount: '$6.00',
-      transaction: 'rec_iajiwd2inmimide2m'
-    },{
-      date:moment().format('l'),
-      amount: '$6.00',
-      transaction: 'rec_iajiwd2inmimide2m'
-    }]
+    
     const Back = (props) => {
             return(
               <Text
@@ -126,9 +52,18 @@ class Receipts extends Component<Props> {
         />
         <ScrollView style={{flex:1,padding:15}}>
           <View>
-            {
-                receiptsList.map((r,i) => 
+            {   this.props.store.invoices.length === 0 ? 
                     <ListItem 
+                        title='You have no receipts'
+                        titleStyle={{fontSize:16,color:'white',fontWeight:'bold'}}
+                        containerStyle={{backgroundColor:'#a020f0',borderTopWidth:0,borderBottomWidth:0,borderRadius:10,marginBottom:5}}
+                        hideChevron={true}
+                    />
+
+              :
+                this.props.store.invoices.map((r,i) => 
+                    <ListItem 
+                        key={i}
                         title={`Week of ${r.date}`}
                         titleStyle={{fontSize:16,color:'white',fontWeight:'bold'}}
                         subtitle={`conf #: ${r.transaction}`}

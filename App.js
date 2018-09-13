@@ -52,12 +52,14 @@ export default class App extends Component<Props> {
             charitySelect: null,
             card:null,
             alarmList:[],
+            adminSearchResults:'',
             donations:[],
             accountCharities:[],
             charityList:[],
             charityProfile:'',
             currentSnapshot:'',
             snapshots:[],
+            invoices:[],
             lineData:'',
             accountName: 'Ariana Grande',
             accountEmail: 'arianagrande@gmail.com',
@@ -448,6 +450,35 @@ export default class App extends Component<Props> {
         })
     }
 
+    async searchCharityEmail(email){
+        const payload = {email}
+        await axios.post(`${api}/admincharity`,payload).then((res,err) => {
+            if(err){
+                console.log(err)
+            }
+            else{
+                this.setState({adminSearchResults:res.data})
+            }
+        }).catch((err) => {
+            console.log(err)
+        })
+    }
+
+    async searchUserEmail(email){
+        const payload = {email}
+        await axios.post(`${api}/admin/users`,payload).then((res,err) => {
+            if(err){
+                console.log(err)
+            }
+            else{
+                console.log('DATA',res.data)
+                this.setState({adminSearchResults:res.data})
+            }
+        }).catch((err) => {
+            console.log(err)
+        })
+    }
+
     configurePushNotifications = () => {
         PushNotification.configure({
             onNotification: (notification) =>  {
@@ -734,7 +765,11 @@ export default class App extends Component<Props> {
 
             loadLineData: (date) => this.loadLineData(date),
 
-            getSnapshots:() => this.getSnapshots()
+            getSnapshots:() => this.getSnapshots(),
+
+            searchCharityEmail: (email) => this.searchCharityEmail(email),
+
+            searchUserEmail: (email) => this.searchUserEmail(email)
 
           }}> 
               {
