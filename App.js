@@ -464,6 +464,21 @@ export default class App extends Component<Props> {
         })
     }
 
+    async getInvoices(customer){
+        console.log('running')
+        const payload = {customer}
+        await axios.post(`${api}/invoices`,payload).then((res,err) => {
+            if(err){
+                console.log(err)
+            }
+            else{
+                this.setState({invoices:res.data})
+            }
+        }).catch((err) => {
+            console.log(err)
+        })
+    }
+
     async searchUserEmail(email){
         const payload = {email}
         await axios.post(`${api}/admin/users`,payload).then((res,err) => {
@@ -769,7 +784,9 @@ export default class App extends Component<Props> {
 
             searchCharityEmail: (email) => this.searchCharityEmail(email),
 
-            searchUserEmail: (email) => this.searchUserEmail(email)
+            searchUserEmail: (email) => this.searchUserEmail(email),
+
+            getInvoices: (id) => this.getInvoices(id)
 
           }}> 
               {

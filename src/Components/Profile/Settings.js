@@ -23,8 +23,12 @@ class Settings extends Component<Props> {
       }
     }
 
-  render() {
-    const Back = (props) => {
+
+    componentDidMount(){
+        this.props.getInvoices('cus_DZn8hqUplKJH3u')
+    }
+    render() {
+      const Back = (props) => {
       const backAction = NavigationActions.back({})
         return(
           <Text
@@ -77,12 +81,12 @@ class Settings extends Component<Props> {
                     <TouchableOpacity onPress={() => navigate('Receipts')}>
                         <View style={{borderColor:'#a020f0',borderWidth:1,borderBottomWidth:0,padding:15,flexDirection:'row'}}>
                           <Icon 
-                            name={'receipt'}
-                            color={'#a020f0'}
+                            name='receipt'
+                            color='#a020f0'
                             size={20}
                             iconStyle={{marginRight:10}}
                           />
-                            <Text style={{color:'#a020f0',fontSize:15}}>Receipts</Text>
+                            <Text style={{color:'#a020f0',fontSize:15}}>Invoices</Text>
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity>

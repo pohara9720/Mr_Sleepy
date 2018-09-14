@@ -202,7 +202,6 @@ const styles = StyleSheet.create({
   },
   banner:{
     flexDirection:'row',
-    
   },
   linearGradient:{
     borderRadius:10,
