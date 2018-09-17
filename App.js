@@ -36,15 +36,7 @@ export default class App extends Component<Props> {
     constructor(props){
         super(props)
         this.state ={
-            me:{
-                id:2,
-                name:'patrick',
-                email:'pat.oharaiv@gmail.com',
-                snoozer_customerId:'cus_DZn8hqUplKJH3u',
-                snoozer_subscription:'sub_DZn8E7KYC4KJ1O',
-                tempChar:3
-            },
-            // me:false,
+            me:'',
             timeSelect:'',
             datePicker: false,
             frequency: [],
@@ -74,7 +66,9 @@ export default class App extends Component<Props> {
             approvals:[],
             snoozes:null,
             charityApproved:false,
-            systemError:false
+            systemError:false,
+            emailExists:false,
+            signupSent:false
         }
     }
 
@@ -702,6 +696,31 @@ export default class App extends Component<Props> {
             console.log(error)
         }
     }
+
+    async signup(name,email,password){
+        this.setState({loading:true})
+        // setTimeout(() => this.setState({signupSent:true,loading:false}),3000)
+        const user = {name,email,password}
+        await  axios.post(`${api}/signup`,user).then((res,err) => {
+            console.log('RESPONSE',res.data)
+            if(err){
+                console.log('error',err)
+                this.setState({error:true,loading:false})
+            }else if(res.data === 'email exists'){
+                console.log('WORKING')
+                this.setState({emailExists:true})
+                setTimeout(() => this.setState({loading:false}),3000)
+            }else{
+                console.log('RESPONSE',res)
+                this.setState({signupSent:true})
+                // setTimeout(() => this.setState({loading:false}),3000)
+            }
+        }).catch((err) => {
+            console.log(err)
+            this.setState({systemError:true,systemErrorMessage:'Cannot connect to server'})
+            
+        })
+    }
   
     render() {
       console.log(this.state)
@@ -786,11 +805,17 @@ export default class App extends Component<Props> {
 
             searchUserEmail: (email) => this.searchUserEmail(email),
 
-            getInvoices: (id) => this.getInvoices(id)
+            getInvoices: (id) => this.getInvoices(id),
+
+            signup: (name,email,pass) => this.signup(name,email,pass),
+
+            toggleLoading: () => this.setState({loading:false}),
+
+            resetLoginModal: () => this.setState({loading:false,signupSent:false,emailExists:false})
 
           }}> 
               {
-                !this.state.me ?
+                this.state.me !== typeof Object ?
                <Login />
                 :
                 <Tabs />

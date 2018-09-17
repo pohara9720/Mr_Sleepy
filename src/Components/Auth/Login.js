@@ -5,10 +5,11 @@ import {
   Text,
   View,
   Image,ScrollView,
- Navigator,KeyboardAvoidingView,TouchableOpacity
+ Navigator,KeyboardAvoidingView,TouchableOpacity,ActivityIndicator
 } from 'react-native';
 
-import { FormLabel, FormInput,Button, Header,SearchBar } from 'react-native-elements'
+import { FormLabel, FormInput,Button, Header,SearchBar,Icon } from 'react-native-elements'
+import Modal from "react-native-simple-modal"
 import { StackNavigator } from 'react-navigation';
 import LinearGradient from 'react-native-linear-gradient';
 import axios from 'axios'
@@ -21,11 +22,26 @@ class Login extends Component<{}> {
     constructor(props){
         super(props)
         this.state = {
-            email: "",
-            password:"",
-            name:"",
+            email: '',
+            password:'',
+            name:'',
             error:false,
             login:true
+        }
+    }
+
+    closeToLogin = () => {
+        this.props.toggleLoading()
+        this.setState({login:true})
+    }
+
+    signup = () => {
+        if(this.state.name === '' || this.state.password === '' || this.state.email === ''){
+            this.setState({error:true})
+            setTimeout(() => this.setState({error:true}),2500)
+        }
+        else{
+            this.props.signup(this.state.name,this.state.email,this.state.password)
         }
     }
 
@@ -46,6 +62,7 @@ class Login extends Component<{}> {
                                     <SearchBar 
                                         raised
                                         noIcon
+                                        value={this.state.email}
                                         onChangeText={(e) => this.setState({email:e})}
                                         // icon={{ type: 'material-community', name: 'email-outline',color:'#a020f0'}}
                                         inputStyle={this.state.error ? styles.errorInput : styles.input}
@@ -90,6 +107,7 @@ class Login extends Component<{}> {
                                     <SearchBar 
                                         // raised
                                         noIcon
+                                        value={this.state.name}
                                         onChangeText={(e) => this.setState({name:e})}
                                         // icon={{ type: 'material-community', name: 'email-outline',color:'#a020f0'}}
                                         inputStyle={this.state.error ? styles.errorInput : styles.input}
@@ -118,7 +136,7 @@ class Login extends Component<{}> {
                                         placeholderTextColor={ this.state.error ? 'red' : '#a020f0'}
                                         containerStyle={{backgroundColor:'transparent',borderTopWidth:0,borderBottomWidth:0}}
                                     />
-                                    <TouchableOpacity style={styles.button}>
+                                    <TouchableOpacity onPress={() => this.signup()} style={styles.button}>
                                         <Text style={{color:'white',fontWeight:'bold'}}>Sign up</Text>
                                     </TouchableOpacity>
                                     <View style={{justifyContent:'center',alignItems:'center',marginTop:10}}>
@@ -131,6 +149,69 @@ class Login extends Component<{}> {
                             </ScrollView>
                         </KeyboardAvoidingView>
                 }
+                <Modal
+                    animationDuration={200}
+                    animationTension={40}
+                    closeOnTouchOutside={false}
+                    modalDidClose={() => this.props.resetLoginModal()}
+                    containerStyle={{
+                      justifyContent: "center",
+                    }}
+                    disableOnBackPress={false}
+                    // modalDidClose={() => PushNotificationsHandler.requestPermissions()}
+                    modalStyle={{
+                      backgroundColor: this.props.store.signupSent ? "white" : this.props.store.emailExists ? 'white' : "#a020f0",
+                      borderRadius:10,  
+                      borderColor:'#a020f0',
+                    }}
+                    offset={0}
+                    open={this.props.store.loading}
+                    overlayStyle={{
+                      backgroundColor: "rgba(0, 0, 0, 0.75)",
+                      flex: 1
+                    }}
+                >     
+                    {
+                      this.props.store.signupSent ? 
+                      <View style={{alignItems:'center',justifyContent:'center'}}>
+                          <View style={{backgroundColor:'#00ff41',padding:50,width:'100%'}}>
+                                <Icon 
+                                  color='white'
+                                  size={70}
+                                  type='material-community'
+                                  name='checkbox-marked-circle-outline' 
+                                  iconStyle={{marginBottom:20}}
+                                />
+                                <Text style={{textAlign:'center',color:'white',fontWeight:'bold'}}>Email has been sent!</Text>
+                                <TouchableOpacity style={{borderRadius:10,padding:10,marginBottom:10,marginTop:10,width:'100%',justifyContent:'center',alignItems:'center',backgroundColor:'transparent',borderWidth:1,borderColor:'white'}}>
+                                    <Text style={{textAlign:'center',color:'white',fontWeight:'bold'}}>Resend Link</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={{borderRadius:10,padding:10,width:'100%',justifyContent:'center',alignItems:'center',backgroundColor:'white',borderWidth:1,borderColor:'#00ff41'}}>
+                                    <Text onPress={() => this.closeToLogin()} style={{textAlign:'center',color:'#00ff41'}}>Login</Text>
+                                </TouchableOpacity>
+                          </View>
+                    </View> : 
+                    this.props.store.emailExists ?
+                      <View style={{alignItems:'center',justifyContent:'center'}}>
+                          <View style={{backgroundColor:'red',padding:50,width:'100%'}}>
+                                <Icon 
+                                  color='white'
+                                  size={70}
+                                  name='error' 
+                                  iconStyle={{marginBottom:20}}
+                                />
+                                <Text style={{textAlign:'center',color:'white'}}>This email exists. Please use a different email or login</Text>
+                          </View>
+                    </View>
+                    :
+                    <View style={{alignItems:'center',justifyContent:'center'}}>
+                          <View style={{backgroundColor:'#a020f0',padding:50}}>
+                                <ActivityIndicator size="large" color="white" />
+                                <Text style={{textAlign:'center',color:'white'}}>Sending Email...</Text>
+                          </View>
+                    </View>
+                    }
+                </Modal>
             </LinearGradient>
         )
     }
