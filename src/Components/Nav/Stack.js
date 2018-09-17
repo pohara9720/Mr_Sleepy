@@ -52,10 +52,10 @@ const ProfileRoutes = createStackNavigator({
 })
 
 const AlarmRoutes = createStackNavigator({
-	Alarms: { screen: props => <Alarms {...props} />},
+    Alarms: { screen: props => <Alarms {...props} />},
     Snooze: { screen: props => <Snooze {...props} />},
-	AddAlarm: { screen: props => <AddAlarm {...props} />},
-	CharityProfile: { screen: props => <CharityProfile {...props} />},
+    AddAlarm: { screen: props => <AddAlarm {...props} />},
+    CharityProfile: { screen: props => <CharityProfile {...props} />},
     CharitySelect: { screen: props => <CharitySelect {...props} />},
     LabelSelect: { screen: props => <LabelSelect {...props} />  },
     RepeatSelect: { screen : props => <RepeatSelect {...props} /> },

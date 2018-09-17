@@ -25,6 +25,7 @@ class AdminView extends Component<Props> {
     }
 
     componentDidMount(){
+        this.props.checkAuth()
         const date = {date:moment().format()}
         this.props.getCurrentSnapshot()
         this.props.getSnapshots()

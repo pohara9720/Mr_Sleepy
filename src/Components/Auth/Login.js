@@ -29,7 +29,7 @@ class Login extends Component<{}> {
             login:true
         }
     }
-
+    
     authenticate = () => {
         if(this.state.email === '' || this.state.password === ''){
             this.setState({error:true})

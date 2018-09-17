@@ -26,6 +26,7 @@ class Alarms extends Component<Props> {
     }
 
     componentDidMount(){
+      this.props.checkAuth()
       // const {navigate} = this.props.navigation
       // navigate('Snooze')
         PushNotification.checkPermissions((callback) => {

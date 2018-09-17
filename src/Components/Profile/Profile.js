@@ -27,6 +27,10 @@ class Profile extends Component<Props> {
         }
     }
 
+    componentDidMount(){
+        this.props.checkAuth()
+    }
+
     editInfo = (item) => {
         if(item === 'name'){
             this.setState({editName:!this.state.editName})

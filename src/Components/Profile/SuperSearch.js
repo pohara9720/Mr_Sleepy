@@ -29,6 +29,11 @@ class SuperSearch extends Component<Props> {
       }
     }
 
+
+    componentDidMount(){
+        this.props.checkAuth()
+    }
+    
   submit = () => {
       if(this.state.category === 'Charity'){
           this.props.searchCharityEmail(this.state.search)

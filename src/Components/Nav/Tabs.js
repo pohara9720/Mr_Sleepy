@@ -1,6 +1,6 @@
 import React from 'react'
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import { createBottomTabNavigator, TabBarBottom } from 'react-navigation'
+import { createBottomTabNavigator } from 'react-navigation'
 import Alarms from '../Alarms'
 import Profile from '../Profile/Profile'
 import Payments from '../Payments/Payments'
@@ -44,7 +44,7 @@ const Tabs = createBottomTabNavigator({
 })
 
 Tabs.navigationOptions ={
-  title:'Example'
+    title:'Example'
 }
 
 export default Tabs

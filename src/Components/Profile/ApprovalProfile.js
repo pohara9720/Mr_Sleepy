@@ -25,6 +25,10 @@ class ApprovalProfile extends Component<Props> {
         alert:false
       }
     }
+    
+    componentDidMount(){
+        this.props.checkAuth()
+    }
 
     clearProfile = () => {
       const backAction = NavigationActions.back({})

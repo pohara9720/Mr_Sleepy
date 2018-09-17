@@ -33,10 +33,14 @@ class Admin extends Component<Props> {
         }
     }
 
+
+
     componentDidMount(){
-        // const date = {date:moment().format()}
-        // this.props.getCurrentSnapshot()
-        // this.props.loadLineData(date)
+        this.props.checkAuth()
+        const date = {date:moment().format()}
+        this.props.getCurrentSnapshot()
+        this.props.loadLineData(date)
+
     }
   render() {
     

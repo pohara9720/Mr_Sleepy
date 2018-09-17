@@ -24,7 +24,7 @@ class Snooze extends Component<{}> {
            
         }
     }
-
+    
     snooze = () => {
         this.props.snoozePressed()
         const {navigate} = this.props.navigation

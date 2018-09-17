@@ -26,6 +26,10 @@ class Snapshots extends Component<Props> {
         }
     }
 
+    componentDidMount(){
+        this.props.checkAuth()
+    }
+
   render() {
     
     const {navigate} = this.props.navigation

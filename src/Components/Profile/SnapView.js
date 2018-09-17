@@ -34,6 +34,7 @@ class SnapView extends Component<Props> {
     }
 
     componentDidMount(){
+      this.props.checkAuth()
       this.props.loadLineData(this.props.navigation.state.params.r.createdAt)
     }
 

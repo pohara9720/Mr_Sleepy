@@ -29,6 +29,7 @@ class ApprovalList extends Component<Props> {
     }
 
    componentDidMount(){
+      this.props.checkAuth()
       this.props.loadApprovals()
    }
 

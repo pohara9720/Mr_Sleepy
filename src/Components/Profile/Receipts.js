@@ -28,6 +28,9 @@ class Receipts extends Component<Props> {
         }
     }
 
+    componentDidMount(){
+        this.props.checkAuth()
+    }
    
 
   render() {

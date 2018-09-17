@@ -25,7 +25,8 @@ class Settings extends Component<Props> {
 
 
     componentDidMount(){
-        this.props.getInvoices('cus_DZn8hqUplKJH3u')
+        this.props.checkAuth()
+        this.props.getInvoices(this.props.store.me.snoozer_customerId)
     }
     render() {
       const Back = (props) => {

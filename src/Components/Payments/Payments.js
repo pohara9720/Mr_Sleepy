@@ -27,7 +27,10 @@ class Payments extends Component<Props> {
       }
     }
 
-
+    componentDidMount(){
+        this.props.checkAuth()
+    }
+    
     _onChange = (form) => {
     this.setState({values:form})
   }
