@@ -51,8 +51,8 @@ class Admin extends Component<Props> {
               </Text>
             )
      }
-    const labels = this.props.store.lineData.map(x => moment(x.date).format('M/D'))
-    const numbers = this.props.store.lineData.map(z => z.donations)
+    const labels = this.props.store.lineData && this.props.store.lineData.map(x => moment(x.date).format('M/D'))
+    const numbers = this.props.store.lineData && this.props.store.lineData.map(z => z.donations)
     console.log('NUMBER',numbers)
     const lineNum = numbers.map(y => y.length)
     console.log('NUMBER2',lineNum)
