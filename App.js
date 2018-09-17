@@ -86,6 +86,7 @@ export default class App extends Component<Props> {
         //     })
         // },1000)        
         this.loadCharities()
+        this.setUser()
     }
 
     componentWillUnmount() {
@@ -123,12 +124,12 @@ export default class App extends Component<Props> {
     }
 
     stopAlarm = (id) => {
-          if(this.state.alarmList[id].frequency.length > 1){
-              PushNotification.cancelLocalNotifications({id: `r${id}`});
-          }
-          else{
-              PushNotification.cancelLocalNotifications({id});
-          }
+        if(this.state.alarmList[id].frequency.length > 1){
+            PushNotification.cancelLocalNotifications({id: `r${id}`});
+        }
+        else{
+            PushNotification.cancelLocalNotifications({id});
+        }
     }
 
     // fireSnooze = () => {
@@ -136,44 +137,44 @@ export default class App extends Component<Props> {
     //     this.sendNotification(alarm,true)
     // }
     sortFrequencies = (alarm) => {
-      console.log('FREQUENCY ALARM',alarm)
+        console.log('FREQUENCY ALARM',alarm)
         const today = moment().day()
         for(let i = 0; i < alarm.frequency.length;i++){
             if(alarm.frequency[i].option === 'Sundays'){
                 const dayNeeded = 7
                 // if we haven't yet passed the day of the week that I need:
-                    if (today < dayNeeded) { 
-                      // then just give me this week's instance of that day
-                      const nextInstance = moment().isoWeekday(dayNeeded)
-                      this.sendRepeatingNotification(nextInstance,alarm,i)
-                    } else {
-                      // otherwise, give me *next week's* instance of that same day
-                      const nextInstance = moment().add(1, 'weeks').isoWeekday(dayNeeded)
-                      this.sendRepeatingNotification(nextInstance,alarm,i)
-                    }
+                if (today < dayNeeded) { 
+                    // then just give me this week's instance of that day
+                    const nextInstance = moment().isoWeekday(dayNeeded)
+                    this.sendRepeatingNotification(nextInstance,alarm,i)
+                } else {
+                    // otherwise, give me *next week's* instance of that same day
+                    const nextInstance = moment().add(1, 'weeks').isoWeekday(dayNeeded)
+                    this.sendRepeatingNotification(nextInstance,alarm,i)
+                }
 
                 // console.log('SUNDAY SHOULD BE 7:',dayNeeded,alarm.frequency[i].option)
             }
             else{
                 const dayNeeded = alarm.frequency[i].id - 1
                 // if we haven't yet passed the day of the week that I need:
-                  if (today < dayNeeded) { 
+                if (today < dayNeeded) { 
                     // then just give me this week's instance of that day
                     const nextInstance = moment().isoWeekday(dayNeeded,)
                     this.sendRepeatingNotification(nextInstance,alarm,i)
-                  } else {
+                } else {
                     // otherwise, give me *next week's* instance of that same day
-                      const nextInstance = moment().add(1, 'weeks').isoWeekday(dayNeeded,i)
-                      this.sendRepeatingNotification(nextInstance,alarm,i)
-                  }
+                    const nextInstance = moment().add(1, 'weeks').isoWeekday(dayNeeded,i)
+                    this.sendRepeatingNotification(nextInstance,alarm,i)
+                }
                 // console.log('Other days:',dayNeeded,alarm.frequency[i].option)
             }
         }
     }
 
     parseTime = (s) =>  {
-       var c = s.split(':');
-       return parseInt(c[0]) * 60 + parseInt(c[1]);
+        var c = s.split(':');
+        return parseInt(c[0]) * 60 + parseInt(c[1]);
     }
 
     sendRepeatingNotification = (instance,alarm,id) => {
@@ -252,32 +253,32 @@ export default class App extends Component<Props> {
 
     sendNotification = (alarm,snooze) => {
 
-      // SystemSetting.setVolume(1)
+        // SystemSetting.setVolume(1)
 
-      const time = moment(alarm.time).format('h:mm a')
-      const currentTime = moment().format('LT')
-      const date = new Date()
+        const time = moment(alarm.time).format('h:mm a')
+        const currentTime = moment().format('LT')
+        const date = new Date()
 
-      var getTime = date.getTime()
+        var getTime = date.getTime()
 
-      const now = moment(date)
+        const now = moment(date)
 
-      var eventTime= moment(alarm.time)
+        var eventTime= moment(alarm.time)
 
-      var diffInMinutes = eventTime.diff(now, 'minutes')
+        var diffInMinutes = eventTime.diff(now, 'minutes')
 
-      let minutesToFire
+        let minutesToFire
 
-          if(diffInMinutes < 0){
-              minutesToFire = Math.abs((Math.abs(diffInMinutes + 720) * 2) + diffInMinutes)
-          }
-          else{
-              minutesToFire = diffInMinutes
-          }
+        if(diffInMinutes < 0){
+            minutesToFire = Math.abs((Math.abs(diffInMinutes + 720) * 2) + diffInMinutes)
+        }
+        else{
+            minutesToFire = diffInMinutes
+        }
 
-      const triggerIn = new Date(Date.now() + (minutesToFire * 60000))
-      const snoozeTrigger = new Date(Date.now() + (7 * 60000))
-      const test = moment(triggerIn).format('h:mm a')
+        const triggerIn = new Date(Date.now() + (minutesToFire * 60000))
+        const snoozeTrigger = new Date(Date.now() + (7 * 60000))
+        const test = moment(triggerIn).format('h:mm a')
         let trigger 
         if(snooze === true){
             trigger = snoozeTrigger
@@ -437,7 +438,7 @@ export default class App extends Component<Props> {
         })
     }
 
-     async rejectCharity(id,reason){
+    async rejectCharity(id,reason){
         this.setState({loading:true})
         const payload = {
             reason,
@@ -665,32 +666,32 @@ export default class App extends Component<Props> {
 
 
     async createAlarm(object){
-      var value = await AsyncStorage.getItem('Alarms')
-      var convertArray= JSON.parse(value)
+        var value = await AsyncStorage.getItem('Alarms')
+        var convertArray= JSON.parse(value)
 
-          if(convertArray === null){
-              const array = []
-              var FirstAlarm = array.concat(object)
-              const convertFirst = JSON.stringify(FirstAlarm)
-              try {
-                  await AsyncStorage.setItem('Alarms', convertFirst)
-              } 
-              catch (error) {
-                  console.log(error)
-              }
-              this.loadAlarms()
-          }
-          else {
-              var newAlarm = convertArray.concat(object)
-              const convertString = JSON.stringify(newAlarm)
-              try {
-                  await AsyncStorage.setItem('Alarms', convertString)
-              } 
-              catch (error) {
-                  console.log(error)
-              }
-              this.loadAlarms()
-          }
+        if(convertArray === null){
+            const array = []
+            var FirstAlarm = array.concat(object)
+            const convertFirst = JSON.stringify(FirstAlarm)
+            try {
+                await AsyncStorage.setItem('Alarms', convertFirst)
+            } 
+            catch (error) {
+                console.log(error)
+            }
+            this.loadAlarms()
+        }
+        else {
+            var newAlarm = convertArray.concat(object)
+            const convertString = JSON.stringify(newAlarm)
+            try {
+                await AsyncStorage.setItem('Alarms', convertString)
+            } 
+            catch (error) {
+                console.log(error)
+            }
+            this.loadAlarms()
+        }
     }
 
     deleteAlarm = (id) => {
@@ -750,7 +751,7 @@ export default class App extends Component<Props> {
         }
         else{
             console.log('No token')
-            this.setState({me:''})
+            this.setState({me:'',authenticated:false})
         }
     }
 
@@ -808,111 +809,109 @@ export default class App extends Component<Props> {
     }
   
     render() {
-      console.log(this.state)
-      const newAlarm = {
-          id: uuidv4(),
-          time:this.state.timeSelect,
-          frequency: this.state.frequency.length === 0 ? [{option:'Just Once'}] : this.state.frequency,
-          label: this.state.label,
-          charity: this.state.charitySelect,
-          switch: true
-      }
-      return (
-          <Context.Provider 
-          value={{
-            store:this.state,
+        console.log(this.state)
+        const newAlarm = {
+            id: uuidv4(),
+            time:this.state.timeSelect,
+            frequency: this.state.frequency.length === 0 ? [{option:'Just Once'}] : this.state.frequency,
+            label: this.state.label,
+            charity: this.state.charitySelect,
+            switch: true
+        }
+        return (
+            <Context.Provider 
+                value={{
+                    store:this.state,
 
-            // authenticate:() => this.setState({me:!this.state.me}),
+                    updateTimeSelect: (time,bool) => this.setState({timeSelect:time,datePicker:bool}),
 
-            updateTimeSelect: (time,bool) => this.setState({timeSelect:time,datePicker:bool}),
+                    toggleDatePicker: () => this.setState({datePicker:!this.state.datePicker}),
 
-            toggleDatePicker: () => this.setState({datePicker:!this.state.datePicker}),
+                    updateFrequency: (array) => this.setState({frequency:array}),
 
-            updateFrequency: (array) => this.setState({frequency:array}),
+                    updateLabel: (string) => this.setState({label:string}),
 
-            updateLabel: (string) => this.setState({label:string}),
+                    updateCharity: (object) => this.setState({charity:object}),
 
-            updateCharity: (object) => this.setState({charity:object}),
+                    updateAccountName: (e) => this.setState({accountName:e}),
 
-            updateAccountName: (e) => this.setState({accountName:e}),
+                    updateAccountEmail:(e) => this.setState({accountEmail:e}),
 
-            updateAccountEmail:(e) => this.setState({accountEmail:e}),
+                    updatePassword: (e) => this.setState({accountPassword:e}),
 
-            updatePassword: (e) => this.setState({accountPassword:e}),
+                    updatePasswordConfirm: (e) => this.setState({accountPasswordConfirm:e}),
 
-            updatePasswordConfirm: (e) => this.setState({accountPasswordConfirm:e}),
+                    fillCharityProfile: (object) => this.setState({charityProfile:object}),
 
-            fillCharityProfile: (object) => this.setState({charityProfile:object}),
+                    clearCharityProfile: () => this.setState({charityProfile: ''}),
 
-            clearCharityProfile: () => this.setState({charityProfile: ''}),
+                    selectCharity: () => this.setState({charitySelect:this.state.charityProfile,charityProfile:''}),
 
-            selectCharity: () => this.setState({charitySelect:this.state.charityProfile,charityProfile:''}),
+                    cancelAlarm: () => this.setState({charitySelect:null ,timeSelect:'',datePicker:false,label:'',frequency:[]}),
 
-            cancelAlarm: () => this.setState({charitySelect:null ,timeSelect:'',datePicker:false,label:'',frequency:[]}),
+                    createAlarm: () => this.createAlarm(newAlarm),
 
-            createAlarm: () => this.createAlarm(newAlarm),
+                    loadAlarms: () => this.loadAlarms(),
 
-            loadAlarms: () => this.loadAlarms(),
+                    deleteAlarm: (id) => this.deleteAlarm(id),
 
-            deleteAlarm: (id) => this.deleteAlarm(id),
+                    updateAlarms: () => this.updateAlarms(),
 
-            updateAlarms: () => this.updateAlarms(),
+                    switch: (id) => this.switch(id),
 
-            switch: (id) => this.switch(id),
+                    addCard: (object) => this.addPayment(object),
 
-            addCard: (object) => this.addPayment(object),
+                    clearInfoModal: () => this.clearInfoModal(),
 
-            clearInfoModal: () => this.clearInfoModal(),
+                    triggerInfoModal: () => this.setState({infoModal:true}),
 
-            triggerInfoModal: () => this.setState({infoModal:true}),
+                    closeAddErrorModal: () => this.setState({addErrorModal:false}),
 
-            closeAddErrorModal: () => this.setState({addErrorModal:false}),
+                    triggerAddErrorModal: () => this.setState({addErrorModal:true}),
 
-            triggerAddErrorModal: () => this.setState({addErrorModal:true}),
+                    loading: (bool) => this.setState({loading:bool}),
 
-            loading: (bool) => this.setState({loading:bool}),
+                    approveCharity : (id) => this.approveCharity(id),
 
-            approveCharity : (id) => this.approveCharity(id),
+                    rejectCharity: (id,reason) => this.rejectCharity(id,reason),
 
-            rejectCharity: (id,reason) => this.rejectCharity(id,reason),
+                    loadApprovals: () => this.loadApprovals(),
 
-            loadApprovals: () => this.loadApprovals(),
+                    snoozePressed: () => this.snoozePressed(),
 
-            snoozePressed: () => this.snoozePressed(),
+                    getCurrentSnapshot: () => this.getCurrentSnapshot(),
 
-            getCurrentSnapshot: () => this.getCurrentSnapshot(),
+                    loadLineData: (date) => this.loadLineData(date),
 
-            loadLineData: (date) => this.loadLineData(date),
+                    getSnapshots:() => this.getSnapshots(),
 
-            getSnapshots:() => this.getSnapshots(),
+                    searchCharityEmail: (email) => this.searchCharityEmail(email),
 
-            searchCharityEmail: (email) => this.searchCharityEmail(email),
+                    searchUserEmail: (email) => this.searchUserEmail(email),
 
-            searchUserEmail: (email) => this.searchUserEmail(email),
+                    getInvoices: (id) => this.getInvoices(id),
 
-            getInvoices: (id) => this.getInvoices(id),
+                    signup: (name,email,pass) => this.signup(name,email,pass),
 
-            signup: (name,email,pass) => this.signup(name,email,pass),
+                    toggleLoading: () => this.setState({loading:false}),
 
-            toggleLoading: () => this.setState({loading:false}),
+                    resetLoginModal: () => this.setState({loading:false,signupSent:false,emailExists:false}),
 
-            resetLoginModal: () => this.setState({loading:false,signupSent:false,emailExists:false}),
+                    login: (e,p) => this.login(e,p)
 
-            login: (e,p) => this.login(e,p)
+                }}> 
+                {
+                    !this.state.authenticated  ?
+                        <Login />
+                        :
+                        <Tabs />
+                    
+                }
+            </Context.Provider>
 
-          }}> 
-              {
-                !this.state.authenticated  ?
-               <Login />
-                :
-                <Tabs />
-                
-              }
-          </Context.Provider>
-
-      );
+        )
     }
-  }
+}
 
     const styles = StyleSheet.create({
         container: {

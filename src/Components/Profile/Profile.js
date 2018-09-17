@@ -241,25 +241,27 @@ class Profile extends Component<Props> {
                                 <Text style={{color:'#a020f0',fontSize:15}}>Settings</Text>
                             </View>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => navigate('AdminView')}>
-                            <View style={{borderColor:'#a020f0',borderWidth:1,borderBottomWidth:1,padding:15,flexDirection:'row',marginTop:40}}>
-                                <Icon 
-                                    name='home-account'
-                                    type='material-community'
-                                    color={'#a020f0'}
-                                    size={20}
-                                    iconStyle={{marginRight:10}}
-                                />
-                                <Text style={{color:'#a020f0',fontSize:15}}>Admin</Text>
-                            </View>
-                        </TouchableOpacity>
+                        { this.props.store.me && this.props.store.me.isAdmin ? 
+                            <TouchableOpacity onPress={() => navigate('AdminView')}>
+                                <View style={{borderColor:'#a020f0',borderWidth:1,borderBottomWidth:1,padding:15,flexDirection:'row',marginTop:40}}>
+                                    <Icon 
+                                        name='home-account'
+                                        type='material-community'
+                                        color={'#a020f0'}
+                                        size={20}
+                                        iconStyle={{marginRight:10}}
+                                    />
+                                    <Text style={{color:'#a020f0',fontSize:15}}>Admin</Text>
+                                </View>
+                            </TouchableOpacity> : null
+                        }
                     </View>
 
                     <View style={{marginTop:15,padding:15}}>
                         <View style={{borderColor:'#a020f0',borderWidth:1,borderBottomWidth:0,padding:15}}>
                             <Text style={{color:'#a020f0',fontWeight:'bold',fontSize:15}}>Donations Made</Text>
                         </View>
-                        { this.props.store.donations.length === 0 ?
+                        { this.props.store.me.Donations.length === 0 ?
                             <View  style={styles.lastItem}>
                                 <Icon 
                                     name={'favorite-border'}
@@ -270,7 +272,7 @@ class Profile extends Component<Props> {
                                 <Text style={{color:'#a020f0',fontSize:15}}>No Donations</Text>
                             </View>
                             :
-                            this.props.store.donations.map((t,i,array) => 
+                            this.props.store.me.Donations.map((t,i,array) => 
                                 <View key={i} style={i === array.length -1 ? styles.lastItem : styles.listItem}>
                                     <Icon 
                                         name={'favorite'}
@@ -289,7 +291,7 @@ class Profile extends Component<Props> {
                         }
                     </View>
                     <View style={{marginTop:15,padding:15}}>
-                        { this.props.store.accountCharities.length === 0 ?
+                        { this.props.store.me.Charities.length === 0 ?
                             <TouchableOpacity onPress={() => Linking.openURL('http://sleepywebsite.s3-website-us-east-1.amazonaws.com/')}>
                                 <View style={{borderColor:'#a020f0',borderWidth:1,borderBottomWidth:0,padding:15,alignItems:'center',flexDirection:'row',justifyContent:'center'}}>
                                     <Text style={{color:'#a020f0',fontWeight:'bold',fontSize:15}}>Visit our website</Text>
@@ -305,10 +307,10 @@ class Profile extends Component<Props> {
                                 </View>
                             </TouchableOpacity>
                             :
-                            this.props.store.accountCharities.map((t,i,array) => 
+                            this.props.store.me.Charities.map((t,i,array) => 
                                 <View key={i}>
                                     <View style={{borderColor:'#a020f0',borderWidth:1,borderBottomWidth:0,padding:15}}>
-                                        <Text style={{color:'#a020f0',fontWeight:'bold',fontSize:15}}>Your Organizations</Text>
+                                        <Text style={{color:'#a020f0',fontWeight:'bold',fontSize:15}}>Your Charity</Text>
                                     </View>
                                     <View key={i} style={i === array.length -1 ? styles.lastItem : styles.listItem}>
                                         <Icon 
@@ -324,7 +326,7 @@ class Profile extends Component<Props> {
                                             </Badge>
                                         </View>*/}
                                     </View>
-                                    <View style={{flexDirection:'row',justifyContent:'center',marginTop:10}}>
+                                    <View onPress={() => Linking.openURL('http://sleepywebsite.s3-website-us-east-1.amazonaws.com/')} style={{flexDirection:'row',justifyContent:'center',marginTop:10}}>
                                         <Text style={{textAlign:'center',color:'#a020f0'}}>Manage organizations here</Text>
                                         <Icon 
                                             name={'touch-app'}
@@ -340,17 +342,17 @@ class Profile extends Component<Props> {
                 </ScrollView>
                 { this.props.store.systemError ?
                     <TouchableOpacity style={{position:'absolute',top:0,left:0,right:0}}>
-                          <LinearGradient  colors={[ '#cb2d3e' ,'#ef473a']} start={{x: 1, y: 2}} end={{x: 0.9, y: 0}} style={{width:'100%',padding:10,alignItems:'center',paddingTop:20}}>
-                                <View style={{flexDirection:'row',width:'100%',justifyContent:'center'}}>
-                                    <Icon 
-                                        name='error'
-                                        color='white'
-                                        size={12}
-                                        iconStyle={styles.customIcon}
-                                    />
-                                    <Text style={{fontSize:12,color:'white',marginLeft:10}}>{this.props.store.systemErrorMessage}</Text> 
-                                </View>
-                          </LinearGradient>
+                        <LinearGradient  colors={[ '#cb2d3e' ,'#ef473a']} start={{x: 1, y: 2}} end={{x: 0.9, y: 0}} style={{width:'100%',padding:10,alignItems:'center',paddingTop:20}}>
+                            <View style={{flexDirection:'row',width:'100%',justifyContent:'center'}}>
+                                <Icon 
+                                    name='error'
+                                    color='white'
+                                    size={12}
+                                    iconStyle={styles.customIcon}
+                                />
+                                <Text style={{fontSize:12,color:'white',marginLeft:10}}>{this.props.store.systemErrorMessage}</Text> 
+                            </View>
+                        </LinearGradient>
                     </TouchableOpacity> : null
                 }
             </View>
