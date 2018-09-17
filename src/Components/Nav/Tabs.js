@@ -1,13 +1,13 @@
 import React from 'react'
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import { TabNavigator, TabBarBottom } from 'react-navigation'
+import { createBottomTabNavigator, TabBarBottom } from 'react-navigation'
 import Alarms from '../Alarms'
 import Profile from '../Profile/Profile'
 import Payments from '../Payments/Payments'
 import { AlarmRoutes, ProfileRoutes} from './Stack'
 
 
-const Tabs = TabNavigator({
+const Tabs = createBottomTabNavigator({
     Payments: { screen : Payments },
     Alarms: { screen: AlarmRoutes },
     Profile: { screen: ProfileRoutes },

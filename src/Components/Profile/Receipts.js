@@ -131,6 +131,21 @@ class Receipts extends Component<Props> {
               </View>
         }
         </ScrollView>
+        { this.props.store.systemError ?
+                    <TouchableOpacity style={{position:'absolute',top:0,left:0,right:0}}>
+                          <LinearGradient  colors={[ '#cb2d3e' ,'#ef473a']} start={{x: 1, y: 2}} end={{x: 0.9, y: 0}} style={{width:'100%',padding:10,alignItems:'center',paddingTop:20}}>
+                                <View style={{flexDirection:'row',width:'100%',justifyContent:'center'}}>
+                                    <Icon 
+                                        name='error'
+                                        color='white'
+                                        size={12}
+                                        iconStyle={styles.customIcon}
+                                    />
+                                    <Text style={{fontSize:12,color:'white',marginLeft:10}}>{this.props.store.systemErrorMessage}</Text> 
+                                </View>
+                          </LinearGradient>
+                    </TouchableOpacity> : null
+                }
       </View>
     );
   }

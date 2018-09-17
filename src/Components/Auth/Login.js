@@ -30,6 +30,17 @@ class Login extends Component<{}> {
         }
     }
 
+    authenticate = () => {
+        if(this.state.email === '' || this.state.password === ''){
+            this.setState({error:true})
+            setTimeout(() => this.setState({error:true}),2500)
+        }
+        else{
+            this.props.login(this.state.email,this.state.password)
+        }
+        
+    }
+
     closeToLogin = () => {
         this.props.toggleLoading()
         this.setState({login:true})
@@ -84,9 +95,10 @@ class Login extends Component<{}> {
                                         />
                                         <Text onPress={() => console.log('forgot')} style={{color:'#a020f0',fontSize:12,marginLeft:'auto',paddingRight:10,marginBottom:10}}>Forgot Password?</Text>
                                     </View>
-                                    <TouchableOpacity onPress={() => this.props.authenticate()} style={styles.button}>
+                                    <TouchableOpacity onPress={() => this.authenticate()} style={styles.button}>
                                         <Text style={{color:'white',fontWeight:'bold'}} >Login</Text>
                                     </TouchableOpacity>
+                                    <Text style={{color:'red',textAlign:'center',marginTop:3}}>{this.props.store.verifiedError ? 'Email has not been verified' : this.props.store.credError ? 'Credentials are invalid' : null}</Text>
                                 </View>
                                 <View style={styles.switch}>
                                     <Text style={{color:'white',fontSize:18,width:'90%',textAlign:'center'}} onPress={() => this.setState({login:false})}>New User? <Text style={{textDecorationLine:'underline'}}>Sign up here</Text></Text>
@@ -212,6 +224,21 @@ class Login extends Component<{}> {
                     </View>
                     }
                 </Modal>
+                { this.props.store.systemError ?
+                    <TouchableOpacity style={{position:'absolute',top:0,left:0,right:0}}>
+                          <LinearGradient  colors={[ '#cb2d3e' ,'#ef473a']} start={{x: 1, y: 2}} end={{x: 0.9, y: 0}} style={{width:'100%',padding:10,alignItems:'center',paddingTop:20}}>
+                                <View style={{flexDirection:'row',width:'100%',justifyContent:'center'}}>
+                                    <Icon 
+                                        name='error'
+                                        color='white'
+                                        size={12}
+                                        iconStyle={styles.customIcon}
+                                    />
+                                    <Text style={{fontSize:12,color:'white',marginLeft:10}}>{this.props.store.systemErrorMessage}</Text> 
+                                </View>
+                          </LinearGradient>
+                    </TouchableOpacity> : null
+                }
             </LinearGradient>
         )
     }

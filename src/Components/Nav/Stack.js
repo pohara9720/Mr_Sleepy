@@ -1,5 +1,5 @@
 import React from 'react'
-import { StackNavigator } from 'react-navigation'
+import { createStackNavigator } from 'react-navigation'
 import AddAlarm from '../AddAlarm/AddAlarm'
 import Snooze from '../AddAlarm/Snooze'
 import CharitySelect from '../AddAlarm/CharitySelect'
@@ -24,7 +24,7 @@ import CharityProfile from '../AddAlarm/CharityProfile'
 // import {Tabs} from './Tabs'
 
 
-const Auth = StackNavigator({
+const Auth = createStackNavigator({
     Login: { screen: props => <Login {...props} />},
     Signup: { screen: props => <Signup {...props} />},
     // Success: { screen: <Tab />},
@@ -33,7 +33,7 @@ const Auth = StackNavigator({
     headerMode: 'none',
 })
 
-const ProfileRoutes = StackNavigator({
+const ProfileRoutes = createStackNavigator({
     Profile: { screen: props => <Profile {...props} />},
     Settings: { screen: props => <Settings {...props} />},
     Terms: { screen: props => <Terms_Conditions {...props} />},
@@ -51,7 +51,7 @@ const ProfileRoutes = StackNavigator({
     headerMode: 'none',
 })
 
-const AlarmRoutes = StackNavigator({
+const AlarmRoutes = createStackNavigator({
 	Alarms: { screen: props => <Alarms {...props} />},
     Snooze: { screen: props => <Snooze {...props} />},
 	AddAlarm: { screen: props => <AddAlarm {...props} />},
