@@ -15,6 +15,8 @@ import axios from 'axios'
 import PushNotification from 'react-native-push-notification'
 import SystemSetting from 'react-native-system-setting'
 import { PushNotificationIOS } from 'react-native'
+import NotificationsIOS from 'react-native-notifications'
+import actions from './src/Components/PushInteractions'
 const uuidv4 = require('uuid/v4')
 import Sound from 'react-native-sound'
 import decode from 'jwt-decode'
