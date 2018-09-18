@@ -407,13 +407,6 @@
 			remoteGlobalIDString = 3D05745F1DE6004600184BB4;
 			remoteInfo = "RCTPushNotification-tvOS";
 		};
-		CCEF03D72150B14400447F52 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = CCEF03A82150B14400447F52 /* RNNotifications.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 134814201AA4EA6300B7C361;
-			remoteInfo = RNNotifications;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -466,7 +459,6 @@
 		CCD9D1D8212E35D80093FA81 /* RCTPushNotification.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTPushNotification.xcodeproj; path = "../node_modules/react-native/Libraries/PushNotificationIOS/RCTPushNotification.xcodeproj"; sourceTree = "<group>"; };
 		CCE52D7E212FCF2600505E89 /* mp3sleepy.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = mp3sleepy.mp3; path = ../src/audio/mp3sleepy.mp3; sourceTree = "<group>"; };
 		CCE52D82212FD44C00505E89 /* alarm.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = alarm.wav; path = "../../../Music/iTunes/iTunes Media/Music/Unknown Artist/Unknown Album/alarm.wav"; sourceTree = "<group>"; };
-		CCEF03A82150B14400447F52 /* RNNotifications.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNNotifications.xcodeproj; path = "../node_modules/react-native-notifications/RNNotifications/RNNotifications.xcodeproj"; sourceTree = "<group>"; };
 		CE80E301E6BC4354AC77EBD2 /* RNCardIO.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNCardIO.xcodeproj; path = "../node_modules/react-native-awesome-card-io/ios/RNCardIO.xcodeproj"; sourceTree = "<group>"; };
 		D379CE6333324FE2BB4CEA72 /* roboto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = roboto.ttf; path = ../src/assets/roboto.ttf; sourceTree = "<group>"; };
 		D3A63A9B72184A79AF9B569D /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
@@ -705,7 +697,6 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				CCEF03A82150B14400447F52 /* RNNotifications.xcodeproj */,
 				CCD9D1D8212E35D80093FA81 /* RCTPushNotification.xcodeproj */,
 				5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
@@ -843,14 +834,6 @@
 			children = (
 				CCD9D1DE212E35D90093FA81 /* libRCTPushNotification.a */,
 				CCD9D1E0212E35D90093FA81 /* libRCTPushNotification-tvOS.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		CCEF03A92150B14400447F52 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				CCEF03D82150B14400447F52 /* libRNNotifications.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1032,10 +1015,6 @@
 				{
 					ProductGroup = CCC7221621254F7400723E6E /* Products */;
 					ProjectRef = CE80E301E6BC4354AC77EBD2 /* RNCardIO.xcodeproj */;
-				},
-				{
-					ProductGroup = CCEF03A92150B14400447F52 /* Products */;
-					ProjectRef = CCEF03A82150B14400447F52 /* RNNotifications.xcodeproj */;
 				},
 				{
 					ProductGroup = CC5723802133B50B0041BA00 /* Products */;
@@ -1388,13 +1367,6 @@
 			fileType = archive.ar;
 			path = "libRCTPushNotification-tvOS.a";
 			remoteRef = CCD9D1DF212E35D90093FA81 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		CCEF03D82150B14400447F52 /* libRNNotifications.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libRNNotifications.a;
-			remoteRef = CCEF03D72150B14400447F52 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
