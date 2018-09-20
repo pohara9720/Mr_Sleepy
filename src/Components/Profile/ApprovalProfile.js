@@ -37,7 +37,7 @@ class ApprovalProfile extends Component<Props> {
 
     approve = (id) => {
       console.log(id)
-      this.props.approveCharity(id)
+      this.props.approveCharity(id,this.props.navigation.state.params.r.email)
     }
 
     deny = (id,reason) => {
@@ -46,7 +46,7 @@ class ApprovalProfile extends Component<Props> {
           this.setState({alert:true})
       }
       else{
-          this.props.rejectCharity(id,reason)
+          this.props.rejectCharity(id,reason,this.props.navigation.state.params.r.email)
       }
     }
 

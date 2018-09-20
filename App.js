@@ -95,7 +95,7 @@ export default class App extends Component<Props> {
     }
 
     async loadApprovals(){
-        await axios.get(`${api}/approvals`).then((res,err) => {
+        await axios.get(`${api}/approvals`,{headers: { authorization: 'Bearer ' + token }})).then((res,err) => {
             if(err){
                 console.log(err)
             }
@@ -334,9 +334,10 @@ export default class App extends Component<Props> {
     }
 
     async snoozePressed(){
+        const token = this.state.token
         // console.log(this.state.me.id)
         // console.log(this.state.me.tempChar)
-        await axios.post(`${api}/snooze/${this.state.me.id}/${this.state.me.tempChar}`).then((res,err) => {
+        await axios.post(`${api}/snooze/${this.state.me.id}/${this.state.me.tempChar}`,{headers: { authorization: 'Bearer ' + token }})).then((res,err) => {
             if(err){
                 console.log(err)
             }
@@ -351,7 +352,7 @@ export default class App extends Component<Props> {
     }
 
     async getSnapshots(){
-        await axios.get(`${api}/snapshots`).then((res,err) => {
+        await axios.get(`${api}/snapshots`,{headers: { authorization: 'Bearer ' + token }})).then((res,err) => {
             if(err){
                 console.log(err)
             }
@@ -371,7 +372,7 @@ export default class App extends Component<Props> {
         card.customer = this.state.me.snoozer_customerId
         // card.email = this.state.me.email
         // axios.post(`${api}/card/${this.state.me.id}`,card).then((res,err) => {
-        await axios.post(`${api}/card/${this.state.me.id}`,card).then((res,err) => {
+        await axios.post(`${api}/card/${this.state.me.id}`,card,{headers: { authorization: 'Bearer ' + token }})).then((res,err) => {
             if(err){
                 console.log(err)
                 this.setState({cardError:true})
@@ -390,7 +391,7 @@ export default class App extends Component<Props> {
     }
 
     async getCurrentSnapshot(){
-        await axios.get(`${api}/currentsnapshot`).then((res,err) => {
+        await axios.get(`${api}/currentsnapshot`,{headers: { authorization: 'Bearer ' + token }})).then((res,err) => {
             if(err){
                 console.log(err)
             }else{
@@ -405,7 +406,7 @@ export default class App extends Component<Props> {
     }
 
     async loadLineData(date){
-        await axios.post(`${api}/linegraph`,date).then((res,err) => {
+        await axios.post(`${api}/linegraph`,date,{headers: { authorization: 'Bearer ' + token }})).then((res,err) => {
             if(err){
                 console.log(err)
             }else{
@@ -419,11 +420,10 @@ export default class App extends Component<Props> {
         })
     }
 
-    async approveCharity(id){
+    async approveCharity(id,email){
         this.setState({loading:true})
-        const user = {email:'pat.oharaiv@gmail.com'}
         console.log(id)
-        await axios.put(`${api}/approvecharity/${id}/${'pat.oharaiv@gmail.com'}`,user).then((res,err) => {
+        await axios.put(`${api}/approvecharity/${id}/${email}`,{headers: { authorization: 'Bearer ' + token }})).then((res,err) => {
             if(err){
                 console.log(err)
             }
@@ -439,14 +439,11 @@ export default class App extends Component<Props> {
         })
     }
 
-    async rejectCharity(id,reason){
+    async rejectCharity(id,reason,email){
         this.setState({loading:true})
-        const payload = {
-            reason,
-            email:'pat.oharaiv@gmail.com'
-        }
+        const payload = {reason,email}
         console.log(id,payload)
-        await axios.post(`${api}/rejectcharity/${id}`,payload).then((res,err) => {
+        await axios.post(`${api}/rejectcharity/${id}`,payload,{headers: { authorization: 'Bearer ' + token }})).then((res,err) => {
             if(err){
                 console.log(err)
             }
@@ -464,7 +461,7 @@ export default class App extends Component<Props> {
 
     async searchCharityEmail(email){
         const payload = {email}
-        await axios.post(`${api}/admincharity`,payload).then((res,err) => {
+        await axios.post(`${api}/admincharity`,payload,{headers: { authorization: 'Bearer ' + token }})).then((res,err) => {
             if(err){
                 console.log(err)
             }
@@ -481,7 +478,7 @@ export default class App extends Component<Props> {
     async getInvoices(customer){
         console.log('running')
         const payload = {customer}
-        await axios.post(`${api}/invoices`,payload).then((res,err) => {
+        await axios.post(`${api}/invoices`,payload,{headers: { authorization: 'Bearer ' + token }})).then((res,err) => {
             if(err){
                 console.log(err)
             }
@@ -497,7 +494,7 @@ export default class App extends Component<Props> {
 
     async searchUserEmail(email){
         const payload = {email}
-        await axios.post(`${api}/admin/users`,payload).then((res,err) => {
+        await axios.post(`${api}/admin/users`,payload,{headers: { authorization: 'Bearer ' + token }})).then((res,err) => {
             if(err){
                 console.log(err)
             }
@@ -727,7 +724,7 @@ export default class App extends Component<Props> {
             if (err){
                 console.log(err)
             }else{
-                if(res.data === 'Token not valid'){
+                if(res.data === 401){
                     this.setState({me:null})
                 }
                 else{
@@ -809,12 +806,13 @@ export default class App extends Component<Props> {
         })
     }
 
-    async refreshAuthToken(token){
+    async refreshAuthToken(refresh){
+        const token = this.state.token
         const payload = {
             user:this.state.me,
-            refreshToken:token
+            refreshToken:refresh
         }
-        await axios.put(`${api}/refresh`,payload).then((result,err) => {
+        await axios.put(`${api}/refresh`,payload,{headers: { authorization: 'Bearer ' + token }})).then((result,err) => {
             if(err){
                 console.log(err)
             }
