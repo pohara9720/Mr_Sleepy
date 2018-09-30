@@ -29,17 +29,17 @@ class Signup extends Component<{}> {
 
 
     render() {
-      const { navigate } = this.props.navigation
-      return (
-        <LinearGradient  colors={[ '#7016a8' ,'#a020f0']} start={{x: 1, y: 2}} end={{x: 0.9, y: 0}} style={styles.linearGradient}>
-            <Text>Name</Text>
-            <TextInput />
-            <Text>Email</Text>
-            <TextInput />
-            <Text>Password</Text>
-            <TextInput />
-        </LinearGradient>
-      );
+        const { navigate } = this.props.navigation
+        return (
+            <LinearGradient  colors={[ '#7016a8' ,'#a020f0']} start={{x: 1, y: 2}} end={{x: 0.9, y: 0}} style={styles.linearGradient}>
+                <Text>Name</Text>
+                <TextInput />
+                <Text>Email</Text>
+                <TextInput />
+                <Text>Password</Text>
+                <TextInput />
+            </LinearGradient>
+        )
     }
 }
 

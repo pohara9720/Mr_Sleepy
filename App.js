@@ -20,7 +20,7 @@ import Sound from 'react-native-sound'
 import decode from 'jwt-decode'
 
 export const Context = React.createContext()
-export const api = 'http://localhost:4000'
+export const api = 'https://staging-sleepy.herokuapp.com/'
 
 // const whoosh = new Sound('alarm.wav', Sound.MAIN_BUNDLE, (error) => {
 //     if (error) {
@@ -95,7 +95,7 @@ export default class App extends Component<Props> {
     }
 
     async loadApprovals(){
-        await axios.get(`${api}/approvals`,{headers: { authorization: 'Bearer ' + token }})).then((res,err) => {
+        await axios.get(`${api}/approvals`,{headers: { authorization: 'Bearer ' + token }}).then((res,err) => {
             if(err){
                 console.log(err)
             }
@@ -337,7 +337,7 @@ export default class App extends Component<Props> {
         const token = this.state.token
         // console.log(this.state.me.id)
         // console.log(this.state.me.tempChar)
-        await axios.post(`${api}/snooze/${this.state.me.id}/${this.state.me.tempChar}`,{headers: { authorization: 'Bearer ' + token }})).then((res,err) => {
+        await axios.post(`${api}/snooze/${this.state.me.id}/${this.state.me.tempChar}`,{headers: { authorization: 'Bearer ' + token }}).then((res,err) => {
             if(err){
                 console.log(err)
             }
@@ -352,7 +352,7 @@ export default class App extends Component<Props> {
     }
 
     async getSnapshots(){
-        await axios.get(`${api}/snapshots`,{headers: { authorization: 'Bearer ' + token }})).then((res,err) => {
+        await axios.get(`${api}/snapshots`,{headers: { authorization: 'Bearer ' + token }}).then((res,err) => {
             if(err){
                 console.log(err)
             }
@@ -372,7 +372,7 @@ export default class App extends Component<Props> {
         card.customer = this.state.me.snoozer_customerId
         // card.email = this.state.me.email
         // axios.post(`${api}/card/${this.state.me.id}`,card).then((res,err) => {
-        await axios.post(`${api}/card/${this.state.me.id}`,card,{headers: { authorization: 'Bearer ' + token }})).then((res,err) => {
+        await axios.post(`${api}/card/${this.state.me.id}`,card,{headers: { authorization: 'Bearer ' + token }}).then((res,err) => {
             if(err){
                 console.log(err)
                 this.setState({cardError:true})
@@ -391,7 +391,7 @@ export default class App extends Component<Props> {
     }
 
     async getCurrentSnapshot(){
-        await axios.get(`${api}/currentsnapshot`,{headers: { authorization: 'Bearer ' + token }})).then((res,err) => {
+        await axios.get(`${api}/currentsnapshot`,{headers: { authorization: 'Bearer ' + token }}).then((res,err) => {
             if(err){
                 console.log(err)
             }else{
@@ -406,7 +406,7 @@ export default class App extends Component<Props> {
     }
 
     async loadLineData(date){
-        await axios.post(`${api}/linegraph`,date,{headers: { authorization: 'Bearer ' + token }})).then((res,err) => {
+        await axios.post(`${api}/linegraph`,date,{headers: { authorization: 'Bearer ' + token }}).then((res,err) => {
             if(err){
                 console.log(err)
             }else{
@@ -423,7 +423,7 @@ export default class App extends Component<Props> {
     async approveCharity(id,email){
         this.setState({loading:true})
         console.log(id)
-        await axios.put(`${api}/approvecharity/${id}/${email}`,{headers: { authorization: 'Bearer ' + token }})).then((res,err) => {
+        await axios.put(`${api}/approvecharity/${id}/${email}`,{headers: { authorization: 'Bearer ' + token }}).then((res,err) => {
             if(err){
                 console.log(err)
             }
@@ -443,7 +443,7 @@ export default class App extends Component<Props> {
         this.setState({loading:true})
         const payload = {reason,email}
         console.log(id,payload)
-        await axios.post(`${api}/rejectcharity/${id}`,payload,{headers: { authorization: 'Bearer ' + token }})).then((res,err) => {
+        await axios.post(`${api}/rejectcharity/${id}`,payload,{headers: { authorization: 'Bearer ' + token }}).then((res,err) => {
             if(err){
                 console.log(err)
             }
@@ -461,7 +461,7 @@ export default class App extends Component<Props> {
 
     async searchCharityEmail(email){
         const payload = {email}
-        await axios.post(`${api}/admincharity`,payload,{headers: { authorization: 'Bearer ' + token }})).then((res,err) => {
+        await axios.post(`${api}/admincharity`,payload,{headers: { authorization: 'Bearer ' + token }}).then((res,err) => {
             if(err){
                 console.log(err)
             }
@@ -478,7 +478,7 @@ export default class App extends Component<Props> {
     async getInvoices(customer){
         console.log('running')
         const payload = {customer}
-        await axios.post(`${api}/invoices`,payload,{headers: { authorization: 'Bearer ' + token }})).then((res,err) => {
+        await axios.post(`${api}/invoices`,payload,{headers: { authorization: 'Bearer ' + token }}).then((res,err) => {
             if(err){
                 console.log(err)
             }
@@ -494,7 +494,7 @@ export default class App extends Component<Props> {
 
     async searchUserEmail(email){
         const payload = {email}
-        await axios.post(`${api}/admin/users`,payload,{headers: { authorization: 'Bearer ' + token }})).then((res,err) => {
+        await axios.post(`${api}/admin/users`,payload,{headers: { authorization: 'Bearer ' + token }}).then((res,err) => {
             if(err){
                 console.log(err)
             }
@@ -812,7 +812,7 @@ export default class App extends Component<Props> {
             user:this.state.me,
             refreshToken:refresh
         }
-        await axios.put(`${api}/refresh`,payload,{headers: { authorization: 'Bearer ' + token }})).then((result,err) => {
+        await axios.put(`${api}/refresh`,payload,{headers: { authorization: 'Bearer ' + token }}).then((result,err) => {
             if(err){
                 console.log(err)
             }

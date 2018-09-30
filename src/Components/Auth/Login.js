@@ -26,7 +26,10 @@ class Login extends Component<{}> {
             password:'',
             name:'',
             error:false,
-            login:true
+            login:true,
+            nError:false,
+            pError:false,
+            eError:false
         }
     }
     
@@ -41,20 +44,46 @@ class Login extends Component<{}> {
         
     }
 
+
+    verifyEmailFormat = (email) => {
+        var re = /^(([^<>()\[\]\\.,:\s@']+(\.[^<>()\[\]\\.,:\s@']+)*)|('.+'))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        return re.test(String(email).toLowerCase())
+    }
+
+
+    verifyPasswordFormat = (pass) => {
+        var re = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/
+        return re.test(String(pass))
+    }
+
     closeToLogin = () => {
         this.props.toggleLoading()
         this.setState({login:true})
     }
 
     signup = () => {
-        if(this.state.name === '' || this.state.password === '' || this.state.email === ''){
-            this.setState({error:true})
-            setTimeout(() => this.setState({error:true}),2500)
-        }
-        else{
-            this.props.signup(this.state.name,this.state.email,this.state.password)
+        if(this.state.name === ''){
+            this.setState({nError:true})
+            setTimeout(() => this.setState({nError:false}),3000)
+        }else{
+            if(this.verifyEmailFormat(this.state.email) === false) {
+                this.setState({eError:true})
+                setTimeout(() => this.setState({eError:false}),3000)
+            }
+            else{
+                if(this.verifyPasswordFormat(this.state.password) === false){
+                    this.setState({pError:true})
+                }
+                else{
+                    this.setState({email:'',password:'',name:'',pError:false})
+                    console.log('VALID')
+                    this.props.signup(this.state.name,this.state.email,this.state.password)
+                }
+            }
         }
     }
+
+
 
     render() {
         // const { navigate } = this.props.navigation
@@ -151,6 +180,7 @@ class Login extends Component<{}> {
                                     <TouchableOpacity onPress={() => this.signup()} style={styles.button}>
                                         <Text style={{color:'white',fontWeight:'bold'}}>Sign up</Text>
                                     </TouchableOpacity>
+                                    <Text style={{color:'red',textAlign:'center',marginTop:3}}>{this.state.eError ? 'Invalid email format' : this.state.pError? 'Password must be at least 8 characters long, have 1 capital,1 lowercase, 1 digit and 1 special character.' : this.state.nError ? 'Name cannot be blank': null}</Text>
                                     <View style={{justifyContent:'center',alignItems:'center',marginTop:10}}>
                                         <Text style={{color:'#a020f0',width:'90%',textAlign:'center'}}>By signing up you agree to our <Text style={{textDecorationLine:'underline'}}>Terms & Conditions</Text> and <Text style={{textDecorationLine:'underline'}}>Privacy Policy</Text></Text>
                                     </View>
