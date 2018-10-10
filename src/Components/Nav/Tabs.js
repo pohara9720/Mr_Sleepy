@@ -4,12 +4,14 @@ import { createBottomTabNavigator } from 'react-navigation'
 import Alarms from '../Alarms'
 import Profile from '../Profile/Profile'
 import Payments from '../Payments/Payments'
-import { AlarmRoutes, ProfileRoutes} from './Stack'
+import DonateSelect from '../Donate/DonateSelect'
+import { AlarmRoutes, ProfileRoutes,DonateRoutes} from './Stack'
 
 
 const Tabs = createBottomTabNavigator({
     Payments: { screen : Payments },
     Alarms: { screen: AlarmRoutes },
+    DonateSelect: { screen: DonateRoutes },
     Profile: { screen: ProfileRoutes },
 },{
     navigationOptions: ({ navigation }) => ({
@@ -21,6 +23,9 @@ const Tabs = createBottomTabNavigator({
             }
             else if (routeName === 'Profile') {
                 iconName = `${focused ? 'ios-contact' : 'ios-contact-outline'}`
+            }
+            else if (routeName === 'DonateSelect') {
+                iconName = `${focused ? 'ios-heart' : 'ios-heart-outline'}`
             }
             else {
                 iconName = `${focused ? 'ios-card' : 'ios-card-outline'}`

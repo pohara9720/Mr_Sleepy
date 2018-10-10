@@ -20,7 +20,7 @@ import Sound from 'react-native-sound'
 import decode from 'jwt-decode'
 
 export const Context = React.createContext()
-export const api = 'https://staging-sleepy.herokuapp.com/'
+export const api = 'https://staging-sleepy.herokuapp.com'
 
 // const whoosh = new Sound('alarm.wav', Sound.MAIN_BUNDLE, (error) => {
 //     if (error) {
