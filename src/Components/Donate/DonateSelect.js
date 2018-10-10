@@ -35,8 +35,8 @@ class DonateSelect extends Component<Props> {
 
     viewProfile = (object) => {
         const {navigate} = this.props.navigation
-        navigate('CharityProfile')
-        this.props.fillCharityProfile(object)
+        navigate('DonateProfile')
+        this.props.fillDonateProfile(object)
     }
 
 

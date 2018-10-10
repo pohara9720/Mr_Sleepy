@@ -52,6 +52,7 @@ export default class App extends Component<Props> {
             accountCharities:[],
             charityList:[],
             charityProfile:'',
+            donateProfile:'',
             currentSnapshot:'',
             snapshots:[],
             invoices:[],
@@ -898,7 +899,11 @@ export default class App extends Component<Props> {
 
                     fillCharityProfile: (object) => this.setState({charityProfile:object}),
 
+                    fillDonateProfile: (object) => this.setState({donateProfile:object}),
+
                     clearCharityProfile: () => this.setState({charityProfile: ''}),
+
+                    clearDonateProfile: () => this.setState({donateProfile: ''}),
 
                     selectCharity: () => this.setState({charitySelect:this.state.charityProfile,charityProfile:''}),
 
