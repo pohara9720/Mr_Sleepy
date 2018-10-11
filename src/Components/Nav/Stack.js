@@ -23,6 +23,7 @@ import ApprovalProfile from '../Profile/ApprovalProfile'
 import CharityProfile from '../AddAlarm/CharityProfile'
 import DonateProfile from '../Donate/DonateProfile'
 import DonateSelect from '../Donate/DonateSelect'
+import MakeDonation from '../Donate/MakeDonation'
 
 // import {Tabs} from './Tabs'
 
@@ -70,6 +71,8 @@ const AlarmRoutes = createStackNavigator({
 const DonateRoutes = createStackNavigator({
     DonateSelect: { screen: props => <DonateSelect {...props} />},
     DonateProfile: { screen: props => <DonateProfile {...props} />},
+    MakeDonation: { screen: props => <MakeDonation {...props} />},
+
 },
 {
     headerMode: 'none',

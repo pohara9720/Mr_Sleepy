@@ -865,7 +865,7 @@ export default class App extends Component<Props> {
     }
   
     render() {
-        console.log(this.state)
+        console.log('STORE',this.state)
         const newAlarm = {
             id: uuidv4(),
             time:this.state.timeSelect,

@@ -47,7 +47,7 @@ class Settings extends Component<Props> {
       <View style={styles.container}>
       <Header
             leftComponent={<Back />}
-            centerComponent={{ text: 'Settings', style: { color: '#a020f0',fontSize:22}}}
+            centerComponent={{ text: 'Account', style: { color: '#a020f0',fontSize:22}}}
             outerContainerStyles={{backgroundColor:'transparent',borderBottomWidth:0}}
         />
         <ScrollView style={{flex:1}}>

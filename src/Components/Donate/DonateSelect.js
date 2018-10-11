@@ -118,7 +118,7 @@ class DonateSelect extends Component<Props> {
                                             shadowRadius: 10}}>
                                         <CardTitle  
                                             title={l.name} 
-                                            subtitle={l.short} 
+                                            subtitle={l.subtitle} 
                                             style={{borderRadius:10}}/>
                                     </Card>
                                     <View style={{position:'absolute',top:0,right:0,margin:20,zIndex:1000}}>

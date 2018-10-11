@@ -34,11 +34,10 @@ class DonateProfile extends Component<Props> {
         this.props.clearDonateProfile()
     }
 
-    // selectCharity = () => {
-    //     const {navigate} = this.props.navigation
-    //     navigate('AddAlarm')
-    //     this.props.selectCharity()
-    // }
+    makeDonation = () => {
+        const {navigate} = this.props.navigation
+        navigate('MakeDonation')
+    }
 
 
     render() {
@@ -61,16 +60,16 @@ class DonateProfile extends Component<Props> {
                     <LinearGradient  colors={[ '#7016a8' ,'#a020f0']} start={{x: 1, y: 2}} end={{x: 0.9, y: 0}} style={styles.linearGradient}>
                         <View style={{alignItems:'center'}}>
                             <Image 
-                                source={{uri:this.props.store.DonateProfile.image}}
+                                source={{uri:this.props.store.donateProfile.image}}
                                 resizeMode='cover'
                                 style={styles.image}
                             />
-                            <Text style={styles.title}>{this.props.store.DonateProfile.name}</Text>
+                            <Text style={styles.title}>{this.props.store.donateProfile.name}</Text>
                             <TouchableOpacity
                                 style={{borderRadius:25,marginTop:10,paddingBottom:20}}
-                                onPress={() => this.selectCharity()}>
+                                onPress={() => this.makeDonation()}>
                                 <Badge containerStyle={{ padding:20,backgroundColor: 'transparent',borderColor:'white',borderWidth:1}}>
-                                    <Text style={{color:'white'}}>Select this charity</Text>
+                                    <Text style={{color:'white'}}>Make a donation</Text>
                                 </Badge>
                             </TouchableOpacity>
                         </View>
@@ -79,35 +78,35 @@ class DonateProfile extends Component<Props> {
                         <View style={{borderColor:'#a020f0',borderWidth:1,borderBottomWidth:0,padding:15}}>
                             <Text style={{color:'#a020f0',fontWeight:'bold',fontSize:15}}>Basic Info</Text>
                         </View>
-                        <TouchableOpacity onPress={() => Linking.openURL(`@mailto:${this.props.store.DonateProfile.email}`)}>
+                        <TouchableOpacity onPress={() => Linking.openURL(`@mailto:${this.props.store.donateProfile.email}`)}>
                             <View style={{borderColor:'#a020f0',borderWidth:1,borderBottomWidth:0,padding:15,flexDirection:'row'}}>
                                 <Icon 
-                                    name={'email'}
-                                    color={'#a020f0'}
+                                    name='email'
+                                    color='#a020f0'
                                     size={20}
                                     iconStyle={{marginRight:10}}
                                 />
-                                <Text style={{color:'#a020f0',fontSize:15}}>{this.props.store.DonateProfile.email}</Text>
+                                <Text style={{color:'#a020f0',fontSize:15}}>{this.props.store.donateProfile.email}</Text>
                             </View>
                         </TouchableOpacity>
                         <View style={{borderColor:'#a020f0',borderWidth:1,borderBottomWidth:0,padding:15,flexDirection:'row'}}>
                             <Icon 
-                                name={'account-circle'}
-                                color={'#a020f0'}
+                                name='location-on'
+                                color='#a020f0'
                                 size={20}
                                 iconStyle={{marginRight:10}}
                             />
-                            <Text style={{color:'#a020f0',fontSize:15}}>{this.props.store.DonateProfile.location}</Text>
+                            <Text style={{color:'#a020f0',fontSize:15}}>{this.props.store.donateProfile.location}</Text>
                         </View>
-                        <TouchableOpacity onPress={() => Linking.openURL(`${this.props.store.DonateProfile.website}`)}>
+                        <TouchableOpacity onPress={() => Linking.openURL(`${this.props.store.donateProfile.website}`)}>
                             <View style={{borderColor:'#a020f0',borderWidth:1,borderBottomWidth:1,padding:15,flexDirection:'row'}}>
                                 <Icon 
-                                    name={'language'}
-                                    color={'#a020f0'}
+                                    name='language'
+                                    color='#a020f0'
                                     size={20}
                                     iconStyle={{marginRight:10}}
                                 />
-                                <Text style={{color:'#a020f0',fontSize:15}}>{this.props.store.DonateProfile.website}</Text>
+                                <Text style={{color:'#a020f0',fontSize:15}}>{this.props.store.donateProfile.website}</Text>
                             </View>
                         </TouchableOpacity>
                     </View>
@@ -116,7 +115,7 @@ class DonateProfile extends Component<Props> {
                             <Text style={{color:'#a020f0',fontWeight:'bold',fontSize:15}}>Summary</Text>
                         </View>
                         <View style={{borderColor:'#a020f0',borderWidth:1,borderBottomWidth:1,padding:15,flexDirection:'row'}}>
-                            <Text style={{color:'#a020f0',fontSize:15}}>{this.props.store.DonateProfile.full}</Text>
+                            <Text style={{color:'#a020f0',fontSize:15}}>{this.props.store.donateProfile.bio}</Text>
                         </View>
                     </View>
                 </ScrollView>

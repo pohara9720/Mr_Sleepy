@@ -242,7 +242,7 @@ class Profile extends Component<Props> {
                                     size={20}
                                     iconStyle={{marginRight:10}}
                                 />
-                                <Text style={{color:'#a020f0',fontSize:15}}>Settings</Text>
+                                <Text style={{color:'#a020f0',fontSize:15}}>Account</Text>
                             </View>
                         </TouchableOpacity>
                         { this.props.store.me && this.props.store.me.isAdmin ? 

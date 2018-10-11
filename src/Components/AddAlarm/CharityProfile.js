@@ -82,8 +82,8 @@ class CharityProfile extends Component<Props> {
                         <TouchableOpacity onPress={() => Linking.openURL(`@mailto:${this.props.store.charityProfile.email}`)}>
                             <View style={{borderColor:'#a020f0',borderWidth:1,borderBottomWidth:0,padding:15,flexDirection:'row'}}>
                                 <Icon 
-                                    name={'email'}
-                                    color={'#a020f0'}
+                                    name='email'
+                                    color='#a020f0'
                                     size={20}
                                     iconStyle={{marginRight:10}}
                                 />
@@ -92,8 +92,8 @@ class CharityProfile extends Component<Props> {
                         </TouchableOpacity>
                         <View style={{borderColor:'#a020f0',borderWidth:1,borderBottomWidth:0,padding:15,flexDirection:'row'}}>
                             <Icon 
-                                name={'account-circle'}
-                                color={'#a020f0'}
+                                name='location-on'
+                                color='#a020f0'
                                 size={20}
                                 iconStyle={{marginRight:10}}
                             />
@@ -102,8 +102,8 @@ class CharityProfile extends Component<Props> {
                         <TouchableOpacity onPress={() => Linking.openURL(`${this.props.store.charityProfile.website}`)}>
                             <View style={{borderColor:'#a020f0',borderWidth:1,borderBottomWidth:1,padding:15,flexDirection:'row'}}>
                                 <Icon 
-                                    name={'language'}
-                                    color={'#a020f0'}
+                                    name='language'
+                                    color='#a020f0'
                                     size={20}
                                     iconStyle={{marginRight:10}}
                                 />
@@ -116,7 +116,7 @@ class CharityProfile extends Component<Props> {
                             <Text style={{color:'#a020f0',fontWeight:'bold',fontSize:15}}>Summary</Text>
                         </View>
                         <View style={{borderColor:'#a020f0',borderWidth:1,borderBottomWidth:1,padding:15,flexDirection:'row'}}>
-                            <Text style={{color:'#a020f0',fontSize:15}}>{this.props.store.charityProfile.full}</Text>
+                            <Text style={{color:'#a020f0',fontSize:15}}>{this.props.store.charityProfile.bio}</Text>
                         </View>
                     </View>
                 </ScrollView>
