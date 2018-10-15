@@ -13,6 +13,7 @@ import { StackNavigator,NavigationActions } from 'react-navigation'
 import LinearGradient from 'react-native-linear-gradient'
 import connect from '../HOC'
 import { Context } from '../../../App'
+import Modal from 'react-native-simple-modal'
 
 
 class MakeDonation extends Component<{}> { 
@@ -20,9 +21,9 @@ class MakeDonation extends Component<{}> {
         super(props)
         this.state = {
            donation:10,
+           // validCard:false
         }
     }
-    
     
 
     render() {
@@ -44,7 +45,8 @@ class MakeDonation extends Component<{}> {
                     // centerComponent={{ text: 'Make your donation', style: { color: '',fontSize:22}}}
                     outerContainerStyles={{backgroundColor:'transparent',borderBottomWidth:0}}
                 />
-               <View style={{padding:15,width:'100%',justifyContent:'center',alignItems:'center',flex:1}}>
+               <View style={{padding:15,width:'100%',paddingTop:'10%',alignItems:'center',flex:1}}>
+                    <Image source={require('../../images/purplecirlce.png')} style={{height:100,width:100,marginBottom:40}}/>
                     <Text style={{color:'#a020f0',textAlign:'center',fontSize:20,fontWeight:'bold'}}>{`How much would you like to donate to ${this.props.store.donateProfile.name}?`}</Text>
                     <TextInput 
                         value={`${this.state.donation}`}
@@ -65,6 +67,7 @@ class MakeDonation extends Component<{}> {
                             </TouchableOpacity>
                     }
                </View>
+               
                
             </View>
         )

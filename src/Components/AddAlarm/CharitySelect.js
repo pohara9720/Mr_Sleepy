@@ -63,7 +63,7 @@ class CharitySelect extends Component<Props> {
                     centerComponent={{ text: 'Select Charity', style: { color: 'white',fontSize:22}}}
                     outerContainerStyles={{backgroundColor:'transparent',borderBottomWidth:0}}
                 />
-                <View style={styles.search}>
+                {/*<View style={styles.search}>
                     <SearchBar
                         round
                         lightTheme
@@ -99,6 +99,7 @@ class CharitySelect extends Component<Props> {
                         </View>
                     </View>
                 </Collapsible>
+            */}
                 <View style={styles.results}>
                     <Text style={{color:'white',fontWeight:'bold'}}>{`${searchedCharities.length} results`}</Text>
                 </View>
@@ -118,7 +119,7 @@ class CharitySelect extends Component<Props> {
                                     style={{borderRadius:10}}
                                     onPress={() => this.viewProfile(l)}>
                                     <Card
-                                        mediaSource={{uri:l.image}}
+                                        mediaSource={{uri:l.orgImage}}
                                         style={{
                                             borderRadius:10,
                                             shadowColor: 'white',

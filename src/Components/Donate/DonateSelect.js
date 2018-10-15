@@ -25,7 +25,7 @@ class DonateSelect extends Component<Props> {
         this.state={
             search:'',
             filter:true,
-            category:''
+            category:'',
         }
     }
 
@@ -40,6 +40,8 @@ class DonateSelect extends Component<Props> {
     }
 
 
+
+
     render() {
         const {navigate} = this.props.navigation
         const backAction = NavigationActions.back({})
@@ -47,14 +49,25 @@ class DonateSelect extends Component<Props> {
         
         const searchedCharities = this.props.store.charityList.filter(x => x.name.toLowerCase().includes(this.state.search.toLowerCase()) || x.location.toLowerCase().includes(this.state.search.toLowerCase())) 
         // const locationFilter = searchedCharities.filter(x => x.location.toLowerCase.includes(this.state.search.toLowerCase()))
-      
+        
+        const Tile = (props) => (
+            <TouchableOpacity style={{position:'relative'}}>
+                <Image source={{uri:'https://upload.wikimedia.org/wikipedia/commons/a/a5/Red_Kitten_01.jpg'}} resizeMode='cover'/>
+                <View  style={{position:'absolute',bottom:0,left:0,padding:10,backgroundColor:'white'}}>
+                      <Text>{props.name}</Text>
+                      <Text>{props.subtitle}</Text>
+                </View>
+            </TouchableOpacity>
+       )
+
+
         return (
             <View style={styles.container}>
                 <Header
                     centerComponent={{ text: 'Want to donate more?', style: { color: 'white',fontSize:22}}}
                     outerContainerStyles={{backgroundColor:'transparent',borderBottomWidth:0}}
                 />
-                <View style={styles.search}>
+                {/*<View style={styles.search}>
                     <SearchBar
                         round
                         lightTheme
@@ -89,9 +102,9 @@ class DonateSelect extends Component<Props> {
                             </View>
                         </View>
                     </View>
-                </Collapsible>
+                </Collapsible>*/}
                 <View style={styles.results}>
-                    <Text style={{color:'white',fontWeight:'bold'}}>{`${searchedCharities.length} results`}</Text>
+                    <Text style={{color:'white',fontWeight:'bold'}}>Select a charity to donate to!</Text>
                 </View>
                 <ScrollView style={{flex:1,padding:15}}>
                     { this.props.store.charityList.length === 0 ?
@@ -104,12 +117,14 @@ class DonateSelect extends Component<Props> {
                         </LinearGradient>
                         :
                         searchedCharities.map((l,i) => 
+                            i > 5 ?  <Tile props={l} key={i} />
+                             :
                             <View key={i} style={{borderRadius:10}}>
                                 <TouchableOpacity 
                                     style={{borderRadius:10}}
                                     onPress={() => this.viewProfile(l)}>
                                     <Card
-                                        mediaSource={{uri:l.image}}
+                                        mediaSource={{uri:l.orgImage}}
                                         style={{
                                             borderRadius:10,
                                             shadowColor: 'white',

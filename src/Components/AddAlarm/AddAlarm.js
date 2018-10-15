@@ -152,7 +152,7 @@ class AddAlarm extends Component<Props> {
                                     {
                                         this.props.store.charitySelect === null ?
                                             <Text style={styles.btnText}>Charity</Text> :
-                                            <Text style={styles.smallerText}>{this.props.store.charitySelect.name}</Text>
+                                            <Text style={styles.btnText}>{this.props.store.charitySelect.name}</Text>
                                     }
                                 </View>
                             </LinearGradient>
@@ -295,18 +295,19 @@ const styles = StyleSheet.create({
     btnText: {
         color: 'white',
         fontSize:30,
+        marginLeft:'auto'
     },
     smallerText: {
         color:'white',
         fontSize:20,
         width: '80%',
-        textAlign:'center'
+        // textAlign:'center'
     },
     dayText: {
         fontSize:20,
         color:'white',
         width:'80%',
-        textAlign:'center'
+        // textAlign:'center'
     },
     customIcon: {
         marginRight:20

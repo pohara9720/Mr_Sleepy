@@ -21,7 +21,8 @@ class Alarms extends Component<Props> {
     constructor(props){
       super(props)
       this.state ={
-        edit:false
+        edit:false,
+        card:false
       }
     }
 
@@ -42,13 +43,24 @@ class Alarms extends Component<Props> {
 
     navigateTo = () => {
       const {navigate} = this.props.navigation
-      navigate('AddAlarm')
-      this.setState({edit:false})
+      if(this.props.store.me.snoozer_customerId){
+          navigate('AddAlarm')
+          this.setState({edit:false})
+      }
+      else{
+          this.setState({card:true})
+      }
     }
 
     deletLastAlarm = (id) => {
         this.setState({edit:false})
         this.props.deleteAlarm(id)
+    }
+
+    goToPayments = () => {
+        this.setState({card:false})
+        const {navigate} = this.props.navigation
+        navigate('Payments')
     }
 
     render() {
@@ -68,6 +80,7 @@ class Alarms extends Component<Props> {
                    
               )
        }
+       
        // console.log(this.props.store)
       return (
         <View style={styles.container}>
@@ -178,6 +191,43 @@ class Alarms extends Component<Props> {
                               <Text style={{textAlign:'center',color:'white'}}>Mr. Sleepy uses Push Notifications to make sure you receive your alarms! Would you like to give us permission to send you notifications? Don't worry we only use notifications for alarms!</Text>
                         </View>
                         <TouchableOpacity style={{justifyContent:'center',alignItems:'center',padding:12,backgroundColor:'white',width:'107%',marginBottom:-10,borderBottomLeftRadius:10,borderBottomRightRadius:10}}onPress={() => Linking.openURL('app-settings:')}>
+                              <Text style={{color:'#a020f0',fontSize:15}}>Okay</Text>
+                        </TouchableOpacity>
+                  </View>
+              </Modal>
+              <Modal
+                  animationDuration={200}
+                  animationTension={40}
+                  closeOnTouchOutside={false}
+                  containerStyle={{
+                    justifyContent: "center",
+                  }}
+                  disableOnBackPress={false}
+                  // modalDidClose={() => PushNotificationsHandler.requestPermissions()}
+                  modalStyle={{
+                    backgroundColor: "#a020f0",
+                    borderRadius:10,  
+                    borderColor:'#a020f0',
+                  }}
+                  offset={0}
+                  open={this.state.card}
+                  overlayStyle={{
+                    backgroundColor: "rgba(0, 0, 0, 0.75)",
+                    flex: 1
+                  }}
+              >     
+                  <View style={{alignItems:'center',justifyContent:'center'}}>
+                        <View style={{backgroundColor:'#a020f0',padding:50}}>
+                              <Icon 
+                                color='white'
+                                size={70}
+                                name='heart'
+                                type='material-community' 
+                                iconStyle={{marginBottom:20}}
+                              />
+                              <Text style={{textAlign:'center',color:'white'}}>Please add a payment method to continue setting alarms.</Text>
+                        </View>
+                        <TouchableOpacity style={{justifyContent:'center',alignItems:'center',padding:12,backgroundColor:'white',width:'107%',marginBottom:-10,borderBottomLeftRadius:10,borderBottomRightRadius:10}}onPress={() => this.goToPayments()}>
                               <Text style={{color:'#a020f0',fontSize:15}}>Okay</Text>
                         </TouchableOpacity>
                   </View>

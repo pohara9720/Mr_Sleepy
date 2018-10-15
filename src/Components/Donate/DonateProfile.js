@@ -10,6 +10,7 @@ import {
 import {Header,Badge,Icon} from 'react-native-elements'
 import { NavigationActions } from 'react-navigation'
 import LinearGradient from 'react-native-linear-gradient'
+import Modal from 'react-native-simple-modal'
 import {  Context } from '../../../App'
 import connect from '../HOC'
 
@@ -20,12 +21,13 @@ class DonateProfile extends Component<Props> {
     constructor(props){
         super(props)
         this.state={
-
+            card:false
         }
     }
 
     componentDidMount(){
         this.props.checkAuth()
+        
     }
     
     clearProfile = () => {
@@ -36,8 +38,22 @@ class DonateProfile extends Component<Props> {
 
     makeDonation = () => {
         const {navigate} = this.props.navigation
-        navigate('MakeDonation')
+        if(this.props.store.me.snoozer_customerId){
+            navigate('MakeDonation')
+        }
+        else{
+            this.setState({card:true})
+        }
+        
     }
+
+    goToPayments = () => {
+        this.setState({card:false})
+        const {navigate} = this.props.navigation
+        navigate('Payments')
+    }
+
+    
 
 
     render() {
@@ -60,7 +76,7 @@ class DonateProfile extends Component<Props> {
                     <LinearGradient  colors={[ '#7016a8' ,'#a020f0']} start={{x: 1, y: 2}} end={{x: 0.9, y: 0}} style={styles.linearGradient}>
                         <View style={{alignItems:'center'}}>
                             <Image 
-                                source={{uri:this.props.store.donateProfile.image}}
+                                source={{uri:this.props.store.donateProfile.orgImage}}
                                 resizeMode='cover'
                                 style={styles.image}
                             />
@@ -134,6 +150,43 @@ class DonateProfile extends Component<Props> {
                         </LinearGradient>
                     </TouchableOpacity> : null
                 }
+                <Modal
+                    animationDuration={200}
+                    animationTension={40}
+                    closeOnTouchOutside={true}
+                    containerStyle={{
+                        justifyContent: "center",
+                    }}
+                    disableOnBackPress={false}
+                    // modalDidClose={() => PushNotificationsHandler.requestPermissions()}
+                    modalStyle={{
+                        backgroundColor: "#a020f0",
+                        borderRadius:10,  
+                        borderColor:'#a020f0',
+                    }}
+                    offset={0}
+                    open={this.state.card}
+                    overlayStyle={{
+                        backgroundColor: "rgba(0, 0, 0, 0.75)",
+                        flex: 1
+                    }}
+                >     
+                    <View style={{alignItems:'center',justifyContent:'center'}}>
+                        <View style={{backgroundColor:'#a020f0',padding:50}}>
+                            <Icon 
+                                color='white'
+                                type='material-community'
+                                size={70}
+                                name='heart' 
+                                iconStyle={{marginBottom:20}}
+                            />
+                            <Text style={{textAlign:'center',color:'white'}}>Please add a payment method to make a donation.</Text>
+                        </View>
+                        <TouchableOpacity style={{justifyContent:'center',alignItems:'center',padding:12,backgroundColor:'white',width:'107%',marginBottom:-10,borderBottomLeftRadius:10,borderBottomRightRadius:10}} onPress={() => this.goToPayments()}>
+                            <Text style={{color:'#a020f0',fontSize:15}}>Okay</Text>
+                        </TouchableOpacity>
+                    </View>
+                </Modal>
             </View>
         )
     }

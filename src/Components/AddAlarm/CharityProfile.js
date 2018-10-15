@@ -61,7 +61,7 @@ class CharityProfile extends Component<Props> {
                     <LinearGradient  colors={[ '#7016a8' ,'#a020f0']} start={{x: 1, y: 2}} end={{x: 0.9, y: 0}} style={styles.linearGradient}>
                         <View style={{alignItems:'center'}}>
                             <Image 
-                                source={{uri:this.props.store.charityProfile.image}}
+                                source={{uri:this.props.store.charityProfile.orgImage}}
                                 resizeMode='cover'
                                 style={styles.image}
                             />
