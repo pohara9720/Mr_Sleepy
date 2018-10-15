@@ -96,6 +96,7 @@ export default class App extends Component<Props> {
     }
 
     async loadApprovals(){
+        const token = this.state.token
         await axios.get(`${api}/approvals`,{headers: { authorization: 'Bearer ' + token }}).then((res,err) => {
             if(err){
                 console.log(err)
@@ -353,6 +354,7 @@ export default class App extends Component<Props> {
     }
 
     async getSnapshots(){
+        const token = this.state.token
         await axios.get(`${api}/snapshots`,{headers: { authorization: 'Bearer ' + token }}).then((res,err) => {
             if(err){
                 console.log(err)
@@ -369,6 +371,7 @@ export default class App extends Component<Props> {
 
     async addPayment(card){
         console.log('CARD',card)
+        const token = this.state.token
         // const token = this.state.me.token
         card.customer = this.state.me.snoozer_customerId
         // card.email = this.state.me.email
@@ -392,6 +395,7 @@ export default class App extends Component<Props> {
     }
 
     async getCurrentSnapshot(){
+        const token = this.state.token
         await axios.get(`${api}/currentsnapshot`,{headers: { authorization: 'Bearer ' + token }}).then((res,err) => {
             if(err){
                 console.log(err)
@@ -407,6 +411,7 @@ export default class App extends Component<Props> {
     }
 
     async loadLineData(date){
+        const token = this.state.token
         await axios.post(`${api}/linegraph`,date,{headers: { authorization: 'Bearer ' + token }}).then((res,err) => {
             if(err){
                 console.log(err)
@@ -422,6 +427,7 @@ export default class App extends Component<Props> {
     }
 
     async approveCharity(id,email){
+        const token = this.state.token
         this.setState({loading:true})
         console.log(id)
         await axios.put(`${api}/approvecharity/${id}/${email}`,{headers: { authorization: 'Bearer ' + token }}).then((res,err) => {
@@ -441,6 +447,7 @@ export default class App extends Component<Props> {
     }
 
     async rejectCharity(id,reason,email){
+        const token = this.state.token
         this.setState({loading:true})
         const payload = {reason,email}
         console.log(id,payload)
@@ -461,6 +468,7 @@ export default class App extends Component<Props> {
     }
 
     async searchCharityEmail(email){
+        const token = this.state.token
         const payload = {email}
         await axios.post(`${api}/admincharity`,payload,{headers: { authorization: 'Bearer ' + token }}).then((res,err) => {
             if(err){
@@ -478,6 +486,7 @@ export default class App extends Component<Props> {
 
     async getInvoices(customer){
         console.log('running')
+        const token = this.state.token
         const payload = {customer}
         await axios.post(`${api}/invoices`,payload,{headers: { authorization: 'Bearer ' + token }}).then((res,err) => {
             if(err){
@@ -494,6 +503,7 @@ export default class App extends Component<Props> {
     }
 
     async searchUserEmail(email){
+        const token = this.state.token
         const payload = {email}
         await axios.post(`${api}/admin/users`,payload,{headers: { authorization: 'Bearer ' + token }}).then((res,err) => {
             if(err){

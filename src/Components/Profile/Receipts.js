@@ -61,7 +61,7 @@ class Receipts extends Component<Props> {
         </LinearGradient>
         <ScrollView style={{flex:1,padding:15}}>
             {
-              this.props.store.invoices === '' || this.props.store.invoices === null ? 
+              this.props.store.invoices === '' || this.props.store.invoices === null || this.props.store.invoices.length === 0? 
               <LinearGradient  colors={[ '#8E2DE2' ,'#4A00E0']} start={{x: 1, y: 2}} end={{x: 0.9, y: 0}} style={styles.bannerGrad}>
                   <View style={styles.banner}>
                       <Text style={{fontSize:15,color:'white'}}>You have no invoices</Text> 

@@ -3,7 +3,7 @@ import {
   Platform,
   StyleSheet,
   Text,
-  View,Button,ScrollView,TouchableOpacity,Image,TextInput
+  View,Button,ScrollView,TouchableOpacity,Image,TextInput,Linking
 } from 'react-native';
 
 import { NavigationActions } from 'react-navigation'
@@ -88,6 +88,18 @@ class Settings extends Component<Props> {
                             iconStyle={{marginRight:10}}
                           />
                             <Text style={{color:'#a020f0',fontSize:15}}>Invoices</Text>
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => Linking.openURL('mailto:hellomrsleepy@gmail.com')}>
+                        <View style={{borderColor:'#a020f0',borderWidth:1,borderBottomWidth:0,padding:15,flexDirection:'row'}}>
+                          <Icon 
+                            name='help-network'
+                            type='material-community'
+                            color='#a020f0'
+                            size={20}
+                            iconStyle={{marginRight:10}}
+                          />
+                            <Text style={{color:'#a020f0',fontSize:15}}>Help</Text>
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity>
