@@ -50,7 +50,7 @@ class CharitySelect extends Component<Props> {
         const Back = (props) => {
             return(
                 <Text
-                    style={{fontSize:14,color:'white',justifyContent:"center"}}
+                    style={{fontSize:14,color:'#a020f0',justifyContent:"center"}}
                     onPress={() => this.props.navigation.dispatch(backAction)}
                 >Back
                 </Text>
@@ -60,7 +60,7 @@ class CharitySelect extends Component<Props> {
             <View style={styles.container}>
                 <Header
                     leftComponent={<Back />}
-                    centerComponent={{ text: 'Select Charity', style: { color: 'white',fontSize:22}}}
+                    centerComponent={{ text: 'Select Charity', style: { color: '#a020f0',fontSize:22}}}
                     outerContainerStyles={{backgroundColor:'transparent',borderBottomWidth:0}}
                 />
                 {/*<View style={styles.search}>
@@ -101,7 +101,7 @@ class CharitySelect extends Component<Props> {
                 </Collapsible>
             */}
                 <View style={styles.results}>
-                    <Text style={{color:'white',fontWeight:'bold'}}>{`${searchedCharities.length} results`}</Text>
+                    <Text style={{color:'#a020f0',fontWeight:'bold'}}>{`${searchedCharities.length} results`}</Text>
                 </View>
                 <ScrollView style={{flex:1,padding:15}}>
                     { this.props.store.charityList.length === 0 ?
@@ -114,7 +114,7 @@ class CharitySelect extends Component<Props> {
                         </LinearGradient>
                         :
                         searchedCharities.map((l,i) => 
-                            <View key={i} style={{borderRadius:10}}>
+                            <View key={i} style={{borderRadius:10,paddingBottom:10}}>
                                 <TouchableOpacity 
                                     style={{borderRadius:10}}
                                     onPress={() => this.viewProfile(l)}>
@@ -122,14 +122,16 @@ class CharitySelect extends Component<Props> {
                                         mediaSource={{uri:l.orgImage}}
                                         style={{
                                             borderRadius:10,
-                                            shadowColor: 'white',
+                                            borderWidth:4,
+                                            borderColor:'#a020f0',
+                                            shadowColor: '#a020f0',
                                             shadowOpacity: 1,
                                             position:'relative',
-                                            shadowRadius: 10}}>
+                                            shadowRadius: 5}}>
                                         <CardTitle  
                                             title={l.name} 
                                             subtitle={l.subtitle} 
-                                            style={{borderRadius:10}}/>
+                                            style={{borderBottomRadius:10,borderColor:'#a020f0',backgroundColor:'#a020f070'}}/>
                                     </Card>
                                     <View style={{position:'absolute',top:0,right:0,margin:20,zIndex:1000}}>
                                         <Badge containerStyle={{ backgroundColor: 'white'}}>
@@ -164,7 +166,7 @@ class CharitySelect extends Component<Props> {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#a020f0',
+        backgroundColor: 'white',
     },
     results:{
         display:'flex',

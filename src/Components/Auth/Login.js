@@ -102,7 +102,7 @@ class Login extends Component<{}> {
                                     <SearchBar 
                                         raised
                                         noIcon
-                                        value={this.state.email}
+                                        value={this.state.email.toLowerCase()}
                                         onChangeText={(e) => this.setState({email:e})}
                                         // icon={{ type: 'material-community', name: 'email-outline',color:'#a020f0'}}
                                         inputStyle={this.state.error ? styles.errorInput : styles.input}
@@ -114,6 +114,7 @@ class Login extends Component<{}> {
                                         <SearchBar 
                                             raised
                                             noIcon
+                                            value={this.state.password.toLowerCase()}
                                             onChangeText={(e) => this.setState({password:e})}
                                             // icon={{ type: 'material-community', name: 'key',color:'#a020f0',marginTop:20}}
                                             inputStyle={this.state.error ? styles.errorInput : styles.input}
@@ -159,6 +160,7 @@ class Login extends Component<{}> {
                                     <SearchBar 
                                         // raised
                                         noIcon
+                                        value={this.state.email.toLowerCase()}
                                         onChangeText={(e) => this.setState({email:e})}
                                         // icon={{ type: 'material-community', name: 'email-outline',color:'#a020f0'}}
                                         inputStyle={this.state.error ? styles.errorInput : styles.input}
@@ -169,6 +171,7 @@ class Login extends Component<{}> {
                                     <SearchBar 
                                         raised
                                         noIcon
+                                        value={this.state.password.toLowerCase()}
                                         onChangeText={(e) => this.setState({password:e})}
                                         // icon={{ type: 'material-community', name: 'key',color:'#a020f0',marginTop:20}}
                                         inputStyle={this.state.error ? styles.errorInput : styles.input}

@@ -54,17 +54,17 @@ class DonateSelect extends Component<Props> {
             <TouchableOpacity style={{position:'relative'}}>
                 <Image source={{uri:'https://upload.wikimedia.org/wikipedia/commons/a/a5/Red_Kitten_01.jpg'}} resizeMode='cover'/>
                 <View  style={{position:'absolute',bottom:0,left:0,padding:10,backgroundColor:'white'}}>
-                      <Text>{props.name}</Text>
-                      <Text>{props.subtitle}</Text>
+                    <Text>{props.name}</Text>
+                    <Text>{props.subtitle}</Text>
                 </View>
             </TouchableOpacity>
-       )
+        )
 
 
         return (
             <View style={styles.container}>
                 <Header
-                    centerComponent={{ text: 'Want to donate more?', style: { color: 'white',fontSize:22}}}
+                    centerComponent={{ text: 'Want to donate more?', style: { color: '#a020f0',fontSize:22}}}
                     outerContainerStyles={{backgroundColor:'transparent',borderBottomWidth:0}}
                 />
                 {/*<View style={styles.search}>
@@ -104,7 +104,7 @@ class DonateSelect extends Component<Props> {
                     </View>
                 </Collapsible>*/}
                 <View style={styles.results}>
-                    <Text style={{color:'white',fontWeight:'bold'}}>Select a charity to donate to!</Text>
+                    <Text style={{color:'#a020f0',fontWeight:'bold'}}>Select a charity to donate to!</Text>
                 </View>
                 <ScrollView style={{flex:1,padding:15}}>
                     { this.props.store.charityList.length === 0 ?
@@ -117,9 +117,7 @@ class DonateSelect extends Component<Props> {
                         </LinearGradient>
                         :
                         searchedCharities.map((l,i) => 
-                            i > 5 ?  <Tile props={l} key={i} />
-                             :
-                            <View key={i} style={{borderRadius:10}}>
+                            <View key={i} style={{borderRadius:10,paddingBottom:10}}>
                                 <TouchableOpacity 
                                     style={{borderRadius:10}}
                                     onPress={() => this.viewProfile(l)}>
@@ -127,14 +125,16 @@ class DonateSelect extends Component<Props> {
                                         mediaSource={{uri:l.orgImage}}
                                         style={{
                                             borderRadius:10,
-                                            shadowColor: 'white',
+                                            borderWidth:4,
+                                            borderColor:'#a020f0',
+                                            shadowColor: '#a020f0',
                                             shadowOpacity: 1,
                                             position:'relative',
-                                            shadowRadius: 10}}>
+                                            shadowRadius: 5}}>
                                         <CardTitle  
                                             title={l.name} 
                                             subtitle={l.subtitle} 
-                                            style={{borderRadius:10}}/>
+                                            style={{borderBottomRadius:10,borderColor:'#a020f0',backgroundColor:'#a020f070'}}/>
                                     </Card>
                                     <View style={{position:'absolute',top:0,right:0,margin:20,zIndex:1000}}>
                                         <Badge containerStyle={{ backgroundColor: 'white'}}>
@@ -169,7 +169,7 @@ class DonateSelect extends Component<Props> {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#a020f0',
+        backgroundColor: 'white',
     },
     results:{
         display:'flex',
