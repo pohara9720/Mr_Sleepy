@@ -38,6 +38,7 @@ export default class App extends Component<Props> {
         super(props)
         this.state ={
             me:'',
+            payMethod:'',
             token:'',
             authenticated:false,
             timeSelect:'',
@@ -484,8 +485,31 @@ export default class App extends Component<Props> {
         })
     }
 
+    async getCustomerPayment(cust){
+        if(!cust){
+            this.setState({payMethod:null})
+        }
+        else{
+            const token = this.state.token
+            // const payload = {customer}
+            await axios.post(`${api}/paymethod/${cust}`,{headers: { authorization: 'Bearer ' + token }}).then((res,err) => {
+                if(err){
+                    console.log(err)
+                }
+                else{
+                    this.setState({payMethod:res.data})
+                }
+            }).catch((err) => {
+                console.log(err)
+                this.setState({systemError:true,systemErrorMessage:'Cannot connect to server'})
+                setTimeout(() => this.setState({systemError:false,systemErrorMessage:''}),3000)
+            })
+        }
+        
+    }
+
     async getInvoices(customer){
-        console.log('running')
+        // console.log('running')
         const token = this.state.token
         const payload = {customer}
         await axios.post(`${api}/invoices`,payload,{headers: { authorization: 'Bearer ' + token }}).then((res,err) => {
@@ -969,7 +993,9 @@ export default class App extends Component<Props> {
 
                     login: (e,p) => this.login(e,p),
 
-                    checkAuth: () => this.checkAuth()
+                    checkAuth: () => this.checkAuth(),
+
+                    getCustomerPayment:(id) => this.getCustomerPayment(id)
 
                 }}> 
                 {

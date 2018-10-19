@@ -38,7 +38,7 @@ class DonateProfile extends Component<Props> {
 
     makeDonation = () => {
         const {navigate} = this.props.navigation
-        if(this.props.store.me.snoozer_customerId){
+        if(this.props.store.payMethod){
             navigate('MakeDonation')
         }
         else{

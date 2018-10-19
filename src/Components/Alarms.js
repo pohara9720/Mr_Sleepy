@@ -28,6 +28,7 @@ class Alarms extends Component<Props> {
 
     componentDidMount(){
         this.props.checkAuth()
+        this.props.getCustomerPayment(this.props.me.snoozer_customerId)
         // const {navigate} = this.props.navigation
         // navigate('Snooze')
         PushNotification.checkPermissions((callback) => {
@@ -43,7 +44,7 @@ class Alarms extends Component<Props> {
 
     navigateTo = () => {
         const {navigate} = this.props.navigation
-        if(this.props.store.me.snoozer_customerId){
+        if(this.props.store.payMethod){
             navigate('AddAlarm')
             this.setState({edit:false})
         }
