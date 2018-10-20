@@ -114,7 +114,7 @@ class Login extends Component<{}> {
                                         <SearchBar 
                                             raised
                                             noIcon
-                                            value={this.state.password.toLowerCase()}
+                                            value={this.state.password}
                                             onChangeText={(e) => this.setState({password:e})}
                                             // icon={{ type: 'material-community', name: 'key',color:'#a020f0',marginTop:20}}
                                             inputStyle={this.state.error ? styles.errorInput : styles.input}
@@ -171,7 +171,7 @@ class Login extends Component<{}> {
                                     <SearchBar 
                                         raised
                                         noIcon
-                                        value={this.state.password.toLowerCase()}
+                                        value={this.state.password}
                                         onChangeText={(e) => this.setState({password:e})}
                                         // icon={{ type: 'material-community', name: 'key',color:'#a020f0',marginTop:20}}
                                         inputStyle={this.state.error ? styles.errorInput : styles.input}

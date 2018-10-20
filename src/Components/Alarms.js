@@ -28,7 +28,7 @@ class Alarms extends Component<Props> {
 
     componentDidMount(){
         this.props.checkAuth()
-        this.props.getCustomerPayment(this.props.me.snoozer_customerId)
+        this.props.getCustomerPayment(this.props.store.me.snoozer_customerId)
         // const {navigate} = this.props.navigation
         // navigate('Snooze')
         PushNotification.checkPermissions((callback) => {

@@ -64,7 +64,7 @@ class DonateSelect extends Component<Props> {
         return (
             <View style={styles.container}>
                 <Header
-                    centerComponent={{ text: 'Want to donate more?', style: { color: '#a020f0',fontSize:22}}}
+                    centerComponent={{ text: 'Donation Center', style: { color: '#a020f0',fontSize:22}}}
                     outerContainerStyles={{backgroundColor:'transparent',borderBottomWidth:0}}
                 />
                 {/*<View style={styles.search}>
@@ -104,7 +104,7 @@ class DonateSelect extends Component<Props> {
                     </View>
                 </Collapsible>*/}
                 <View style={styles.results}>
-                    <Text style={{color:'#a020f0',fontWeight:'bold'}}>Select a charity to donate to!</Text>
+                    <Text style={{color:'#a020f0',fontWeight:'bold',paddingLeft:5,paddingRight:5,textAlign:'center'}}>Want to donate more? Select a charity to donate to!</Text>
                 </View>
                 <ScrollView style={{flex:1,padding:15}}>
                     { this.props.store.charityList.length === 0 ?
