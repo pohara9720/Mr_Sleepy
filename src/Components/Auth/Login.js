@@ -89,7 +89,11 @@ class Login extends Component<{}> {
         // const { navigate } = this.props.navigation
         return (
             <LinearGradient  colors={[ '#a020f0', '#c679f6', '#7016a8']} start={{x: 1, y: 2}} end={{x: 0.9, y: 0}} style={styles.linearGradient}>
-                {
+                { this.props.store.userLoading ? 
+                    <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+                        <Image resizeMode='contain' style={{height:150}} source={require('../../images/white-hat.png')}/>
+                    </View>
+                    :
                     this.state.login ?
                         <KeyboardAvoidingView behavior='position' enabled>
                             <ScrollView containerStyle={{display:'flex',flexDirection:'column',flex:1}}>

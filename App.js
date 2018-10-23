@@ -75,7 +75,8 @@ export default class App extends Component<Props> {
             emailExists:false,
             credError:false,
             verifiedError:false,
-            signupSent:false
+            signupSent:false,
+            userLoading:false
         }
     }
 
@@ -775,16 +776,18 @@ export default class App extends Component<Props> {
 
 
     async setUser(){
+        this.setState({userLoading:true})
         const existingToken = await AsyncStorage.getItem('SleepyToken')
         console.log('EXISTING',existingToken)
         if (existingToken) {
             const token = JSON.parse(existingToken)
             this.setState({token:token})
             await this.loadMe(token)
+            this.setState({userLoading:false})
         }
         else{
             console.log('No token')
-            this.setState({me:'',authenticated:false})
+            this.setState({me:'',authenticated:false,userLoading:false})
         }
     }
 
