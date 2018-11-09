@@ -29,6 +29,8 @@ class Payments extends Component<Props> {
 
     componentDidMount(){
         this.props.checkAuth()
+        
+        // this.props.getCustomerPayment(this.props.store.me.snoozer_customerId)
     }
     
     _onChange = (form) => {
@@ -53,6 +55,7 @@ class Payments extends Component<Props> {
     render() {
         console.log(this.state)
         const {navigate} = this.props.navigation
+        const c = this.props.store.payMethod
         const Edit = (props) => {
             return(
                 <Text
@@ -75,7 +78,7 @@ class Payments extends Component<Props> {
         return (
             <View style={styles.container}>
                 <Header
-                    leftComponent={this.props.store.card === null ? null : <Edit />}
+                    leftComponent={this.props.store.payMethod === null || this.props.store.payMethod === '' ? null : <Edit />}
                     rightComponent={<Save />}
                     centerComponent={{ text: 'Manage Payments', style: {fontSize:22,color:'#a020f0'}}}
                     outerContainerStyles={{backgroundColor:'transparent',borderBottomWidth:0}}
@@ -98,7 +101,7 @@ class Payments extends Component<Props> {
                     />
                     <Text style={{color:'#a020f0', fontSize:18,fontWeight:'bold',marginTop:20}}>Account Payment Method</Text>
                     {
-                        this.props.store.card === null ?
+                        this.props.store.payMethod === null || this.props.store.payMethod === '' ?
 
                             <LinearGradient  colors={[ '#7016a8' ,'#a020f0']} start={{x: 1, y: 2}} end={{x: 0.9, y: 0}} style={styles.linearGradient}>
                                 <View style={styles.customBtns}>
@@ -116,8 +119,8 @@ class Payments extends Component<Props> {
                                 <View style={{padding:15}}>
                                     <View style={{marginBottom:15,flexDirection:'row'}}>
                                         <View>
-                                            <Text style={{color:'white',fontSize:12,fontWeight:'bold'}}>Name on Card</Text>
-                                            <Text style={{color:'white',fontSize:20}}>{this.props.store.accountName}</Text>
+                                            <Text style={{color:'white',fontSize:12,fontWeight:'bold',paddingBottom:5,textDecorationLine:'underline'}}>Account Name</Text>
+                                            <Text style={{color:'white',fontSize:20}}>{c.name}</Text>
                                         </View>
                                         { this.state.edit ? 
                                             <TouchableOpacity style={{marginLeft:'auto'}}>
@@ -125,23 +128,23 @@ class Payments extends Component<Props> {
                                                     name={'remove-circle'}
                                                     color={'red'}
                                                     size={30}
-                                                    onPress={() => console.log('delete')}
+                                                    onPress={() => this.props.deleteCard(this.props.store.me.snoozer_customerId,c.id)}
                                                 />
                                             </TouchableOpacity> : null
                                         }
                                     </View>
                                     <View style={{marginBottom:15}}>
-                                        <Text style={{color:'white',fontSize:12,fontWeight:'bold'}}>Card Number</Text>
-                                        <Text style={{color:'white',fontSize:20}}>**** **** **** 6588 (VISA)</Text>
+                                        <Text style={{color:'white',fontSize:12,fontWeight:'bold',paddingBottom:5,textDecorationLine:'underline'}}>Card Number</Text>
+                                        <Text style={{color:'white',fontSize:23}}>{`**** **** **** ${c.last4}`}</Text>
                                     </View>
                                     <View style={{marginBottom:15,flexDirection:'row'}}>
                                         <View style={{flexGrow:1}}>
-                                            <Text style={{color:'white',fontSize:12,fontWeight:'bold'}}>Expiration Date</Text>
-                                            <Text style={{color:'white',fontSize:20}}>12/20</Text>
+                                            <Text style={{color:'white',fontSize:12,fontWeight:'bold',paddingBottom:5,textDecorationLine:'underline'}}>Expiration Date</Text>
+                                            <Text style={{color:'white',fontSize:20}}>{`${c.exp_month}/${c.exp_year}`}</Text>
                                         </View>
                                         <View style={{flexGrow:1}}>
-                                            <Text style={{color:'white',fontSize:12,fontWeight:'bold'}}>CVC</Text>
-                                            <Text style={{color:'white',fontSize:20}}>353</Text>
+                                            <Text style={{color:'white',fontSize:12,fontWeight:'bold',paddingBottom:5,textDecorationLine:'underline'}}>Card Type</Text>
+                                            <Text style={{color:'white',fontSize:20}}>{c.brand}</Text>
                                         </View>
                                     </View>
                                 </View>
@@ -171,7 +174,14 @@ class Payments extends Component<Props> {
                         flex: 1
                     }}
                 >     
-                    {
+                    {   this.props.store.cardDeletion ? 
+                        <View style={{alignItems:'center',justifyContent:'center'}}>
+                            <View style={{backgroundColor:'#a020f0',padding:50}}>
+                                <ActivityIndicator size="large" color="white" />
+                                <Text style={{textAlign:'center',color:'white'}}>{this.props.store.loadingMessage}</Text>
+                            </View>
+                        </View>
+                        :
                         this.props.store.cardAdded ? 
                             <View style={{alignItems:'center',justifyContent:'center'}}>
                                 <View style={{backgroundColor:'#00ff41',padding:50}}>

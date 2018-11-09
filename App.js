@@ -20,7 +20,8 @@ import Sound from 'react-native-sound'
 import decode from 'jwt-decode'
 
 export const Context = React.createContext()
-export const api = 'https://staging-sleepy.herokuapp.com'
+// export const api = 'https://staging-sleepy.herokuapp.com'
+export const api = 'http://localhost:4000'
 
 // const whoosh = new Sound('alarm.wav', Sound.MAIN_BUNDLE, (error) => {
 //     if (error) {
@@ -38,7 +39,7 @@ export default class App extends Component<Props> {
         super(props)
         this.state ={
             me:'',
-            payMethod:'',
+            payMethod:null,
             token:'',
             authenticated:false,
             timeSelect:'',
@@ -76,7 +77,9 @@ export default class App extends Component<Props> {
             credError:false,
             verifiedError:false,
             signupSent:false,
-            userLoading:false
+            userLoading:false,
+            loadingMessage:'',
+            cardDeletion:false
         }
     }
 
@@ -388,6 +391,7 @@ export default class App extends Component<Props> {
                 console.log('RESPONSE FOR ADDING CARD',res.data)
                 this.setState({cardAdded:true})
                 setTimeout(() => this.setState({cardAdded:false,loading:false}),2000)
+                this.getCustomerPayment(card.customer)
             }
         }).catch((err) => {
             console.log(err)
@@ -492,10 +496,11 @@ export default class App extends Component<Props> {
         }
         else{
             const token = this.state.token
-            // const payload = {customer}
-            await axios.post(`${api}/paymethod/${cust}`,{headers: { authorization: 'Bearer ' + token }}).then((res,err) => {
+            console.log('POSTING THIS TOKEN',token)
+            const payload = {cust}
+            await axios.post(`${api}/paymethod`,payload,{headers: { authorization: 'Bearer ' + token }}).then((res,err) => {
                 if(err){
-                    console.log(err)
+                    console.log('ERR',err)
                 }
                 else{
                     this.setState({payMethod:res.data})
@@ -739,6 +744,27 @@ export default class App extends Component<Props> {
         }
     }
 
+    async deleteCard(sid,card){
+        this.setState({loading:true,cardDeletion:true,loadingMessage:'Deleting card...'})
+        const cust = {sid,card}
+        const token = this.state.token
+        await axios.post(`${api}/deletecard`,cust,{headers: { authorization: 'Bearer ' + token }}).then((res,err) => {
+            if (err){
+                console.log(err)
+                this.setState({loadingMessage:'There was an error deleting this card. Please try again later'})
+                setTimeout(() => this.setState({loadingMessage:'',loading:false}),2000)
+            }else{
+                console.log(res)
+                this.setState({loadingMessage:'This card has been deleted!'})
+                setTimeout(() => this.setState({loadingMessage:'',loading:false,payMethod:null}),2000)
+            }
+        }).catch((err) => {
+            console.log(err)
+            this.setState({systemError:true,systemErrorMessage:'Cannot connect to server'})
+            // setTimeout(() => this.setState({systemError:false,systemErrorMessage:''}),3000)
+        })
+    }
+
     async updateAlarms(){
         var list = this.state.alarmList  
         const convertString = JSON.stringify(list)
@@ -769,8 +795,8 @@ export default class App extends Component<Props> {
             }
         }).catch((err) => {
             console.log(err)
-            this.setState({systemError:true,systemErrorMessage:'Cannot connect to server'})
-            setTimeout(() => this.setState({systemError:false,systemErrorMessage:''}),3000)
+            // this.setState({systemError:true,systemErrorMessage:'Cannot connect to server'})
+            // setTimeout(() => this.setState({systemError:false,systemErrorMessage:''}),3000)
         })
     }
 
@@ -998,7 +1024,9 @@ export default class App extends Component<Props> {
 
                     checkAuth: () => this.checkAuth(),
 
-                    getCustomerPayment:(id) => this.getCustomerPayment(id)
+                    getCustomerPayment:(id) => this.getCustomerPayment(id),
+
+                    deleteCard: (id,card) => this.deleteCard(id,card)
 
                 }}> 
                 {
