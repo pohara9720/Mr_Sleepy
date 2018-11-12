@@ -29,6 +29,7 @@ class Profile extends Component<Props> {
 
     componentDidMount(){
         this.props.checkAuth()
+        this.props.getInvoices(this.props.store.me.snoozer_customerId)
     }
 
     editInfo = (item) => {
@@ -51,6 +52,16 @@ class Profile extends Component<Props> {
             banner:true
         })
         setTimeout(() => this.setState({banner:false}),2000)
+    }
+
+    add = (y, z) => {
+        return y + z
+    }
+    calculate = (a) => {
+        console.log('A',a)
+        const amounts = a.map(x => parseInt(x.amount))
+        const result = amounts.reduce(this.add, 0)
+        return result
     }
 
     render() {
@@ -261,7 +272,7 @@ class Profile extends Component<Props> {
                         }
                     </View>
 
-                    <View style={{marginTop:15,padding:15}}>
+                    <TouchableOpacity onPress={() => navigate('Receipts')} style={{marginTop:15,padding:15}}>
                         <View style={{borderColor:'#a020f0',borderWidth:1,borderBottomWidth:0,padding:15}}>
                             <Text style={{color:'#a020f0',fontWeight:'bold',fontSize:15}}>Donations Made</Text>
                         </View>
@@ -276,24 +287,22 @@ class Profile extends Component<Props> {
                                 <Text style={{color:'#a020f0',fontSize:15}}>No Donations</Text>
                             </View>
                             :
-                            this.props.store.me.Donations.map((t,i,array) => 
-                                <View key={i} style={i === array.length -1 ? styles.lastItem : styles.listItem}>
-                                    <Icon 
-                                        name={'favorite'}
-                                        color={'#a020f0'}
-                                        size={20}
-                                        iconStyle={{marginRight:10}}
-                                    />
-                                    <Text style={{color:'#a020f0',fontSize:15}}>{t.name}</Text>
-                                    <View style={{marginLeft:'auto'}}>
-                                        <Badge containerStyle={{backgroundColor: '#a020f0',borderColor:'white',}}>
-                                            <Text style={{color:'white'}}>{array.length}</Text>
-                                        </Badge>
-                                    </View>
+                            <View style={styles.lastItem}>
+                                <Icon 
+                                    name={'favorite'}
+                                    color={'#a020f0'}
+                                    size={20}
+                                    iconStyle={{marginRight:10}}
+                                />
+                                <Text style={{color:'#a020f0',fontSize:14}}>{`You've made ${this.props.store.me.Donations.length} donations!`}</Text>
+                                <View style={{marginLeft:'auto'}}>
+                                    <Badge containerStyle={{backgroundColor: '#a020f0',borderColor:'white',}}>
+                                        <Text style={{color:'white'}}>{`$${this.calculate(this.props.store.me.Donations).toFixed(2)}`}</Text>
+                                    </Badge>
                                 </View>
-                            )
+                            </View>
                         }
-                    </View>
+                    </TouchableOpacity>
                     <View style={{marginTop:15,padding:15}}>
                         { this.props.store.me.Charities.length === 0 ?
                             <TouchableOpacity onPress={() => Linking.openURL('http://sleepywebsite.s3-website-us-east-1.amazonaws.com/')}>
@@ -331,7 +340,7 @@ class Profile extends Component<Props> {
                                         </View>*/}
                                     </View>
                                     <View onPress={() => Linking.openURL('http://sleepywebsite.s3-website-us-east-1.amazonaws.com/')} style={{flexDirection:'row',justifyContent:'center',marginTop:10}}>
-                                        <Text style={{textAlign:'center',color:'#a020f0'}}>Manage organizations here</Text>
+                                        <Text style={{textAlign:'center',color:'#a020f0'}}>Manage charity here</Text>
                                         <Icon 
                                             name={'touch-app'}
                                             color={'#a020f0'}
@@ -393,14 +402,16 @@ const styles = StyleSheet.create({
         borderWidth:1,
         borderBottomWidth:0,
         padding:15,
-        flexDirection:'row'
+        flexDirection:'row',
+        alignItems:'center'
     },
     lastItem:{
         borderColor:'#a020f0',
         borderWidth:1,
         borderBottomWidth:1,
         padding:15,
-        flexDirection:'row'
+        flexDirection:'row',
+        alignItems:'center'
     },
     lastItem2:{
         borderColor:'#a020f0',

@@ -79,7 +79,8 @@ export default class App extends Component<Props> {
             signupSent:false,
             userLoading:false,
             loadingMessage:'',
-            cardDeletion:false
+            cardDeletion:false,
+            donationMade:false
         }
     }
 
@@ -817,6 +818,25 @@ export default class App extends Component<Props> {
         }
     }
 
+    async makeDonation(amount,char,n){
+        this.setState({loading:true,loadingMessage:'Please wait while we send your donation'})
+        const token = this.state.token
+        await axios.post(`${api}/makedonation/${this.state.me.id}/${char}/${n}`,{amount},{headers: { authorization: 'Bearer ' + token }}).then((res,err) => {
+            if(err){
+                console.log(err)
+            }
+            else{
+                this.setState({loadingMessage:'Success! Your donation will now begin begin processed.',donationMade:true})
+                setTimeout(() => this.setState({loading:false,loadingMessage:'',donationMade:false}),3000)
+                this.loadMe(token)
+            }
+        }).catch((err) => {
+            console.log(err)
+            this.setState({systemError:true,systemErrorMessage:'Cannot connect to server'})
+            setTimeout(() => this.setState({systemError:false,systemErrorMessage:''}),3000)
+        })
+    }
+
     async login(email,password){
         const credentials = {email,password}
         console.log('CRED',credentials)
@@ -867,6 +887,25 @@ export default class App extends Component<Props> {
             console.log(err)
             this.setState({systemError:true,systemErrorMessage:'Cannot connect to server'})
             setTimeout(() => this.setState({systemError:false,systemErrorMessage:''}),3000)
+        })
+    }
+
+    async signOut(){
+        const token = this.state.token
+        const refreshToken = AsyncStorage.getItem('SleepyRefresh')
+        await axios.post(`${api}/unauth`,refreshToken,{headers: { authorization: 'Bearer ' + token }}).then((res,err) => {
+            if(err){
+                console.log(err)
+            }
+            else{
+                console.log(res)
+                AsyncStorage.removeItem('SleepyToken')
+                AsyncStorage.removeItem('SleepyRefresh')
+                this.setState({authenticated:false})
+            }
+        }).catch((err) => {
+            console.log(err)
+            this.setState({systemError:true,systemErrorMessage:'Cannot connect to server'})
         })
     }
 
@@ -1026,7 +1065,11 @@ export default class App extends Component<Props> {
 
                     getCustomerPayment:(id) => this.getCustomerPayment(id),
 
-                    deleteCard: (id,card) => this.deleteCard(id,card)
+                    deleteCard: (id,card) => this.deleteCard(id,card),
+
+                    makeDonation:(a,c,n) => this.makeDonation(a,c,n),
+
+                    signOut:() => this.signOut()
 
                 }}> 
                 {

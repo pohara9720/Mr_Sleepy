@@ -134,7 +134,7 @@ class DonateSelect extends Component<Props> {
                                         <CardTitle  
                                             title={l.name} 
                                             subtitle={l.subtitle} 
-                                            style={{borderBottomRadius:10,borderColor:'#a020f0',backgroundColor:'#a020f070'}}/>
+                                            style={{borderColor:'#a020f0',backgroundColor:'#a020f070'}}/>
                                     </Card>
                                     <View style={{position:'absolute',top:0,right:0,margin:20,zIndex:1000}}>
                                         <Badge containerStyle={{ backgroundColor: 'white'}}>
