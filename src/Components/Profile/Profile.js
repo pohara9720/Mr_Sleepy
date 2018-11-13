@@ -3,7 +3,7 @@ import {
   Platform,
   StyleSheet,
   Text,
-  View,Button,ScrollView,TouchableOpacity,Image,TextInput,Linking
+  View,Button,ScrollView,TouchableOpacity,Image,TextInput,Linking,ActivityIndicator
 } from 'react-native';
 
 
@@ -11,6 +11,7 @@ import {Header,Badge,Icon} from 'react-native-elements'
 import LinearGradient from 'react-native-linear-gradient'
 import {  Context } from '../../../App'
 import connect from '../HOC'
+import Modal from 'react-native-simple-modal'
 
 
 
@@ -23,7 +24,10 @@ class Profile extends Component<Props> {
             editName:false,
             editEmail:false,
             editPassword:false,
-            banner:false
+            banner:false,
+            blank:false,
+            noMatch:false,
+            invalid:false
         }
     }
 
@@ -44,14 +48,41 @@ class Profile extends Component<Props> {
         }
     }
 
+    verifyPasswordFormat = (pass) => {
+        var re = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/
+        return re.test(String(pass))
+    }
+
     saveChanges = () => {
-        this.setState({
-            editEmail:false,
-            editName:false,
-            editPassword:false,
-            banner:true
-        })
-        setTimeout(() => this.setState({banner:false}),2000)
+        const deets = this.props.store
+        if(deets.accountPassword !== '' && deets.accountPassword !== deets.accountPasswordConfirm){
+            this.setState({noMatch: true})
+            setTimeout(() => this.setState({noMatch:false}),2000)
+            console.log('passwords dont match send name and email')
+        }
+        else if(deets.accountName === ''){
+            this.setState({blank:true})
+            setTimeout(() => this.setState({blank:false}),2000)
+            console.log('blank name send nothing')
+        }
+        else{
+            if(this.verifyPasswordFormat(deets.accountPassword) === true){
+                const payload ={
+                    name:deets.accountName,
+                    email:deets.accountEmail,
+                    password:deets.accountPassword,
+                    confirm:deets.accountPasswordConfirm
+                }
+                this.setState({editPassword:false,editEmail:false,editName:false})
+                console.log(payload)
+                this.props.clearPasswordInfo()
+                this.props.updateProfileDetails(payload)
+            }
+            else{
+                this.setState({invalid:true})
+            }
+        }
+        
     }
 
     add = (y, z) => {
@@ -69,12 +100,6 @@ class Profile extends Component<Props> {
         const test =[12,12,12,12,12]
         return (
             <View style={styles.container}>
-                {
-                    this.state.banner ?
-                        <View style={{backgroundColor:'#00FF00',justifyContent:'center',alignItems:'center',padding:10,paddingTop:20}}>
-                            <Text style={{color:'white',fontWeight:'bold',fontSize:15}}>Changes saved successfully</Text>
-                        </View> : null
-                }
                 <ScrollView style={{flex:1}}>
                     <LinearGradient  colors={[ '#7016a8' ,'#a020f0']} start={{x: 1, y: 2}} end={{x: 0.9, y: 0}} style={styles.linearGradient}>
                         <View style={{alignItems:'center'}}>
@@ -83,7 +108,7 @@ class Profile extends Component<Props> {
                                 resizeMode='cover'
                                 style={styles.image}
                             />
-                            <Text style={styles.title}>{this.props.store.accountEmail}</Text>
+                            <Text style={styles.title}>{this.props.store.me.email}</Text>
                             {
                                 this.state.editName || this.state.editPassword || this.state.editEmail ?
                                     <TouchableOpacity
@@ -97,6 +122,9 @@ class Profile extends Component<Props> {
                         </View>
                     </LinearGradient>
                     <View style={{marginTop:15,padding:15}}>
+                        {<Text style={{color:'red',fontWeight:'bold'}}>{this.props.store.me.emailVerificationPending ? 'New email requires verification to be changed' : null}</Text>}
+                        {<Text style={{color:'red',fontWeight:'bold'}}>{this.state.noMatch ? 'Passwords do not match' : this.state.blank ? 'Name cannot be blank' : null}</Text>}
+                        {<Text style={{color:'red',fontWeight:'bold'}}>{this.state.invalid ? 'Password must be at least 8 characters long, have 1 capital,1 lowercase, 1 digit and 1 special character.' : null}</Text>}
                         <View style={{borderColor:'#a020f0',borderWidth:1,borderBottomWidth:0,padding:15}}>
                             <Text style={{color:'#a020f0',fontWeight:'bold',fontSize:15}}>Personal Details</Text>
                         </View>
@@ -146,8 +174,8 @@ class Profile extends Component<Props> {
                             this.state.editEmail ?
                                 <View style={{borderColor:'#a020f0',borderWidth:1,borderBottomWidth:0,padding:15,flexDirection:'row'}}>
                                     <Icon 
-                                        name={'email'}
-                                        color={'#a020f0'}
+                                        name='email'
+                                        color='#a020f0'
                                         size={20}
                                         iconStyle={{marginRight:10}}
                                     />
@@ -158,8 +186,8 @@ class Profile extends Component<Props> {
                                     />
                                     <TouchableOpacity style={{marginLeft:'auto'}}>
                                         <Icon 
-                                            name={'cancel'}
-                                            color={'#a020f0'}
+                                            name='cancel'
+                                            color={this.props.store.me.emailVerificationPending ? 'red' :'#a020f0'}
                                             size={20}
                                             onPress={() => this.editInfo('email')}
                                         />
@@ -168,16 +196,16 @@ class Profile extends Component<Props> {
                                 :
                                 <View style={{borderColor:'#a020f0',borderWidth:1,borderBottomWidth:0,padding:15,flexDirection:'row'}}>
                                     <Icon 
-                                        name={'email'}
-                                        color={'#a020f0'}
+                                        name='email'
+                                        color={this.props.store.me.emailVerificationPending ? 'red' : '#a020f0'}
                                         size={20}
                                         iconStyle={{marginRight:10}}
                                     />
-                                    <Text style={{color:'#a020f0',fontSize:15}}>{this.props.store.accountEmail}</Text>
+                                    <Text style={{color:this.props.store.me.emailVerificationPending ? 'red' : '#a020f0',fontSize:15}}>{this.props.store.accountEmail}</Text>
                                     <TouchableOpacity style={{marginLeft:'auto'}}>
                                         <Icon 
-                                            name={'edit'}
-                                            color={'#a020f0'}
+                                            name='edit'
+                                            color='#a020f0'
                                             size={20}
                                             onPress={() => this.editInfo('email')}
                                         />
@@ -339,7 +367,7 @@ class Profile extends Component<Props> {
                                             </Badge>
                                         </View>*/}
                                     </View>
-                                    <View onPress={() => Linking.openURL('http://sleepywebsite.s3-website-us-east-1.amazonaws.com/')} style={{flexDirection:'row',justifyContent:'center',marginTop:10}}>
+                                    <View onPress={() => Linking.openURL(this.props.store.websiteUrl)} style={{flexDirection:'row',justifyContent:'center',marginTop:10}}>
                                         <Text style={{textAlign:'center',color:'#a020f0'}}>Manage charity here</Text>
                                         <Icon 
                                             name={'touch-app'}
@@ -368,6 +396,37 @@ class Profile extends Component<Props> {
                         </LinearGradient>
                     </TouchableOpacity> : null
                 }
+                <Modal
+                    animationDuration={200}
+                    animationTension={40}
+                    closeOnTouchOutside={true}
+                    modalDidClose={() => this.props.loadMe(this.props.store.token)}
+                    containerStyle={{
+                        justifyContent: 'center',
+                    }}
+                    disableOnBackPress={false}
+                    // modalDidClose={() => PushNotificationsHandler.requestPermissions()}
+                    modalStyle={{
+                        backgroundColor: '#a020f0',
+                        borderRadius:10,  
+                        borderColor:'#a020f0',
+                    }}
+                    offset={0}
+                    open={this.props.store.loading}
+                    overlayStyle={{
+                        backgroundColor: 'rgba(0, 0, 0, 0.75)',
+                        flex: 1
+                    }}
+                >     
+                    {  
+                        <View style={{alignItems:'center',justifyContent:'center'}}>
+                            <View style={{backgroundColor:'#a020f0',padding:50}}>
+                                {this.props.store.detailsChanged ? null : <ActivityIndicator size="large" color="white" />}
+                                <Text style={{textAlign:'center',color:'white',fontWeight:'bold'}}>{this.props.store.loadingMessage}</Text>
+                            </View>
+                        </View>
+                    }
+                </Modal>
             </View>
         )
     }

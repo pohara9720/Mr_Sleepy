@@ -39,6 +39,7 @@ export default class App extends Component<Props> {
         super(props)
         this.state ={
             me:'',
+            websiteUrl:'http://sleepywebsite.s3-website-us-east-1.amazonaws.com/',
             payMethod:null,
             token:'',
             authenticated:false,
@@ -59,8 +60,8 @@ export default class App extends Component<Props> {
             snapshots:[],
             invoices:[],
             lineData:'',
-            accountName: 'Ariana Grande',
-            accountEmail: 'arianagrande@gmail.com',
+            accountName: '',
+            accountEmail: '',
             accountPassword: '',
             accountPasswordConfirm:'',
             currentTime: '',
@@ -80,7 +81,8 @@ export default class App extends Component<Props> {
             userLoading:false,
             loadingMessage:'',
             cardDeletion:false,
-            donationMade:false
+            donationMade:false,
+            detailsChanged:false
         }
     }
 
@@ -837,6 +839,33 @@ export default class App extends Component<Props> {
         })
     }
 
+    async updateProfileDetails(o){
+        this.setState({loading:true,loadingMessage:'Updating Profile...'})
+        const token = this.state.token
+        let payload = {} 
+        if(o.name !== this.state.me.name){
+            payload.name = o.name
+        }
+        if(o.email !== this.state.me.email){
+            payload.email = o.email
+        }
+        if(o.password !== '' && o.password === o.confirm){
+            payload.password = o.password
+        }
+        await axios.put(`${api}/edit/user/${this.state.me.id}`,payload,{headers: { authorization: 'Bearer ' + token }}).then((res,err) => {
+            if(err){
+                console.log(err)
+            }else{
+                console.log(res)
+                this.setState({detailsChanged:true,loadingMessage:'Profile Updated!'})
+                setTimeout(() => this.setState({detailsChanged:false,loadingMessage:'',loading:false}),2000)
+            }
+        }).catch((err) => {
+            console.log(err)
+            this.setState({systemError:true,systemErrorMessage:'Cannot connect to server'})
+        })
+    }
+
     async login(email,password){
         const credentials = {email,password}
         console.log('CRED',credentials)
@@ -929,6 +958,7 @@ export default class App extends Component<Props> {
     }
 
     async checkAuth(){
+        console.log('CHECKING AUTHENTICATION')
         const getToken = await AsyncStorage.getItem('SleepyToken')
         const getRefreshAuthToken = await AsyncStorage.getItem('SleepyRefresh')
         const token = JSON.parse(getToken)
@@ -1007,6 +1037,8 @@ export default class App extends Component<Props> {
 
                     clearDonateProfile: () => this.setState({donateProfile: ''}),
 
+                    clearPasswordInfo: () => this.setState({accountPassword:'',accountPasswordConfirm:''}),
+
                     selectCharity: () => this.setState({charitySelect:this.state.charityProfile,charityProfile:''}),
 
                     cancelAlarm: () => this.setState({charitySelect:null ,timeSelect:'',datePicker:false,label:'',frequency:[]}),
@@ -1069,7 +1101,11 @@ export default class App extends Component<Props> {
 
                     makeDonation:(a,c,n) => this.makeDonation(a,c,n),
 
-                    signOut:() => this.signOut()
+                    signOut:() => this.signOut(),
+
+                    updateProfileDetails:(details) => this.updateProfileDetails(details),
+
+                    loadMe:(token) => this.loadMe(token)
 
                 }}> 
                 {

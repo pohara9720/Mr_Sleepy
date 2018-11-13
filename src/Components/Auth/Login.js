@@ -127,7 +127,7 @@ class Login extends Component<{}> {
                                             placeholderTextColor={ this.state.error ? 'red' : '#a020f0'}
                                             containerStyle={{backgroundColor:'transparent',borderTopWidth:0,borderBottomWidth:0,marginTop:10}}
                                         />
-                                        <Text onPress={() => console.log('forgot')} style={{color:'#a020f0',fontSize:12,marginLeft:'auto',paddingRight:10,marginBottom:10}}>Forgot Password?</Text>
+                                        <Text onPress={() => Linking.openUrl(`${this.props.store.websiteUrl}/forgot`)} style={{color:'#a020f0',fontSize:12,marginLeft:'auto',paddingRight:10,marginBottom:10}}>Forgot Password?</Text>
                                     </View>
                                     <TouchableOpacity onPress={() => this.authenticate()} style={styles.button}>
                                         <Text style={{color:'white',fontWeight:'bold'}} >Login</Text>

@@ -133,8 +133,8 @@ class Receipts extends Component<Props> {
                                   
                                     )}
                             
-                                <View style={{borderColor:'#a020f0',borderWidth:1,borderBottomWidth:0,padding:15,marginTop:15}}>
-                                    <Text style={{color:'#a020f0',fontWeight:'bold',fontSize:15}}>All Donations</Text>
+                                <View style={{borderColor:'#a020f0',borderWidth:1,padding:15,marginTop:15,borderBottomWidth:this.props.store.me.Donations.length === 0 ? 1 : 0}}>
+                                    <Text style={{color:'#a020f0',fontWeight:'bold',fontSize:15}}>{this.props.store.me.Donations.length === 0 ? 'No other donations' : 'All Donations'}</Text>
                                 </View>
                                 {
                                     this.props.store.me.Donations.map((d,i,a) => 

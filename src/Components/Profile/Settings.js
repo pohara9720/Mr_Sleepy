@@ -54,7 +54,7 @@ class Settings extends Component<Props> {
                         <View style={{borderColor:'#a020f0',borderWidth:1,borderBottomWidth:0,padding:15}}>
                             <Text style={{color:'#a020f0',fontWeight:'bold',fontSize:15}}>Account</Text>
                         </View>
-                        <TouchableOpacity onPress={() => navigate('Terms')}>
+                        <TouchableOpacity onPress={() => Linking.openUrl(`${this.props.store.websiteUrl}/legal`)}>
                             <View style={{borderColor:'#a020f0',borderWidth:1,borderBottomWidth:0,padding:15,flexDirection:'row'}}>
                                 <Icon 
                                     name='legal'
@@ -66,7 +66,7 @@ class Settings extends Component<Props> {
                                 <Text style={{color:'#a020f0',fontSize:15}}>Terms & Conditions</Text>
                             </View>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => navigate('Privacy')}>
+                        <TouchableOpacity onPress={() => Linking.openUrl(`${this.props.store.websiteUrl}/legal`)}>
                             <View style={{borderColor:'#a020f0',borderWidth:1,borderBottomWidth:0,padding:15,flexDirection:'row'}}>
                                 <Icon 
                                     name='legal'
