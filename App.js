@@ -333,7 +333,8 @@ export default class App extends Component<Props> {
             }
             else{
                 console.log(res.data)
-                const filter = res.data.filter(x => x.approved === true)
+                const active = res.data.filter(y => y.active === true)
+                const filter = active.filter(x => x.approved === true)
                 this.setState({charityList:filter})
             }
         }).catch((err) => {
@@ -438,8 +439,8 @@ export default class App extends Component<Props> {
     async approveCharity(id,email){
         const token = this.state.token
         this.setState({loading:true})
-        console.log(id)
-        await axios.put(`${api}/approvecharity/${id}/${email}`,{headers: { authorization: 'Bearer ' + token }}).then((res,err) => {
+        console.log(id,email)
+        await axios.put(`${api}/approvecharity/${id}/${email}`,token,{headers: { authorization: 'Bearer ' + token }}).then((res,err) => {
             if(err){
                 console.log(err)
             }
@@ -957,6 +958,61 @@ export default class App extends Component<Props> {
         })
     }
 
+    async deleteAccount(){
+        this.setState({loading:true,loadingMessage:'Deleting account....'})
+        const token = this.state.token
+        const user = {user:this.state.me}
+        await axios.post(`${api}/delete/account`,user,{headers: { authorization: 'Bearer ' + token }}).then((res,err) => {
+            if(err){
+                console.log(err)
+            }else{
+                console.log(res)
+                this.setState({loadingMessage:'Account Deleted! Please come back anytime'})
+                setTimeout(() => this.setState({loading:false}),3000)
+                this.setState({authenticated:false})
+            }
+        }).catch((err) => {
+            console.log(err)
+            this.setState({systemError:true,systemErrorMessage:'Cannot connect to server'})
+        })
+    }
+
+    async adminDeleteUser(id){
+        this.setState({loading:true,loadingMessage:'Deleting account....'})
+        const token = this.state.token
+        const user = {user:this.state.me}
+        await axios.post(`${api}/admin/delete/account/${id}`,user,{headers: { authorization: 'Bearer ' + token }}).then((res,err) => {
+            if(err){
+                console.log(err)
+            }else{
+                console.log(res)
+                this.setState({loadingMessage:'Account Deleted!'})
+                setTimeout(() => this.setState({loading:false}),3000)
+            }
+        }).catch((err) => {
+            console.log(err)
+            this.setState({systemError:true,systemErrorMessage:'Cannot connect to server'})
+        })
+    }
+
+    async adminDeleteCharity(charity,user){
+        this.setState({loading:true,loadingMessage:'Deleting charity....'})
+        const token = this.state.token
+        await axios.put(`${api}/admin/delete/charity/${charity}/${user}`,token,{headers: { authorization: 'Bearer ' + token }}).then((res,err) => {
+            if(err){
+                console.log(err)
+            }else{
+                console.log(res)
+                this.setState({loadingMessage:'Charity Deleted!'})
+                setTimeout(() => this.setState({loading:false}),3000)
+            }
+        }).catch((err) => {
+            console.log(err)
+            this.setState({systemError:true,systemErrorMessage:'Cannot connect to server'})
+        })
+    }
+
+
     async checkAuth(){
         console.log('CHECKING AUTHENTICATION')
         const getToken = await AsyncStorage.getItem('SleepyToken')
@@ -1065,7 +1121,7 @@ export default class App extends Component<Props> {
 
                     loading: (bool) => this.setState({loading:bool}),
 
-                    approveCharity : (id) => this.approveCharity(id),
+                    approveCharity : (id,email) => this.approveCharity(id,email),
 
                     rejectCharity: (id,reason) => this.rejectCharity(id,reason),
 
@@ -1105,7 +1161,17 @@ export default class App extends Component<Props> {
 
                     updateProfileDetails:(details) => this.updateProfileDetails(details),
 
-                    loadMe:(token) => this.loadMe(token)
+                    loadMe:(token) => this.loadMe(token),
+
+                    loadCharities: () => this.loadCharities(),
+
+                    adminDeleteUser: (id) => this.adminDeleteUser(id),
+
+                    adminDeleteCharity: (charity,user) => this.adminDeleteCharity(charity,user),
+
+                    resetAdminResults:() => this.setState({adminSearchResults:''}),
+
+                    deleteAccount: () => this.deleteAccount()
 
                 }}> 
                 {

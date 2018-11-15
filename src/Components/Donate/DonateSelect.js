@@ -31,6 +31,7 @@ class DonateSelect extends Component<Props> {
 
     componentDidMount(){
         this.props.checkAuth()
+        // this.props.loadCharities()
     }
 
     viewProfile = (object) => {

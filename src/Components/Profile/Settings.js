@@ -113,7 +113,7 @@ class Settings extends Component<Props> {
                                 <Text style={{color:'#a020f0',fontSize:15}}>Sign out</Text>
                             </View>
                         </TouchableOpacity>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={() => this.props.deleteAccount()}>
                             <View style={{borderColor:'#a020f0',borderWidth:1,borderBottomWidth:1,padding:15,flexDirection:'row'}}>
                                 <Icon 
                                     name='account-remove'

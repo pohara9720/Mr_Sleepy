@@ -97,7 +97,7 @@ class Profile extends Component<Props> {
 
     render() {
         const {navigate} = this.props.navigation
-        const test =[12,12,12,12,12]
+        const activeCharities = this.props.store.me.Charities.filter(x => x.active === true)
         return (
             <View style={styles.container}>
                 <ScrollView style={{flex:1}}>
@@ -348,10 +348,11 @@ class Profile extends Component<Props> {
                                 </View>
                             </TouchableOpacity>
                             :
-                            this.props.store.me.Charities.map((t,i,array) => 
+                            activeCharities.map((t,i,array) => 
                                 <View key={i}>
-                                    <View style={{borderColor:'#a020f0',borderWidth:1,borderBottomWidth:0,padding:15}}>
+                                    <View style={t.approved ? {borderColor:'#a020f0',borderWidth:1,borderBottomWidth:0,padding:15} : {borderColor:'#a020f0',borderWidth:1,borderBottomWidth:0,padding:15,flexDirection:'row',justifyContent:'center'}}>
                                         <Text style={{color:'#a020f0',fontWeight:'bold',fontSize:15}}>Your Charity</Text>
+                                        {t.approved ? null : <Text style={{color:'red',fontWeight:'bold',fontSize:15,marginLeft:'auto'}}>* Pending Approval</Text>}
                                     </View>
                                     <View key={i} style={i === array.length -1 ? styles.lastItem : styles.listItem}>
                                         <Icon 
