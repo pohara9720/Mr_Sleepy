@@ -112,7 +112,7 @@ class EmailClient extends Component<Props> {
                         <TextInput 
                             style={styles.input}
                             placeholder='Email Address'
-                            value={this.state.recipient}
+                            value={this.state.recipient.toLowerCase()}
                             onChangeText={(e) => this.setState({recipient:e})}
                         />
                     }
