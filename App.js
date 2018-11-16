@@ -995,6 +995,25 @@ export default class App extends Component<Props> {
         })
     }
 
+    async sendAdminEmail(o){
+        const token = this.state.token
+        this.setState({loading:true,loadingMessage:'Sending...'})
+        await axios.post(`${api}/admin/bulksend`,o,{headers: { authorization: 'Bearer ' + token }}).then((res,err) => {
+            if(err){
+                console.log(err)
+                this.setState({loadingMessage:'Error occured'})
+                setTimeout(() => this.setState({loading:false}),3000)
+            }else{
+                console.log(res)
+                this.setState({loadingMessage:'Emails Sent!'})
+                setTimeout(() => this.setState({loading:false}),3000)
+            }
+        }).catch((err) => {
+            console.log(err)
+            this.setState({systemError:true,systemErrorMessage:'Cannot connect to server'})
+        })
+    }
+
     async adminDeleteCharity(charity,user){
         this.setState({loading:true,loadingMessage:'Deleting charity....'})
         const token = this.state.token
@@ -1171,7 +1190,9 @@ export default class App extends Component<Props> {
 
                     resetAdminResults:() => this.setState({adminSearchResults:''}),
 
-                    deleteAccount: () => this.deleteAccount()
+                    deleteAccount: () => this.deleteAccount(),
+
+                    sendAdminEmail:(o) => this.sendAdminEmail(o)
 
                 }}> 
                 {

@@ -24,6 +24,7 @@ import CharityProfile from '../AddAlarm/CharityProfile'
 import DonateProfile from '../Donate/DonateProfile'
 import DonateSelect from '../Donate/DonateSelect'
 import MakeDonation from '../Donate/MakeDonation'
+import EmailClient from '../Profile/EmailClient'
 
 // import {Tabs} from './Tabs'
 
@@ -50,6 +51,7 @@ const ProfileRoutes = createStackNavigator({
     AdminView: { screen: props => <AdminView {...props} />},
     ApprovalList: { screen: props => <ApprovalList {...props} />},
     ApprovalProfile: { screen: props => <ApprovalProfile {...props} />},
+    EmailClient: { screen: props => <EmailClient {...props} />},
 },
 {
     headerMode: 'none',

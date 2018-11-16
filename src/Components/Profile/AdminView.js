@@ -93,7 +93,7 @@ class AdminView extends Component<Props> {
                             </View>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => navigate('ApprovalList')}>
-                            <View style={{borderColor:'#a020f0',borderWidth:1,padding:15,flexDirection:'row'}}>
+                            <View style={{borderColor:'#a020f0',borderWidth:1,padding:15,borderBottomWidth:0,flexDirection:'row'}}>
                                 <Icon 
                                     name='approval'
                                     type='material-community'
@@ -102,6 +102,18 @@ class AdminView extends Component<Props> {
                                     iconStyle={{marginRight:10}}
                                 />
                                 <Text style={{color:'#a020f0',fontSize:15}}>Charity Approval</Text>
+                            </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => navigate('EmailClient')}>
+                            <View style={{borderColor:'#a020f0',borderWidth:1,padding:15,flexDirection:'row'}}>
+                                <Icon 
+                                    name='mail'
+                                    type='foundation'
+                                    color={'#a020f0'}
+                                    size={20}
+                                    iconStyle={{marginRight:10}}
+                                />
+                                <Text style={{color:'#a020f0',fontSize:15}}>Email Client</Text>
                             </View>
                         </TouchableOpacity>
                     </View>
