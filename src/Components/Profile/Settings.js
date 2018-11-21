@@ -1,17 +1,17 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import {
     Platform,
     StyleSheet,
     Text,
-    View,Button,ScrollView,TouchableOpacity,Image,TextInput,Linking
+    View,ScrollView,TouchableOpacity,Linking
 } from 'react-native'
 
 import { NavigationActions } from 'react-navigation'
-import {Header,Badge,Icon} from 'react-native-elements'
+import {Header,Icon} from 'react-native-elements'
 import LinearGradient from 'react-native-linear-gradient'
 import {  Context } from '../../../App'
 import connect from '../HOC'
-
+import PropTypes from 'prop-types'
 
 
 
@@ -28,11 +28,11 @@ class Settings extends Component<Props> {
         this.props.checkAuth()
     }
     render() {
-        const Back = (props) => {
+        const Back = () => {
             const backAction = NavigationActions.back({})
             return(
                 <Text
-                    style={{fontSize:14,color:'#a020f0',justifyContent:"center"}}
+                    style={{fontSize:14,color:'#a020f0',justifyContent:'center'}}
                     onPress={() => this.props.navigation.dispatch(backAction)}
                 >Back
                 </Text>
@@ -41,7 +41,6 @@ class Settings extends Component<Props> {
 
         const {navigate} = this.props.navigation
 
-        const test =[12,12,12,12,12]
         return (
             <View style={styles.container}>
                 <Header
@@ -54,7 +53,7 @@ class Settings extends Component<Props> {
                         <View style={{borderColor:'#a020f0',borderWidth:1,borderBottomWidth:0,padding:15}}>
                             <Text style={{color:'#a020f0',fontWeight:'bold',fontSize:15}}>Account</Text>
                         </View>
-                        <TouchableOpacity onPress={() => Linking.openUrl(`${this.props.store.websiteUrl}/legal`)}>
+                        <TouchableOpacity onPress={() => Linking.openURL(`${this.props.store.websiteUrl}legal`)}>
                             <View style={{borderColor:'#a020f0',borderWidth:1,borderBottomWidth:0,padding:15,flexDirection:'row'}}>
                                 <Icon 
                                     name='legal'
@@ -66,7 +65,7 @@ class Settings extends Component<Props> {
                                 <Text style={{color:'#a020f0',fontSize:15}}>Terms & Conditions</Text>
                             </View>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => Linking.openUrl(`${this.props.store.websiteUrl}/legal`)}>
+                        <TouchableOpacity onPress={() => Linking.openURL(`${this.props.store.websiteUrl}legal`)}>
                             <View style={{borderColor:'#a020f0',borderWidth:1,borderBottomWidth:0,padding:15,flexDirection:'row'}}>
                                 <Icon 
                                     name='legal'
@@ -146,6 +145,20 @@ class Settings extends Component<Props> {
         )
     }
 }
+
+const p = PropTypes
+
+Settings.propTypes = {
+    store: p.object,
+    systemError:p.bool,
+    checkAuth:p.func,
+    navigation:p.object,
+    dispatch:p.func,
+    systemErrorMessage:p.string,
+    deleteAccount:p.func,
+    signOut:p.func
+}
+
 
 const styles = StyleSheet.create({
     container: {

@@ -1,19 +1,19 @@
 import React, { Component } from 'react'
 import {
-    Platform,
     StyleSheet,
     Text,
-    View,ScrollView,TouchableOpacity,Image
+    View,ScrollView,TouchableOpacity
 } from 'react-native'
 
 
-import {Header,Badge,SearchBar,Icon} from 'react-native-elements'
+import {Header,Badge,Icon} from 'react-native-elements'
 import { NavigationActions } from 'react-navigation'
-import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from 'react-native-material-cards'
+import { Card, CardTitle } from 'react-native-material-cards'
 import LinearGradient from 'react-native-linear-gradient'
-import Collapsible from 'react-native-collapsible'
+// import Collapsible from 'react-native-collapsible'
 import {  Context } from '../../../App'
 import connect from '../HOC'
+import PropTypes from 'prop-types'
 
 
 
@@ -47,10 +47,10 @@ class CharitySelect extends Component<Props> {
         
         const searchedCharities = this.props.store.charityList.filter(x => x.name.toLowerCase().includes(this.state.search.toLowerCase()) || x.location.toLowerCase().includes(this.state.search.toLowerCase())) 
         // const locationFilter = searchedCharities.filter(x => x.location.toLowerCase.includes(this.state.search.toLowerCase()))
-        const Back = (props) => {
+        const Back = () => {
             return(
                 <Text
-                    style={{fontSize:14,color:'#a020f0',justifyContent:"center"}}
+                    style={{fontSize:14,color:'#a020f0',justifyContent:'center'}}
                     onPress={() => this.props.navigation.dispatch(backAction)}
                 >Back
                 </Text>
@@ -161,6 +161,20 @@ class CharitySelect extends Component<Props> {
             </View>
         )
     }
+}
+
+
+const p = PropTypes
+
+CharitySelect.propTypes = {
+    store: p.object,
+    systemError:p.bool,
+    checkAuth:p.func,
+    navigation:p.object,
+    dispatch:p.func,
+    systemErrorMessage:p.string,
+    fillCharityProfile:p.func
+
 }
 
 const styles = StyleSheet.create({

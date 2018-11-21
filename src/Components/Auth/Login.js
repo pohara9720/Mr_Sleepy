@@ -4,19 +4,16 @@ import {
     StyleSheet,
     Text,
     View,
-    Image,ScrollView,
-    Navigator,KeyboardAvoidingView,TouchableOpacity,ActivityIndicator,Linking
+    Image,ScrollView,KeyboardAvoidingView,TouchableOpacity,ActivityIndicator,Linking
 } from 'react-native'
 
-import { FormLabel, FormInput,Button, Header,SearchBar,Icon } from 'react-native-elements'
+import {SearchBar,Icon } from 'react-native-elements'
 import Modal from 'react-native-simple-modal'
-import { StackNavigator } from 'react-navigation'
 import LinearGradient from 'react-native-linear-gradient'
-import axios from 'axios'
 import logo from '../../images/whitecircle.png'
 import connect from '../HOC'
 import { Context } from '../../../App'
-
+import PropTypes from 'prop-types'
 
 class Login extends Component<{}> { 
     constructor(props){
@@ -98,8 +95,8 @@ class Login extends Component<{}> {
                         <KeyboardAvoidingView behavior='position' enabled>
                             <ScrollView containerStyle={{display:'flex',flexDirection:'column',flex:1}}>
                                 <View style={{justifyContent:'center',alignItems:'center',paddingTop:'15%'}}>
-                                    <Image source={require('../../images/whitetext.png')} resizeMode='contain' style={{height:60,marginBottom:20}}/>
-                                    <Image source={require('../../images/whitecircle.png')} resizeMode='contain' style={{height:150}}/>
+                                    <Image source={require('../../images/whitetext.png')} resizeMode='contain' style={{height:80,marginBottom:20}}/>
+                                    <Image source={require('../../images/whitecircle.png')} resizeMode='contain' style={{height:100}}/>
                                 </View>
                                 <View style={styles.authBox}>
                                     <Text style={{color:'#a020f0',fontWeight:'bold',paddingLeft:10,fontSize:25,marginBottom:5}}>Login</Text>
@@ -127,7 +124,7 @@ class Login extends Component<{}> {
                                             placeholderTextColor={ this.state.error ? 'red' : '#a020f0'}
                                             containerStyle={{backgroundColor:'transparent',borderTopWidth:0,borderBottomWidth:0,marginTop:10}}
                                         />
-                                        <Text onPress={() => Linking.openUrl(`${this.props.store.websiteUrl}/forgot`)} style={{color:'#a020f0',fontSize:12,marginLeft:'auto',paddingRight:10,marginBottom:10}}>Forgot Password?</Text>
+                                        <Text onPress={() => Linking.openURL(`${this.props.store.websiteUrl}forgot`)} style={{color:'#a020f0',fontSize:12,marginLeft:'auto',paddingRight:10,marginBottom:10}}>Forgot Password?</Text>
                                     </View>
                                     <TouchableOpacity onPress={() => this.authenticate()} style={styles.button}>
                                         <Text style={{color:'white',fontWeight:'bold'}} >Login</Text>
@@ -189,7 +186,7 @@ class Login extends Component<{}> {
                                     </TouchableOpacity>
                                     <Text style={{color:'red',textAlign:'center',marginTop:3}}>{this.state.eError ? 'Invalid email format' : this.state.pError? 'Password must be at least 8 characters long, have 1 capital,1 lowercase, 1 digit and 1 special character.' : this.state.nError ? 'Name cannot be blank': null}</Text>
                                     <View style={{justifyContent:'center',alignItems:'center',marginTop:10}}>
-                                        <Text style={{color:'#a020f0',width:'90%',textAlign:'center'}}>By signing up you agree to our <Text style={{textDecorationLine:'underline'}}>Terms & Conditions</Text> and <Text style={{textDecorationLine:'underline'}}>Privacy Policy</Text></Text>
+                                        <Text style={{color:'#a020f0',width:'90%',textAlign:'center'}}>By signing up you agree to our <Text onPress={() => Linking.openURL(`${this.props.store.websiteUrl}legal`)} style={{textDecorationLine:'underline'}}>Terms & Conditions</Text> and <Text onPress={() => Linking.openURL(`${this.props.store.websiteUrl}legal`)}style={{textDecorationLine:'underline'}}>Privacy Policy</Text></Text>
                                     </View>
                                 </View>
                                 <View style={styles.switch}>
@@ -209,14 +206,14 @@ class Login extends Component<{}> {
                     disableOnBackPress={false}
                     // modalDidClose={() => PushNotificationsHandler.requestPermissions()}
                     modalStyle={{
-                        backgroundColor: this.props.store.signupSent ? "white" : this.props.store.emailExists ? 'white' : "#a020f0",
+                        backgroundColor: this.props.store.signupSent ? 'white' : this.props.store.emailExists ? 'white' : '#a020f0',
                         borderRadius:10,  
                         borderColor:'#a020f0',
                     }}
                     offset={0}
                     open={this.props.store.loading}
                     overlayStyle={{
-                        backgroundColor: "rgba(0, 0, 0, 0.75)",
+                        backgroundColor: 'rgba(0, 0, 0, 0.75)',
                         flex: 1
                     }}
                 >     
@@ -279,6 +276,21 @@ class Login extends Component<{}> {
             </LinearGradient>
         )
     }
+}
+
+const p = PropTypes
+
+Login.propTypes = {
+    store: p.object,
+    systemError:p.bool,
+    checkAuth:p.func,
+    navigation:p.object,
+    dispatch:p.func,
+    systemErrorMessage:p.string,
+    login:p.func,
+    resetLoginModal:p.func,
+    signup:p.func,
+    toggleLoading:p.func
 }
 
 const styles = StyleSheet.create({

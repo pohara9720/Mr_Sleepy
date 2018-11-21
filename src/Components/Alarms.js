@@ -14,7 +14,7 @@ import LinearGradient from 'react-native-linear-gradient'
 import { Context } from '../../App'
 import connect from './HOC'
 import PushNotification from 'react-native-push-notification'
-
+import PropTypes from 'prop-types'
 
 
 class Alarms extends Component<Props> {
@@ -28,7 +28,9 @@ class Alarms extends Component<Props> {
 
     componentDidMount(){
         this.props.checkAuth()
-        this.props.getCustomerPayment(this.props.store.me.snoozer_customerId)
+        if(this.props.store.payMethod === null){
+            this.props.getCustomerPayment(this.props.store.me.snoozer_customerId)
+        }
         // const {navigate} = this.props.navigation
         // navigate('Snooze')
         PushNotification.checkPermissions((callback) => {
@@ -76,31 +78,38 @@ class Alarms extends Component<Props> {
             )
         }
 
-        const Center = () => {
-            return(
-                <Image resizeMode='contain' style={{height:80}} source={require('../images/purplehat.png')}/>
-            )
-        }
+        // const Center = () => {
+        //     return(
+        //         <Image resizeMode='contain' style={{height:80}} source={require('../images/purplehat.png')}/>
+        //     )
+        // }
         const CustHead = () => (
-            <View style={{display:'flex',flexDirection:'row',justifyContent:'center',paddingTop:22,paddingBottom:10,width:'100%'}}>
-                <Edit />
-                <Image resizeMode='contain' style={{height:30}} source={require('../images/purplehat.png')}/>
-                <Icon name='add' color='#a020f0' />
+            <View style={{display:'flex',flexDirection:'row',alignItems:'center',paddingTop:22,paddingBottom:10,paddingLeft:15,paddingRight:15,width:'100%'}}>
+                <View style={[styles.cust ,styles.left]}>
+                    {this.props.store.alarmList !== null && this.props.store.alarmList.length === 0 ? null : <Edit />}
+                </View>
+                <View style={styles.cust}>
+                    <Image resizeMode='contain' style={{height:50}} source={require('../images/purplehat.png')}/>
+                </View>
+                <View style={[styles.cust,styles.right]}>
+                    <Icon name='add' color='#a020f0' onPress={() => this.navigateTo()} />
+                </View>
             </View>
         )
        
         // console.log(this.props.store)
         return (
             <View style={styles.container}>
-                <Header
+                {/*<Header
                     leftComponent={this.props.store.alarmList !== null && this.props.store.alarmList.length === 0 ? null : <Edit />}
                     centerComponent={{ text: 'Mr. Sleepy', style: { color: '#a020f0',fontSize:22}}}
                     // centerComponent={<Center />}
                     rightComponent={{ icon: 'add', color: '#a020f0', onPress:() => this.navigateTo()}}
                     outerContainerStyles={{backgroundColor:'transparent',borderBottomWidth:0,borderBottomColor:'transparent'}}
-                />
+                />*/}
+                <CustHead />
        
-                <TouchableOpacity onPress={() => Linking.openURL('http://sleepywebsite.s3-website-us-east-1.amazonaws.com/')}>
+                <TouchableOpacity onPress={() => Linking.openURL(this.props.store.websiteUrl)}>
                     <LinearGradient  colors={[ '#8E2DE2' ,'#4A00E0']} start={{x: 1, y: 2}} end={{x: 0.9, y: 0}} style={styles.bannerGrad}>
                         <View style={styles.banner}>
                             <Icon 
@@ -261,6 +270,21 @@ class Alarms extends Component<Props> {
     }
 }
 
+const p = PropTypes
+
+Alarms.propTypes = {
+    store: p.object,
+    systemError:p.bool,
+    checkAuth:p.func,
+    navigation:p.object,
+    dispatch:p.func,
+    systemErrorMessage:p.string,
+    deleteAlarm:p.func,
+    triggerInfoModal:p.func,
+    getCustomerPayment:p.func,
+    switch:p.func
+}
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -269,6 +293,18 @@ const styles = StyleSheet.create({
         borderTopColor:'transparent',
         borderBottomWidth:0,
         // fontFamily:'roboto'
+    },
+    cust:{
+        display:'flex',
+        flexGrow:1,
+        alignItems:'center',
+        width:'33%'
+    },
+    right:{
+        alignItems:'flex-end'
+    },
+    left:{
+        alignItems:'flex-start'
     },
     bannerGrad:{
         width:'100%',

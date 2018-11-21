@@ -3,16 +3,9 @@ import {
     Platform,
     StyleSheet,
     Text,
-    View,Button,ScrollView,TouchableOpacity,Dimensions
+    View,TouchableOpacity
 } from 'react-native'
 
-import {
-    LineChart,
-    BarChart,
-    PieChart,
-    ProgressChart,
-    ContributionGraph
-} from 'react-native-chart-kit'
 
 import {SnapDetails} from './SnapDetails'
 import {Header,Icon} from 'react-native-elements'
@@ -21,6 +14,7 @@ import LinearGradient from 'react-native-linear-gradient'
 import {  Context } from '../../../App'
 import connect from '../HOC'
 import moment from 'moment'
+import PropTypes from 'prop-types'
 
 
 
@@ -37,16 +31,12 @@ class Admin extends Component<Props> {
 
     componentDidMount(){
         this.props.checkAuth()
-        const date = {date:moment().format()}
-        this.props.getCurrentSnapshot()
-        this.props.loadLineData(date)
-
     }
     render() {
     
         const {navigate} = this.props.navigation
         const backAction = NavigationActions.back({})
-        const Back = (props) => {
+        const Back = () => {
             return(
                 <Text
                     style={{fontSize:14,color:'white',justifyContent:'center'}}
@@ -126,6 +116,17 @@ class Admin extends Component<Props> {
             </View>
         )
     }
+}
+
+const p = PropTypes
+
+Admin.propTypes = {
+    store: p.object,
+    systemError:p.bool,
+    checkAuth:p.func,
+    navigation:p.object,
+    dispatch:p.func,
+    systemErrorMessage:p.string,
 }
 
 const styles = StyleSheet.create({

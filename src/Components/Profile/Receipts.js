@@ -1,21 +1,19 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import {
-  Platform,
-  StyleSheet,
-  Text,
-  View,Button,ScrollView,TouchableOpacity,Image
-} from 'react-native';
+    Platform,
+    StyleSheet,
+    Text,
+    View,ScrollView,TouchableOpacity
+} from 'react-native'
 
 
-import {Header,Badge,SearchBar,Icon,List,ListItem} from 'react-native-elements'
+import {Header,Badge,Icon} from 'react-native-elements'
 import moment from 'moment'
 import { NavigationActions } from 'react-navigation'
-import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from 'react-native-material-cards'
 import LinearGradient from 'react-native-linear-gradient'
-import Collapsible from 'react-native-collapsible'
 import {  Context } from '../../../App'
 import connect from '../HOC'
-
+import PropTypes from 'prop-types'
 
 
 
@@ -34,13 +32,12 @@ class Receipts extends Component<Props> {
    
 
     render() {
-        const {navigate} = this.props.navigation
         const backAction = NavigationActions.back({})
           
-        const Back = (props) => {
+        const Back = () => {
             return(
                 <Text
-                    style={{fontSize:14,color:'#a020f0',justifyContent:"center"}}
+                    style={{fontSize:14,color:'#a020f0',justifyContent:'center'}}
                     onPress={() => this.props.navigation.dispatch(backAction)}
                 >Back
                 </Text>
@@ -175,6 +172,17 @@ class Receipts extends Component<Props> {
             </View>
         )
     }
+}
+
+const p = PropTypes
+
+Receipts.propTypes = {
+    store: p.object,
+    systemError:p.bool,
+    checkAuth:p.func,
+    navigation:p.object,
+    dispatch:p.func,
+    systemErrorMessage:p.string,
 }
 
 const styles = StyleSheet.create({

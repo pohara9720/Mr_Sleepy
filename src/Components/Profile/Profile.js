@@ -1,18 +1,18 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import {
-  Platform,
-  StyleSheet,
-  Text,
-  View,Button,ScrollView,TouchableOpacity,Image,TextInput,Linking,ActivityIndicator
-} from 'react-native';
+    Platform,
+    StyleSheet,
+    Text,
+    View,ScrollView,TouchableOpacity,Image,TextInput,Linking,ActivityIndicator
+} from 'react-native'
 
 
-import {Header,Badge,Icon} from 'react-native-elements'
+import {Badge,Icon} from 'react-native-elements'
 import LinearGradient from 'react-native-linear-gradient'
 import {  Context } from '../../../App'
 import connect from '../HOC'
 import Modal from 'react-native-simple-modal'
-
+import PropTypes from 'prop-types'
 
 
 
@@ -431,6 +431,25 @@ class Profile extends Component<Props> {
             </View>
         )
     }
+}
+
+const p = PropTypes
+
+Profile.propTypes = {
+    store: p.object,
+    systemError:p.bool,
+    checkAuth:p.func,
+    navigation:p.object,
+    dispatch:p.func,
+    systemErrorMessage:p.string,
+    getInvoices:p.func,
+    loadMe:p.func,
+    updatePasswordConfirm:p.func,
+    updatePassword:p.func,
+    updateAccountEmail:p.func,
+    updateAccountName:p.func,
+    clearPasswordInfo:p.func,
+    updateProfileDetails:p.func
 }
 
 const styles = StyleSheet.create({

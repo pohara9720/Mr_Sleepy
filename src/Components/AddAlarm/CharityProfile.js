@@ -7,11 +7,12 @@ import {
 } from 'react-native'
 
 
-import {Header,Badge,Icon} from 'react-native-elements'
+import {Badge,Icon} from 'react-native-elements'
 import { NavigationActions } from 'react-navigation'
 import LinearGradient from 'react-native-linear-gradient'
 import {  Context } from '../../../App'
 import connect from '../HOC'
+import PropTypes from 'prop-types'
 
 
 
@@ -42,7 +43,7 @@ class CharityProfile extends Component<Props> {
 
 
     render() {
-        const {navigate} = this.props.navigation
+        // const {navigate} = this.props.navigation
         return (
             <View style={styles.container}> 
                 <ScrollView style={{flex:1}}>
@@ -138,6 +139,22 @@ class CharityProfile extends Component<Props> {
             </View>
         )
     }
+}
+
+
+const p = PropTypes
+
+CharityProfile.propTypes = {
+    store: p.object,
+    systemError:p.bool,
+    checkAuth:p.func,
+    navigation:p.object,
+    dispatch:p.func,
+    clearCharityProfile:p.func,
+    systemErrorMessage:p.string,
+    charityProfile:p.object,
+    selectCharity:p.func,
+
 }
 
 const styles = StyleSheet.create({

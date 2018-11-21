@@ -3,17 +3,17 @@ import {
     Platform,
     StyleSheet,
     Text,
-    View,Button,ScrollView,TouchableOpacity,Image,TextInput,Linking,ActivityIndicator
+    View,ScrollView,TouchableOpacity,Image,Linking,ActivityIndicator
 } from 'react-native'
 
 
-import {Header,Badge,Icon,SearchBar} from 'react-native-elements'
+import {Badge,Icon,SearchBar} from 'react-native-elements'
 import { NavigationActions } from 'react-navigation'
 import LinearGradient from 'react-native-linear-gradient'
 import {  Context } from '../../../App'
 import connect from '../HOC'
 import Modal from 'react-native-simple-modal'
-
+import PropTypes from 'prop-types'
 
 
 
@@ -179,14 +179,14 @@ class ApprovalProfile extends Component<Props> {
                     disableOnBackPress={false}
                     // modalDidClose={() => PushNotificationsHandler.requestPermissions()}
                     modalStyle={{
-                        backgroundColor: this.props.store.charityApproved ? "white" : this.props.store.systemError ? 'white' : '#a020f0',
+                        backgroundColor: this.props.store.charityApproved ? 'white' : this.props.store.systemError ? 'white' : '#a020f0',
                         borderRadius:10,  
                         borderColor:'#a020f0',
                     }}
                     offset={0}
                     open={this.props.store.loading}
                     overlayStyle={{
-                        backgroundColor: "rgba(0, 0, 0, 0.75)",
+                        backgroundColor: 'rgba(0, 0, 0, 0.75)',
                         flex: 1
                     }}
                 >     
@@ -243,6 +243,19 @@ class ApprovalProfile extends Component<Props> {
             </View>
         )
     }
+}
+
+const p = PropTypes
+
+ApprovalProfile.propTypes = {
+    store: p.object,
+    systemError:p.bool,
+    checkAuth:p.func,
+    navigation:p.object,
+    dispatch:p.func,
+    systemErrorMessage:p.string,
+    approveCharity:p.func,
+    rejectCharity:p.func
 }
 
 const styles = StyleSheet.create({

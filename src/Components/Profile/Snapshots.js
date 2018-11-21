@@ -3,18 +3,17 @@ import {
     Platform,
     StyleSheet,
     Text,
-    View,Button,ScrollView,TouchableOpacity
+    View,ScrollView,TouchableOpacity
 } from 'react-native'
 
 
-import {Header,Icon,ListItem,Badge} from 'react-native-elements'
+import {Header,Icon,ListItem} from 'react-native-elements'
 import { NavigationActions } from 'react-navigation'
-import {SnapDetails} from './SnapDetails'
 import LinearGradient from 'react-native-linear-gradient'
 import {  Context } from '../../../App'
 import connect from '../HOC'
 import moment from 'moment'
-
+import PropTypes from 'prop-types'
 
 
 
@@ -34,10 +33,10 @@ class Snapshots extends Component<Props> {
     
         const {navigate} = this.props.navigation
         const backAction = NavigationActions.back({})
-        const Back = (props) => {
+        const Back = () => {
             return(
                 <Text
-                    style={{fontSize:14,color:'#a020f0',justifyContent:"center"}}
+                    style={{fontSize:14,color:'#a020f0',justifyContent:'center'}}
                     onPress={() => this.props.navigation.dispatch(backAction)}
                 >Back
                 </Text>
@@ -90,6 +89,18 @@ class Snapshots extends Component<Props> {
             </View>
         )
     }
+}
+
+const p = PropTypes
+
+Snapshots.propTypes = {
+    store: p.object,
+    systemError:p.bool,
+    checkAuth:p.func,
+    navigation:p.object,
+    dispatch:p.func,
+    systemErrorMessage:p.string,
+    
 }
 
 const styles = StyleSheet.create({

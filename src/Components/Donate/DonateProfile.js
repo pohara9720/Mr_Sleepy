@@ -57,7 +57,7 @@ class DonateProfile extends Component<Props> {
 
 
     render() {
-        const {navigate} = this.props.navigation
+        // const {navigate} = this.props.navigation
         return (
             <View style={styles.container}> 
                 <ScrollView style={{flex:1}}>
@@ -155,19 +155,19 @@ class DonateProfile extends Component<Props> {
                     animationTension={40}
                     closeOnTouchOutside={true}
                     containerStyle={{
-                        justifyContent: "center",
+                        justifyContent: 'center',
                     }}
                     disableOnBackPress={false}
                     // modalDidClose={() => PushNotificationsHandler.requestPermissions()}
                     modalStyle={{
-                        backgroundColor: "#a020f0",
+                        backgroundColor: '#a020f0',
                         borderRadius:10,  
                         borderColor:'#a020f0',
                     }}
                     offset={0}
                     open={this.state.card}
                     overlayStyle={{
-                        backgroundColor: "rgba(0, 0, 0, 0.75)",
+                        backgroundColor: 'rgba(0, 0, 0, 0.75)',
                         flex: 1
                     }}
                 >     

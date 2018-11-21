@@ -3,17 +3,17 @@ import {
     Platform,
     StyleSheet,
     Text,
-    View,Button,ScrollView,TouchableOpacity,ActivityIndicator
+    View,ScrollView,TouchableOpacity,ActivityIndicator
 } from 'react-native'
 
 
 import {Header,Icon} from 'react-native-elements'
-import { CreditCardInput, LiteCreditCardInput } from 'rn-credit-card-view'
+import { CreditCardInput } from 'rn-credit-card-view'
 import LinearGradient from 'react-native-linear-gradient'
 import {  Context } from '../../../App'
 import connect from '../HOC'
 import Modal from 'react-native-simple-modal'
-
+import PropTypes from 'prop-types'
 
 
 
@@ -56,7 +56,7 @@ class Payments extends Component<Props> {
         console.log(this.state)
         const {navigate} = this.props.navigation
         const c = this.props.store.payMethod
-        const Edit = (props) => {
+        const Edit = () => {
             return(
                 <Text
                     style={{fontSize:14,color:'#a020f0',justifyContent:'center'}}
@@ -66,7 +66,7 @@ class Payments extends Component<Props> {
             )
         }
 
-        const Save = (props) => {
+        const Save = () => {
             return(
                 <Text
                     style={{fontSize:14,color:'#a020f0',justifyContent:'center'}}
@@ -234,6 +234,21 @@ class Payments extends Component<Props> {
             </View>
         )
     }
+}
+
+
+const p = PropTypes
+
+Payments.propTypes = {
+    store: p.object,
+    systemError:p.bool,
+    checkAuth:p.func,
+    navigation:p.object,
+    dispatch:p.func,
+    systemErrorMessage:p.string,
+    deleteCard:p.func,
+    loading:p.func,
+    addCard:p.func
 }
 
 const styles = StyleSheet.create({

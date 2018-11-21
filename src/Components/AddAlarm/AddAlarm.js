@@ -14,6 +14,7 @@ import Modal from 'react-native-simple-modal'
 import {  Context } from '../../../App'
 import connect from '../HOC'
 import moment from 'moment'
+import PropTypes from 'prop-types'
 
 
 
@@ -60,17 +61,15 @@ class AddAlarm extends Component<Props> {
 
     render() {
         const {navigate} = this.props.navigation
-        const backAction = NavigationActions.back({})
-
-        const Cancel = (props) => {
+        const Cancel = () => {
             return(
-                <Text style={{fontSize:14,color:'#a020f0',justifyContent:"center"}} onPress={() => this.cancelAlarm()}>Cancel</Text>
+                <Text style={{fontSize:14,color:'#a020f0',justifyContent:'center'}} onPress={() => this.cancelAlarm()}>Cancel</Text>
             )
         }
 
-        const Save = (props) => {
+        const Save = () => {
             return(
-                <Text style={{fontSize:14,color:'#a020f0',justifyContent:"center"}} onPress={() => this.createAlarm()}>Save</Text>
+                <Text style={{fontSize:14,color:'#a020f0',justifyContent:'center'}} onPress={() => this.createAlarm()}>Save</Text>
             )
         }
 
@@ -83,7 +82,6 @@ class AddAlarm extends Component<Props> {
                     outerContainerStyles={{backgroundColor:'transparent',borderBottomWidth:0}}
                 />
                 <View style={{flex:1}}>
-                    {/*} <View style={{flexWrap:'wrap',flexDirection:'row',justifyContent:'center'}}> */}
                     <ScrollView style={{padding:15,flexDirection:'column'}}>
                         <TouchableOpacity 
                             style={styles.btnContainer}
@@ -225,19 +223,19 @@ class AddAlarm extends Component<Props> {
                     animationTension={40}
                     closeOnTouchOutside={true}
                     containerStyle={{
-                        justifyContent: "center",
+                        justifyContent: 'center',
                     }}
                     disableOnBackPress={false}
                     // modalDidClose={() => PushNotificationsHandler.requestPermissions()}
                     modalStyle={{
-                        backgroundColor: "#a020f0",
+                        backgroundColor: '#a020f0',
                         borderRadius:10,  
                         borderColor:'#a020f0',
                     }}
                     offset={0}
                     open={this.props.store.addErrorModal}
                     overlayStyle={{
-                        backgroundColor: "rgba(0, 0, 0, 0.75)",
+                        backgroundColor: 'rgba(0, 0, 0, 0.75)',
                         flex: 1
                     }}
                 >     
@@ -276,6 +274,31 @@ class AddAlarm extends Component<Props> {
         )
     }
 }
+
+
+
+const p = PropTypes
+
+AddAlarm.propTypes = {
+    store: p.object,
+    systemError:p.bool,
+    systemErrorMessage:p.string,
+    checkAuth:p.func,
+    addErrorModal:p.bool,
+    label:p.string,
+    frequency:p.array,
+    charitySelect:p.object,
+    updateTimeSelect:p.func,
+    toggleDatePicker:p.func,
+    closeAddErrorModal:p.func,
+    timeSelect:p.string,
+    navigation:p.object,
+    dispatch:p.func,
+    cancelAlarm:p.func,
+    triggerAddErrorModal:p.func,
+    createAlarm:p.func
+}
+
 
 const styles = StyleSheet.create({
     container: {

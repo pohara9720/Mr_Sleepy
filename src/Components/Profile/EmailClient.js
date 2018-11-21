@@ -3,7 +3,7 @@ import {
     Platform,
     StyleSheet,
     Text,
-    View,Button,ScrollView,TouchableOpacity,Image,ActivityIndicator,TextInput,KeyboardAvoidingView
+    View,TouchableOpacity,ActivityIndicator,TextInput,KeyboardAvoidingView
 } from 'react-native'
 
 
@@ -13,7 +13,7 @@ import LinearGradient from 'react-native-linear-gradient'
 import { Context } from '../../../App'
 import connect from '../HOC'
 import Modal from 'react-native-simple-modal'
-
+import PropTypes from 'prop-types'
 
 
 
@@ -73,7 +73,6 @@ class EmailClient extends Component<Props> {
 
 
     render() {
-        const {navigate} = this.props.navigation
         const backAction = NavigationActions.back({})
         const Back = (props) => {
             return(
@@ -186,6 +185,18 @@ class EmailClient extends Component<Props> {
             </View>
         )
     }
+}
+
+const p = PropTypes
+
+EmailClient.propTypes = {
+    store: p.object,
+    systemError:p.bool,
+    checkAuth:p.func,
+    navigation:p.object,
+    dispatch:p.func,
+    systemErrorMessage:p.string,
+    sendAdminEmail:p.func
 }
 
 const styles = StyleSheet.create({

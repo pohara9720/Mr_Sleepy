@@ -3,7 +3,7 @@ import {
     Platform,
     StyleSheet,
     Text,
-    View,Button,ScrollView,TouchableOpacity,Image,TextInput
+    View,ScrollView,TouchableOpacity
 } from 'react-native'
 
 import { NavigationActions } from 'react-navigation'
@@ -12,7 +12,7 @@ import LinearGradient from 'react-native-linear-gradient'
 import {  Context } from '../../../App'
 import connect from '../HOC'
 import moment from 'moment'
-
+import PropTypes from 'prop-types'
 
 
 
@@ -27,17 +27,26 @@ class AdminView extends Component<Props> {
     componentDidMount(){
         this.props.checkAuth()
         const date = {date:moment().format()}
-        this.props.getCurrentSnapshot()
-        this.props.getSnapshots()
-        this.props.loadLineData(date)
+        if(this.props.store.currentSnapshot === ''){
+            this.props.getCurrentSnapshot()
+        }
+        if(this.props.store.snapshots.length === 0){
+            this.props.getSnapshots()
+        }
+        if(this.props.store.lineData === ''){
+            this.props.loadLineData(date)
+        }
+        
+        
+        
     }
 
     render() {
-        const Back = (props) => {
+        const Back = () => {
             const backAction = NavigationActions.back({})
             return(
                 <Text
-                    style={{fontSize:14,color:'#a020f0',justifyContent:"center"}}
+                    style={{fontSize:14,color:'#a020f0',justifyContent:'center'}}
                     onPress={() => this.props.navigation.dispatch(backAction)}
                 >Back
                 </Text>
@@ -46,7 +55,7 @@ class AdminView extends Component<Props> {
 
         const {navigate} = this.props.navigation
 
-        const test =[12,12,12,12,12]
+        // const test =[12,12,12,12,12]
         return (
             <View style={styles.container}>
                 <Header
@@ -137,6 +146,22 @@ class AdminView extends Component<Props> {
         )
     }
 }
+
+
+const p = PropTypes
+
+AdminView.propTypes = {
+    store: p.object,
+    systemError:p.bool,
+    checkAuth:p.func,
+    navigation:p.object,
+    dispatch:p.func,
+    systemErrorMessage:p.string,
+    getCurrentSnapshot:p.func,
+    getSnapshots:p.func,
+    loadLineData:p.func
+}
+
 
 const styles = StyleSheet.create({
     container: {

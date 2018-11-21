@@ -90,12 +90,15 @@ export default class App extends Component<Props> {
         AppState.addEventListener('change', this.getAppState)
         this.configurePushNotifications()
         this.loadAlarms()
+        if(this.state.charityList.length === 0){
+            this.loadCharities()
+        }
         // setInterval( () => {
         //     this.setState({
         //         currentTime : this.getDate()
         //     })
         // },1000)        
-        this.loadCharities()
+        
         this.setUser()
     }
 
@@ -114,9 +117,14 @@ export default class App extends Component<Props> {
                 this.setState({approvals:res.data})
             }
         }).catch((err) => {
-            console.log(err)
-            this.setState({systemError:true,systemErrorMessage:'Cannot connect to server'})
-            setTimeout(() => this.setState({systemError:false,systemErrorMessage:''}),3000)
+            if(err.response.status === 401){
+                this.signOut()
+            }
+            else{
+                console.log(err.response.status)
+                this.setState({systemError:true,systemErrorMessage:'Cannot connect to server'})
+                setTimeout(() => this.setState({systemError:false,systemErrorMessage:''}),3000)
+            }
         })
     }
 
@@ -129,7 +137,7 @@ export default class App extends Component<Props> {
         }
         else{
             console.log('App is in the background')
-            // this.testNotification()
+            this.testNotification()
             // SystemSetting.setVolume(1)
         }
     }
@@ -184,8 +192,8 @@ export default class App extends Component<Props> {
     }
 
     parseTime = (s) =>  {
-        var c = s.split(':');
-        return parseInt(c[0]) * 60 + parseInt(c[1]);
+        var c = s.split(':')
+        return parseInt(c[0]) * 60 + parseInt(c[1])
     }
 
     sendRepeatingNotification = (instance,alarm,id) => {
@@ -261,6 +269,8 @@ export default class App extends Component<Props> {
             date: new Date(Date.now() + (5 * 1000)) // in 60 secs
         })
     }
+
+    
 
     sendNotification = (alarm,snooze) => {
 
@@ -338,17 +348,22 @@ export default class App extends Component<Props> {
                 this.setState({charityList:filter})
             }
         }).catch((err) => {
-            console.log(err)
-            this.setState({systemError:true,systemErrorMessage:'Cannot connect to server'})
-            setTimeout(() => this.setState({systemError:false,systemErrorMessage:''}),3000)
+            if(err.response.status === 401){
+                this.signOut()
+            }
+            else{
+                console.log(err.response.status)
+                this.setState({systemError:true,systemErrorMessage:'Cannot connect to server'})
+                setTimeout(() => this.setState({systemError:false,systemErrorMessage:''}),3000)
+            }
         })
     }
 
-    async snoozePressed(){
+    async snoozePressed(selected){
         const token = this.state.token
         // console.log(this.state.me.id)
         // console.log(this.state.me.tempChar)
-        await axios.post(`${api}/snooze/${this.state.me.id}/${this.state.me.tempChar}`,{headers: { authorization: 'Bearer ' + token }}).then((res,err) => {
+        await axios.post(`${api}/snooze/${this.state.me.id}/${selected}`,{headers: { authorization: 'Bearer ' + token }}).then((res,err) => {
             if(err){
                 console.log(err)
             }
@@ -356,9 +371,14 @@ export default class App extends Component<Props> {
                 console.log('RESPONSE FOR ADDING TO PENDING DONATIONS',res.data)
             }
         }).catch((err) => {
-            console.log(err)
-            this.setState({systemError:true,systemErrorMessage:'Cannot connect to server'})
-            setTimeout(() => this.setState({systemError:false,systemErrorMessage:''}),3000)
+            if(err.response.status === 401){
+                this.signOut()
+            }
+            else{
+                console.log(err.response.status)
+                this.setState({systemError:true,systemErrorMessage:'Cannot connect to server'})
+                setTimeout(() => this.setState({systemError:false,systemErrorMessage:''}),3000)
+            }
         })
     }
 
@@ -372,9 +392,14 @@ export default class App extends Component<Props> {
                 this.setState({snapshots:res.data})
             }
         }).catch((err) => {
-            console.log(err)
-            this.setState({systemError:true,systemErrorMessage:'Cannot connect to server'})
-            setTimeout(() => this.setState({systemError:false,systemErrorMessage:''}),3000)
+            if(err.response.status === 401){
+                this.signOut()
+            }
+            else{
+                console.log(err.response.status)
+                this.setState({systemError:true,systemErrorMessage:'Cannot connect to server'})
+                setTimeout(() => this.setState({systemError:false,systemErrorMessage:''}),3000)
+            }
         })
     }
 
@@ -398,9 +423,14 @@ export default class App extends Component<Props> {
                 this.getCustomerPayment(card.customer)
             }
         }).catch((err) => {
-            console.log(err)
-            this.setState({systemError:true,systemErrorMessage:'Cannot connect to server'})
-            setTimeout(() => this.setState({systemError:false,systemErrorMessage:''}),3000)
+            if(err.response.status === 401){
+                this.signOut()
+            }
+            else{
+                console.log(err.response.status)
+                this.setState({systemError:true,systemErrorMessage:'Cannot connect to server'})
+                setTimeout(() => this.setState({systemError:false,systemErrorMessage:''}),3000)
+            }
         })
     }
 
@@ -414,9 +444,14 @@ export default class App extends Component<Props> {
                 this.setState({currentSnapshot:res.data})
             }
         }).catch((err) => {
-            console.log(err)
-            this.setState({systemError:true,systemErrorMessage:'Cannot connect to server'})
-            setTimeout(() => this.setState({systemError:false,systemErrorMessage:''}),3000)
+            if(err.response.status === 401){
+                this.signOut()
+            }
+            else{
+                console.log(err.response.status)
+                this.setState({systemError:true,systemErrorMessage:'Cannot connect to server'})
+                setTimeout(() => this.setState({systemError:false,systemErrorMessage:''}),3000)
+            }
         })
     }
 
@@ -430,9 +465,14 @@ export default class App extends Component<Props> {
                 this.setState({lineData:res.data})
             }
         }).catch((err) => {
-            console.log(err)
-            this.setState({systemError:true,systemErrorMessage:'Cannot connect to server'})
-            setTimeout(() => this.setState({systemError:false,systemErrorMessage:''}),3000)
+            if(err.response.status === 401){
+                this.signOut()
+            }
+            else{
+                console.log(err.response.status)
+                this.setState({systemError:true,systemErrorMessage:'Cannot connect to server'})
+                setTimeout(() => this.setState({systemError:false,systemErrorMessage:''}),3000)
+            }
         })
     }
 
@@ -450,9 +490,14 @@ export default class App extends Component<Props> {
                 setTimeout(() => this.setState({charityApproved:false,loading:false}),2000)
             }
         }).catch((err) => {
-            console.log(err)
-            this.setState({systemError:true,systemErrorMessage:'Cannot connect to server'})
-            setTimeout(() => this.setState({systemError:false,systemErrorMessage:''}),3000)
+            if(err.response.status === 401){
+                this.signOut()
+            }
+            else{
+                console.log(err.response.status)
+                this.setState({systemError:true,systemErrorMessage:'Cannot connect to server'})
+                setTimeout(() => this.setState({systemError:false,systemErrorMessage:''}),3000)
+            }
         })
     }
 
@@ -471,9 +516,14 @@ export default class App extends Component<Props> {
                 setTimeout(() => this.setState({charityApproved:false,loading:false}),2000)
             }
         }).catch((err) => {
-            console.log(err)
-            this.setState({systemError:true,systemErrorMessage:'Cannot connect to server'})
-            setTimeout(() => this.setState({systemError:false,systemErrorMessage:''}),3000)
+            if(err.response.status === 401){
+                this.signOut()
+            }
+            else{
+                console.log(err.response.status)
+                this.setState({systemError:true,systemErrorMessage:'Cannot connect to server'})
+                setTimeout(() => this.setState({systemError:false,systemErrorMessage:''}),3000)
+            }
         })
     }
 
@@ -488,9 +538,14 @@ export default class App extends Component<Props> {
                 this.setState({adminSearchResults:res.data})
             }
         }).catch((err) => {
-            console.log(err)
-            this.setState({systemError:true,systemErrorMessage:'Cannot connect to server'})
-            setTimeout(() => this.setState({systemError:false,systemErrorMessage:''}),3000)
+            if(err.response.status === 401){
+                this.signOut()
+            }
+            else{
+                console.log(err.response.status)
+                this.setState({systemError:true,systemErrorMessage:'Cannot connect to server'})
+                setTimeout(() => this.setState({systemError:false,systemErrorMessage:''}),3000)
+            }
         })
     }
 
@@ -530,9 +585,14 @@ export default class App extends Component<Props> {
                 this.setState({invoices:res.data})
             }
         }).catch((err) => {
-            console.log(err)
-            this.setState({systemError:true,systemErrorMessage:'Cannot connect to server'})
-            setTimeout(() => this.setState({systemError:false,systemErrorMessage:''}),3000)
+            if(err.response.status === 401){
+                this.signOut()
+            }
+            else{
+                console.log(err.response.status)
+                this.setState({systemError:true,systemErrorMessage:'Cannot connect to server'})
+                setTimeout(() => this.setState({systemError:false,systemErrorMessage:''}),3000)
+            }
         })
     }
 
@@ -548,9 +608,14 @@ export default class App extends Component<Props> {
                 this.setState({adminSearchResults:res.data})
             }
         }).catch((err) => {
-            console.log(err)
-            this.setState({systemError:true,systemErrorMessage:'Cannot connect to server'})
-            setTimeout(() => this.setState({systemError:false,systemErrorMessage:''}),3000)
+            if(err.response.status === 401){
+                this.signOut()
+            }
+            else{
+                console.log(err.response.status)
+                this.setState({systemError:true,systemErrorMessage:'Cannot connect to server'})
+                setTimeout(() => this.setState({systemError:false,systemErrorMessage:''}),3000)
+            }
         })
     }
 
@@ -791,7 +856,8 @@ export default class App extends Component<Props> {
                 console.log(err)
             }else{
                 if(res.data === 401){
-                    this.setState({me:null})
+
+                    this.signOut()
                 }
                 else{
                     this.setState({me:res.data,authenticated:true,accountName:res.data.name,accountEmail:res.data.email})
@@ -834,9 +900,14 @@ export default class App extends Component<Props> {
                 this.loadMe(token)
             }
         }).catch((err) => {
-            console.log(err)
-            this.setState({systemError:true,systemErrorMessage:'Cannot connect to server'})
-            setTimeout(() => this.setState({systemError:false,systemErrorMessage:''}),3000)
+            if(err.response.status === 401){
+                this.signOut()
+            }
+            else{
+                console.log(err.response.status)
+                this.setState({systemError:true,systemErrorMessage:'Cannot connect to server'})
+                setTimeout(() => this.setState({systemError:false,systemErrorMessage:''}),3000)
+            }
         })
     }
 
@@ -889,9 +960,14 @@ export default class App extends Component<Props> {
                 this.setUser()
             } 
         }).catch((err) => {
-            console.log(err)
-            this.setState({systemError:true,systemErrorMessage:'Cannot connect to server'})
-            setTimeout(() => this.setState({systemError:false,systemErrorMessage:''}),3000)
+            if(err.response.status === 401){
+                this.signOut()
+            }
+            else{
+                console.log(err.response.status)
+                this.setState({systemError:true,systemErrorMessage:'Cannot connect to server'})
+                setTimeout(() => this.setState({systemError:false,systemErrorMessage:''}),3000)
+            }
         })
     }
 
@@ -914,9 +990,14 @@ export default class App extends Component<Props> {
                 // setTimeout(() => this.setState({loading:false}),3000)
             }
         }).catch((err) => {
-            console.log(err)
-            this.setState({systemError:true,systemErrorMessage:'Cannot connect to server'})
-            setTimeout(() => this.setState({systemError:false,systemErrorMessage:''}),3000)
+            if(err.response.status === 401){
+                this.signOut()
+            }
+            else{
+                console.log(err.response.status)
+                this.setState({systemError:true,systemErrorMessage:'Cannot connect to server'})
+                setTimeout(() => this.setState({systemError:false,systemErrorMessage:''}),3000)
+            }
         })
     }
 
@@ -931,7 +1012,7 @@ export default class App extends Component<Props> {
                 console.log(res)
                 AsyncStorage.removeItem('SleepyToken')
                 AsyncStorage.removeItem('SleepyRefresh')
-                this.setState({authenticated:false})
+                this.setState({authenticated:false,me:'',token:'',stripeInfo:'',payMethod:null,accountEmail:'',accountName:'',invoices:[]})
             }
         }).catch((err) => {
             console.log(err)
@@ -1146,7 +1227,7 @@ export default class App extends Component<Props> {
 
                     loadApprovals: () => this.loadApprovals(),
 
-                    snoozePressed: () => this.snoozePressed(),
+                    snoozePressed: (s) => this.snoozePressed(s),
 
                     getCurrentSnapshot: () => this.getCurrentSnapshot(),
 

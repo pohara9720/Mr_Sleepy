@@ -9,9 +9,6 @@ import Profile from '../Profile/Profile'
 import Settings from '../Profile/Settings'
 import Alarms from '../Alarms'
 import Login from '../Auth/Login'
-import Signup from '../Auth/Signup'
-import Terms_Conditions from '../Profile/Terms&Conditions'
-import Privacy from '../Profile/Privacy'
 import Receipts from '../Profile/Receipts'
 import Snapshots from '../Profile/Snapshots'
 import SnapView from '../Profile/SnapView'
@@ -31,8 +28,6 @@ import EmailClient from '../Profile/EmailClient'
 
 const Auth = createStackNavigator({
     Login: { screen: props => <Login {...props} />},
-    Signup: { screen: props => <Signup {...props} />},
-    // Success: { screen: <Tab />},
 },
 {
     headerMode: 'none',
@@ -41,8 +36,6 @@ const Auth = createStackNavigator({
 const ProfileRoutes = createStackNavigator({
     Profile: { screen: props => <Profile {...props} />},
     Settings: { screen: props => <Settings {...props} />},
-    Terms: { screen: props => <Terms_Conditions {...props} />},
-    Privacy: { screen: props => <Privacy {...props} />},
     Receipts: { screen: props => <Receipts {...props} />},
     Admin: { screen: props => <Admin {...props} />},
     Snapshots: { screen: props => <Snapshots {...props} />},

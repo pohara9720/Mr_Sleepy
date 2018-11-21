@@ -4,17 +4,15 @@ import {
     StyleSheet,
     Text,
     View,
-    Image,ScrollView,
-    Navigator,KeyboardAvoidingView,TouchableOpacity
+    Image,TouchableOpacity
 } from 'react-native'
 
-import { FormLabel, FormInput,Button, Header,SearchBar,Icon } from 'react-native-elements'
-import { StackNavigator } from 'react-navigation'
+import { Icon } from 'react-native-elements'
+// import { StackNavigator } from 'react-navigation'
 import LinearGradient from 'react-native-linear-gradient'
-import axios from 'axios'
-import logo from '../../images/whitecircle.png'
 import connect from '../HOC'
 import { Context } from '../../../App'
+import PropTypes from 'prop-types'
 
 
 class Snooze extends Component<{}> { 
@@ -76,6 +74,20 @@ class Snooze extends Component<{}> {
         )
     }
 }
+
+
+const p = PropTypes
+
+Snooze.propTypes = {
+    store: p.object,
+    systemError:p.bool,
+    checkAuth:p.func,
+    navigation:p.object,
+    dispatch:p.func,
+    systemErrorMessage:p.string,
+    snoozePressed:p.func
+}
+
 
 const styles = StyleSheet.create({
     linearGradient: {

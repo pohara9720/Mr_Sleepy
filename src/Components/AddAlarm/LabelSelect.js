@@ -12,6 +12,7 @@ import { NavigationActions } from 'react-navigation'
 import LinearGradient from 'react-native-linear-gradient'
 import {  Context } from '../../../App'
 import connect from '../HOC'
+import PropTypes from 'prop-types'
 
 
 
@@ -37,19 +38,19 @@ class LabelSelect extends Component<Props> {
     render() {
         const {navigate} = this.props.navigation
         const backAction = NavigationActions.back({})
-        const Back = (props) => {
+        const Back = () => {
             return(
                 <Text
-                    style={{fontSize:14,color:'#a020f0',justifyContent:"center"}}
+                    style={{fontSize:14,color:'#a020f0',justifyContent:'center'}}
                     onPress={() => this.props.navigation.dispatch(backAction)}
                 >Back
                 </Text>
             )
         }
-        const Save = (props) => {
+        const Save = () => {
             return(
                 <Text
-                    style={{fontSize:14,color:'#a020f0',justifyContent:"center"}}
+                    style={{fontSize:14,color:'#a020f0',justifyContent:'center'}}
                     onPress={() => this.saveLabel(this.state.label)}
                 >Save
                 </Text>
@@ -104,6 +105,19 @@ class LabelSelect extends Component<Props> {
             </View>
         )
     }
+}
+
+const p = PropTypes
+
+LabelSelect.propTypes = {
+    store: p.object,
+    systemError:p.bool,
+    checkAuth:p.func,
+    navigation:p.object,
+    dispatch:p.func,
+    systemErrorMessage:p.string,
+    updateLabel:p.func
+
 }
 
 const styles = StyleSheet.create({

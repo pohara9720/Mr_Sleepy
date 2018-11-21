@@ -11,7 +11,7 @@ import { NavigationActions } from 'react-navigation'
 import LinearGradient from 'react-native-linear-gradient'
 import {  Context } from '../../../App'
 import connect from '../HOC'
-
+import PropTypes from 'prop-types'
 
 
 
@@ -71,7 +71,7 @@ class RepeatSelect extends Component<Props> {
              this.props.navigation.dispatch(backAction)
          }
          else{
-             selectedDays = this.state.options.filter(x => x.selected === true)
+             const selectedDays = this.state.options.filter(x => x.selected === true)
              this.props.updateFrequency(selectedDays)
              this.props.navigation.dispatch(backAction)
          }
@@ -80,19 +80,19 @@ class RepeatSelect extends Component<Props> {
      render() {
          const {navigate} = this.props.navigation
          const backAction = NavigationActions.back({})
-         const Back = (props) => {
+         const Back = () => {
              return(
                  <Text
-                     style={{fontSize:14,color:'#a020f0',justifyContent:"center"}}
+                     style={{fontSize:14,color:'#a020f0',justifyContent:'center'}}
                      onPress={() => this.props.navigation.dispatch(backAction)}
                  >Back
                  </Text>
              )
          }
-         const Save = (props) => {
+         const Save = () => {
              return(
                  <Text
-                     style={{fontSize:14,color:'#a020f0',justifyContent:"center"}}
+                     style={{fontSize:14,color:'#a020f0',justifyContent:'center'}}
                      onPress={() => this.saveFrequency()}
                  > Save
                  </Text>
@@ -187,6 +187,18 @@ class RepeatSelect extends Component<Props> {
              </View>
          )
      }
+}
+
+const p = PropTypes
+
+RepeatSelect.propTypes = {
+    store: p.object,
+    systemError:p.bool,
+    checkAuth:p.func,
+    navigation:p.object,
+    dispatch:p.func,
+    systemErrorMessage:p.string,
+    updateFrequency:p.func
 }
 
 const styles = StyleSheet.create({

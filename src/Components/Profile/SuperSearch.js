@@ -3,20 +3,19 @@ import {
     Platform,
     StyleSheet,
     Text,
-    View,Button,ScrollView,TouchableOpacity,Image,ActivityIndicator
+    View,ScrollView,TouchableOpacity,ActivityIndicator
 } from 'react-native'
 
 
 import {Header,Badge,SearchBar,Icon} from 'react-native-elements'
 import { NavigationActions } from 'react-navigation'
-import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from 'react-native-material-cards'
 import LinearGradient from 'react-native-linear-gradient'
 import Collapsible from 'react-native-collapsible'
 import {  Context } from '../../../App'
 import connect from '../HOC'
 import moment from 'moment'
 import Modal from 'react-native-simple-modal'
-
+import PropTypes from 'prop-types'
 
 
 
@@ -52,14 +51,12 @@ class SuperSearch extends Component<Props> {
 
 
   render() {
-      const {navigate} = this.props.navigation
       const backAction = NavigationActions.back({})
       const categories = ['Charity','User']
-      const test = []
-      const Back = (props) => {
+      const Back = () => {
           return(
               <Text
-                  style={{fontSize:14,color:'white',justifyContent:"center"}}
+                  style={{fontSize:14,color:'white',justifyContent:'center'}}
                   onPress={() => this.props.navigation.dispatch(backAction)}
               >Back
               </Text>
@@ -370,6 +367,24 @@ class SuperSearch extends Component<Props> {
       )
   }
 }
+
+
+const pt = PropTypes
+
+SuperSearch.propTypes = {
+    store: pt.object,
+    systemError:pt.bool,
+    checkAuth:pt.func,
+    navigation:pt.object,
+    dispatch:pt.func,
+    systemErrorMessage:pt.string,
+    searchUserEmail:pt.func,
+    searchCharityEmail:pt.func,
+    adminDeleteCharity:pt.func,
+    resetAdminResults:pt.func,
+    adminDeleteUser:pt.func,
+}
+
 
 const styles = StyleSheet.create({
     container: {

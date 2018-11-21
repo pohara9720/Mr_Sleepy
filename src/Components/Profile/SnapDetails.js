@@ -1,26 +1,19 @@
-import React, { Component } from 'react'
+import React from 'react'
 import {
     Platform,
     StyleSheet,
     Text,
-    View,Button,ScrollView,TouchableOpacity,Dimensions
+    View,ScrollView,Dimensions
 } from 'react-native'
 
 import {
     LineChart,
-    BarChart,
     PieChart,
-    ProgressChart,
-    ContributionGraph
 } from 'react-native-chart-kit'
 
-
 import {Icon} from 'react-native-elements'
-// import { NavigationActions } from 'react-navigation'
-import LinearGradient from 'react-native-linear-gradient'
-// import {  Context } from '../../../App'
-// import connect from '../HOC'
-// import moment from 'moment'
+import PropTypes from 'prop-types'
+
 const screenWidth = Dimensions.get('window').width
 const chartConfig = {
     backgroundGradientFrom: '#a020f0',
@@ -225,3 +218,22 @@ export const SnapDetails = (props) => (
         </View>
     </ScrollView>
 )
+
+const p = PropTypes
+
+SnapDetails.propTypes = {
+    lineGraph:p.array,
+    overallDonations:p.number,
+    charityGraph:p.array,
+    userGraph:p.array,
+    donationsYTD:p.number,
+    totalCharities:p.number,
+    bottomCharities:p.string,
+    topCharities:p.string,
+    inactiveUsers:p.number,
+    usersDonating:p.number,
+    activeUsers:p.number,
+    date:p.string,
+    totalUsers:p.number,
+    averageDonation:p.number
+}
